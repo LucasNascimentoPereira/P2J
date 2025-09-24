@@ -1222,8 +1222,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
-  m_sharedMaterial: {fileID: -1888053420694153251, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7140,8 +7140,6 @@ MonoBehaviour:
   gameManagerData: {fileID: 11400000, guid: 9b3dc1feca17b9c45996fd223fdc368d, type: 2}
   audioManagerData: {fileID: 11400000, guid: 754bb92aa45b50e469aa21cac94915d6, type: 2}
   uiManagerData: {fileID: 11400000, guid: b471cc75a36e66c4cb5df8c0cc7cf179, type: 2}
-  ballData: {fileID: 11400000, guid: b4f50cfc4d1be38488ef15a73c70a380, type: 2}
-  turretData: {fileID: 0}
   _currentGameLevel: 15
   _coins: 0
   _gems: 0
