@@ -54,7 +54,6 @@ public class UIManager : MonoBehaviour
             _panelDictionary.Add(panel.name, panel);
         }
 
-        StartLevelButtonController(false);
     }
 
     public void ShowPanel(string menuName)
@@ -189,11 +188,6 @@ public class UIManager : MonoBehaviour
         yield return null;
         panelsList[^1].SetActive(false);
         StopCoroutine(DisappearText());
-    }
-
-    public void StartLevelButtonController(bool value)
-    {
-        startLevelButton.enabled = value;
     }
 }
 
