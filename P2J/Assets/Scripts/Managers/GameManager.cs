@@ -120,7 +120,6 @@ public class GameManager : MonoBehaviour
                 item.Init();
          }
 
-        UIManager.Instance.StartLevelButtonController(true);
     }
 
    
