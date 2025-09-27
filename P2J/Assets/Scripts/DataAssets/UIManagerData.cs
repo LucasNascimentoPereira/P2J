@@ -9,6 +9,8 @@ public class UIManagerData : ScriptableObject
     
     [Header("UI Data")]
     [SerializeField] private List<int> fpsLimit;
+    [SerializeField] private List<int> resx;
+    [SerializeField] private List<int> resy;
     [SerializeField] private List<string> links;
     [SerializeField] private List<string> notifications;
     [SerializeField] private List<string> notificationType;
@@ -26,5 +28,7 @@ public class UIManagerData : ScriptableObject
     public List<string> NotificationType => notificationType;
     public List<string> Notifications => notifications;
     public List<int> FpsLimit => fpsLimit;
+    public List<int> Resx => resx;
+    public List <int> Resy => resy;
     public List<string> Links => links;
 }

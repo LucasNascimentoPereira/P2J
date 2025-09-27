@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        LoadLevel(1);
+        //LoadLevel(1);
     }
     
 

@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     [Header("Device Utilization")]
     [SerializeField] private bool deviceVibration;
 
+
     public bool DeviceVibration => deviceVibration;
     public UIManagerData UIManagerData => uiManagerData;
     public GameObject CurrentMenu => _currentMenu;
@@ -45,23 +46,25 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Start()
-    {
         foreach (var panel in panelsList)
         {
             _panelDictionary.Add(panel.name, panel);
         }
+    }
+
+    private void Start()
+    {
+       
 
     }
 
     public void ShowPanel(string menuName)
     {
+        Debug.Log(menuName);
         
         if (menuName == "NoMenu") _currentMenu.SetActive(false);
         if (menuName == "ShowPrevious")
-        { 
+        {
             _currentMenu.SetActive(false);
             if (_previousMenu)
             {
@@ -84,6 +87,8 @@ public class UIManager : MonoBehaviour
             else
             {
                 _currentMenu = _panelDictionary.GetValueOrDefault(menuName);
+                Debug.Log(_currentMenu);
+                Debug.Log(_currentMenu);
                 if (_currentMenu)
                 {
                     _currentMenu.SetActive(true);
@@ -188,6 +193,16 @@ public class UIManager : MonoBehaviour
         yield return null;
         panelsList[^1].SetActive(false);
         StopCoroutine(DisappearText());
+    }
+
+    public void ChangeResolution(int index)
+    {
+        Screen.SetResolution(uiManagerData.Resx[index], uiManagerData.Resy[index], Screen.fullScreen);
+    }
+
+    public void ChangeFullScreen(bool fullScreen)
+    {
+        Screen.fullScreen = fullScreen;
     }
 }
 
