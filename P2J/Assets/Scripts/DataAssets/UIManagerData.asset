@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: UIManagerData
   m_EditorClassIdentifier: 
   fpsLimit: 1e0000003c0000005a00000078000000
+  resx: 8007000000050000c0030000
+  resy: 38040000d00200001c020000
   links:
   - https://github.com/LucasPereiraWork
   notifications: []
