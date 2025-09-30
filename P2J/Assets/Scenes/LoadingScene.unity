@@ -447,8 +447,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Music and Sfx - Jose Mesquita
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
-  m_sharedMaterial: {fileID: -1888053420694153251, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2581,8 +2581,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Game Design - Bernardo Quaresma
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
-  m_sharedMaterial: {fileID: -1888053420694153251, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3864,8 +3864,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Naming and art - Maria Monteiro
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
-  m_sharedMaterial: {fileID: -1888053420694153251, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6143,8 +6143,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Git
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
-  m_sharedMaterial: {fileID: -1888053420694153251, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6655,8 +6655,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1062381859}
   m_HandleRect: {fileID: 1062381858}
   m_Direction: 2
-  m_Value: 1.000001
-  m_Size: 0.6666666
+  m_Value: 1
+  m_Size: 0.6666667
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7164,8 +7164,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Exit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
-  m_sharedMaterial: {fileID: -1888053420694153251, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7390,8 +7390,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Programming - Lucas Pereira
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
-  m_sharedMaterial: {fileID: -1888053420694153251, guid: 8c9a285349b7452499b5d37479e56165, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
