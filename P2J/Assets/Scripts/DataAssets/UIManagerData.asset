@@ -12,7 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e0d930d5851df4f94a5f30211db0a3, type: 3}
   m_Name: UIManagerData
   m_EditorClassIdentifier: 
-  fpsLimit: 1e0000003c0000005a00000078000000
+  fpsLimit:
+  - 30
+  - 60
+  - 90
+  - 120
+  - 180
+  - 240
+  - 360
+  - 540
+  - Unlimited
   resx: 8007000000050000c0030000
   resy: 38040000d00200001c020000
   links:

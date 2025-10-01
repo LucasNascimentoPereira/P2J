@@ -30,6 +30,11 @@ public class UIManager : MonoBehaviour
     [Header("Device Utilization")]
     [SerializeField] private bool deviceVibration;
 
+    [Header("Game Information")]
+    [SerializeField] private TMP_Text versionNumber;
+    [SerializeField] private TMP_Text fpsCounter;
+
+
 
     public bool DeviceVibration => deviceVibration;
     public UIManagerData UIManagerData => uiManagerData;
@@ -54,8 +59,12 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-       
+        ChangeVersionNumber();
+    }
 
+    private void Update()
+    {
+        fpsCounter.text = (1 / Time.deltaTime).ToString("F1");
     }
 
     public void ShowPanel(string menuName)
@@ -204,6 +213,33 @@ public class UIManager : MonoBehaviour
     {
         Screen.fullScreen = fullScreen;
     }
+
+    public void ChangeVerticalSync(bool verticalSync)
+    {
+        QualitySettings.vSyncCount = verticalSync ? 1 : 0;
+    }
+
+    public void ChangeGamma(float changedGamma)
+    {
+        float clampedGamma = Mathf.Clamp(changedGamma, 0.1f, 1.0f);
+        RenderSettings.ambientLight = new Color(clampedGamma, clampedGamma, clampedGamma, 1.0f);
+    }
+
+    private void ChangeVersionNumber()
+    {
+        versionNumber.text = "Version " + Application.version;
+    }
+
+    public void ChangeFps(int index)
+    {
+        if (index == uiManagerData.FpsLimit.Count - 1)
+        {
+            Application.targetFrameRate = 0;
+        }
+        
+        Application.targetFrameRate = int.Parse(uiManagerData.FpsLimit[index]);
+    }
+    
 }
 
 
