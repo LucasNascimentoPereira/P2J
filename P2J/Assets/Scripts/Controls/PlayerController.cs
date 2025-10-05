@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     InputAction moveAction;
     InputAction jumpAction;
 
+    public float groundSpeed = 5f;
+    
     private void Start()
     {
         // 3. Find the references to the "Move" and "Jump" actions
@@ -20,14 +22,12 @@ public class PlayerController : MonoBehaviour
         // and the "Jump" action state, which is a boolean value
 
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
-        // your movement code here
         moveValue.y = 0f;
-        transform.Translate(moveValue * 0.01f);
+        transform.Translate(moveValue * groundSpeed * Time.deltaTime);
 
-        if (jumpAction.IsPressed())
+        if (jumpAction.triggered)
         {
             // your jump code here
-            Debug.Log("Jump");
         }
     }
 }
