@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;  // 1. The Input System "using" statement
 
-public class Example : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // 2. These variables are to hold the Action references
     InputAction moveAction;
@@ -21,10 +21,13 @@ public class Example : MonoBehaviour
 
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         // your movement code here
+        moveValue.y = 0f;
+        transform.Translate(moveValue * 0.01f);
 
         if (jumpAction.IsPressed())
         {
             // your jump code here
+            Debug.Log("Jump");
         }
     }
 }
