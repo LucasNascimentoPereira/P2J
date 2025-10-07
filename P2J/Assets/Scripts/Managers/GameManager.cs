@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        RaceConditionAvoider();
+        //RaceConditionAvoider();
         //yield return new WaitForSeconds(0.2f);
     }
    
