@@ -92,8 +92,9 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        RaceConditionAvoider();
+        //RaceConditionAvoider();
         //yield return new WaitForSeconds(0.2f);
+        UIManager.Instance.ShowPanel("HUD");
     }
    
     public void SaveGame()
@@ -127,6 +128,12 @@ public class GameManager : MonoBehaviour
     public void LevelReset()
     {
        
+    }
+
+    public void AddCoins()
+    {
+        _coins += 1;
+        UIManager.Instance.Coins.text = _coins.ToString();
     }
 
    
