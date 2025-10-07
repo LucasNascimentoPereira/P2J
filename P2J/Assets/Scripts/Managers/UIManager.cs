@@ -33,12 +33,16 @@ public class UIManager : MonoBehaviour
     [Header("Game Information")]
     [SerializeField] private TMP_Text versionNumber;
     [SerializeField] private TMP_Text fpsCounter;
+    [SerializeField] private TMP_Text coins;
+    [SerializeField] private List<Image> images;
 
 
 
     public bool DeviceVibration => deviceVibration;
     public UIManagerData UIManagerData => uiManagerData;
     public GameObject CurrentMenu => _currentMenu;
+
+    public TMP_Text Coins => coins;
 
     private void Awake()
     {
@@ -65,6 +69,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         fpsCounter.text = (1 / Time.deltaTime).ToString("F1");
+        GameManager.Instance.AddCoins();
     }
 
     public void ShowPanel(string menuName)

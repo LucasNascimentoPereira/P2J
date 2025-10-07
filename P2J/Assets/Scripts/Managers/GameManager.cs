@@ -129,6 +129,12 @@ public class GameManager : MonoBehaviour
        
     }
 
+    public void AddCoins()
+    {
+        _coins += 1;
+        UIManager.Instance.Coins.text = _coins.ToString();
+    }
+
    
 
   
