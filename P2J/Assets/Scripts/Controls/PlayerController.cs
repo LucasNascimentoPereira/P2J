@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
     InputAction moveAction;
     InputAction jumpAction;
 
-    public float groundSpeed = 5f;
-    public float jumpForce = 5f;
+    [SerializeField] private float groundSpeed = 5f;
+    [SerializeField] private float jumpForce = 5f;
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
