@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
     InputAction moveAction;
     InputAction jumpAction;
 
-    public float groundSpeed = 5f;
-    public float jumpForce = 5f;
+    [SerializeField] private float groundSpeed = 5f;
+    [SerializeField] private float jumpForce = 5f;
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsCollisionOnBottom(collision))
+        if (IsOnGround())
         {
             onGround = true;
         }
@@ -35,21 +35,24 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        onGround = false;
+        if (IsOnGround())
+        {
+            onGround = true;
+        }
+        else
+        {
+            onGround = false;
+        }
     }
 
-    private bool IsCollisionOnBottom(Collision2D collision)
+    private static bool InBetween(float value, float min, float max)
     {
-        Bounds bounds = col.bounds;
+        return value > min && value < max;
+    }
 
-        foreach (ContactPoint2D contact in collision.contacts)
-        {
-            if (contact.point.y < bounds.min.y + 0.1f)
-            {
-                return true;
-            }
-        }
-        return false;
+    private bool IsOnGround()
+    {
+        return col.IsTouchingLayers(8);
     }
 
     void Update()
