@@ -119,23 +119,25 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &994793187 stripped
+--- !u!1 &149705564 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 194480181312708756, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1288580431077923911, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
   m_PrefabInstance: {fileID: 1610368795}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &994793190
+--- !u!114 &149705569
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 994793187}
+  m_GameObject: {fileID: 149705564}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37c1f4e4bf8516747bcfe1a625520f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundSpeed: 5
+  jumpForce: 5
 --- !u!1 &1126646096
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestDummy
       objectReference: {fileID: 0}
+    - target: {fileID: 205604683431498517, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2
@@ -361,9 +367,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 194480181312708756, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1288580431077923911, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 994793190}
+      addedObject: {fileID: 149705569}
   m_SourcePrefab: {fileID: 100100000, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
