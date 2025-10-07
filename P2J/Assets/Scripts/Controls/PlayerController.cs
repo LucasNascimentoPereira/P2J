@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
-        Debug.Log(moveValue);
         rb.linearVelocity = new Vector2(moveValue.x * groundSpeed, rb.linearVelocity.y);
 
         if (jumpAction.triggered && onGround)

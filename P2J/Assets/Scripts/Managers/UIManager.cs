@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,7 +35,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text versionNumber;
     [SerializeField] private TMP_Text fpsCounter;
     [SerializeField] private TMP_Text coins;
-    [SerializeField] private List<Image> images;
+    [SerializeField] private GameObject heartsContainer;
+    private List<Image> heartImages = new();
 
 
 
@@ -64,12 +66,18 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         ChangeVersionNumber();
+        heartImages = heartsContainer.GetComponentsInChildren<Image>(true).ToList();
+        foreach (var image in heartImages)
+        {
+            image.sprite = UIManagerData.HealthImages[0];
+        }
     }
 
     private void Update()
     {
         fpsCounter.text = (1 / Time.deltaTime).ToString("F1");
-        GameManager.Instance.AddCoins();
+        //ChangeHealth(true, 2);
+        //GameManager.Instance.AddCoins();
     }
 
     public void ShowPanel(string menuName)
@@ -243,6 +251,16 @@ public class UIManager : MonoBehaviour
         }
         
         Application.targetFrameRate = int.Parse(uiManagerData.FpsLimit[index]);
+    }
+
+    public void ChangeHealth(bool damage, int index)
+    {
+        heartImages[index - 1].sprite = damage ? uiManagerData.HealthImages[1] : uiManagerData.HealthImages[0];
+    }
+
+    public void IncreaseMaxHealth(int index)
+    {
+        heartImages[index - 1].gameObject.SetActive(true);
     }
     
 }
