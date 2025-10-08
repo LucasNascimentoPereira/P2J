@@ -14,7 +14,6 @@ public class Detector : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag(detectorTag)) return;
-        Debug.Log("player");
         _collider = other;
         OnEntered.Invoke();
     }
