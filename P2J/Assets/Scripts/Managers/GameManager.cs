@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour
     [Header("Currency management")]
     [SerializeField] private int _coins;
     [SerializeField] private int _gems;
-    
+
+    private GameObject currentSpawnPoint;
+
     public static GameManager Instance { get; private set; }
     public bool IsPaused { get; private set; } = false;
     private int _currentLevel = 0;
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     public int Coins { get => _coins; set => _coins = value; }
     public int gems { get => _gems; set => _gems = value; }
+    public GameObject CurrentSpawnPoint { get => currentSpawnPoint; set => currentSpawnPoint = value; }
 
 
 
@@ -140,8 +143,5 @@ public class GameManager : MonoBehaviour
     {
         return Vector3.zero;
     }
-   
-
-  
 
 }
