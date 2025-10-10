@@ -128,9 +128,19 @@ public class GameManager : MonoBehaviour
 
    
 
-    public void LevelReset()
+    public void LevelReset(GameObject player)
     {
-       
+        Debug.Log(player);
+        if (currentSpawnPoint == null)  return;
+        player.transform.position = currentSpawnPoint.transform.position;
+        if (player.TryGetComponent(out HealthPlayerBase healthPlayer))
+        {
+            healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
+        }
+        for (int i = 0; i < healthPlayer. MaxHealth; ++i)
+        {
+            UIManager.Instance.ChangeHealth(false, i);
+        }
     }
 
     public void AddCoins()

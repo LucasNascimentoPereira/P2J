@@ -255,7 +255,7 @@ public class UIManager : MonoBehaviour
 
     public void ChangeHealth(bool damage, int index)
     {
-        heartImages[index - 1].sprite = damage ? uiManagerData.HealthImages[1] : uiManagerData.HealthImages[0];
+        heartImages[index].sprite = damage ? uiManagerData.HealthImages[1] : uiManagerData.HealthImages[0];
     }
 
     public void IncreaseMaxHealth(int index)
