@@ -10,6 +10,7 @@ public class Goombuh : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     private int patrolIndex = 0;
     private Vector2 dir = Vector2.zero;
+    [SerializeField] private Detector detector;
 
     private void Start()
     {
@@ -30,6 +31,14 @@ public class Goombuh : MonoBehaviour
     {
         patrolIndex = index;
         Move();
+    }
+
+    public void Damage()
+    {
+        if (detector.Collider.TryGetComponent(out HealthPlayerBase healthPlayer))
+        {
+            healthPlayer.TakeDamage(gameObject, true, goombuhData.GoombuhDamage, goombuhData.GoombuhKnockback);
+        }
     }
 
 

@@ -26,18 +26,18 @@ public class HealthBase : MonoBehaviour
     protected void CalculateHealth(float delta)
     {
         if (_isDefeated) return;
-        currentHealth = CurrentHealth + delta;
+        currentHealth = CurrentHealth - delta;
         currentHealth = Mathf.Clamp(CurrentHealth, minHealth, MaxHealth);
         onDamage.Invoke();
         if (CurrentHealth <= minHealth) Death();
     }
-
-    public virtual bool TakeDamage(GameObject damageObject, float damage)
+    
+    public virtual bool TakeDamage(GameObject damageObject, bool isDamage, float damage)
     {
         return false;
     }
 
-    public virtual bool TakeDamage(GameObject damageDealer, float damage, bool knockBack, float force)
+    public virtual bool TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force)
     {
         return false;
     }

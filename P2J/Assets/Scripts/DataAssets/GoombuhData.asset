@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: GoombuhData
   m_EditorClassIdentifier: 
   goombuhSpeed: 1
+  goombuhDamage: 1
+  goombuhKnockback: 1000
+  isGoombuhKnockback: 1
