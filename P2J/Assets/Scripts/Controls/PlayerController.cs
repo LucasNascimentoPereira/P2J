@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,10 +10,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundSpeed = 5f;
     [SerializeField] private float jumpForce = 11f;
     [SerializeField] private float defaultGravity = 2f;
+    [SerializeField] private float accelerationFactorGround = 0.02f;
+    [SerializeField] private float deccelerationFactorGround = 0.05f;
+    [SerializeField] private float accelerationFactorAir = 0.01f;
+    [SerializeField] private float deccelerationFactorAir = 0.01f;
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
     private bool onGround;
+    private float currentAccelerationFactor;
+    private float currentDeccelerationFactor;
 
     private void Start()
     {
@@ -60,11 +67,67 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
-        rb.linearVelocity = new Vector2(moveValue.x * groundSpeed, rb.linearVelocity.y);
+        processMovement(moveValue);
 
         if (jumpAction.triggered && onGround)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+    }
+
+    void processMovement(Vector2 moveValue)
+    {
+        if (onGround)
+        {
+            currentAccelerationFactor = accelerationFactorGround;
+            currentDeccelerationFactor = deccelerationFactorGround;
+        }
+        else
+        {
+            currentAccelerationFactor = accelerationFactorAir;
+            currentDeccelerationFactor = deccelerationFactorAir;
+        }
+
+        // If player stops moving, apply decceleration
+        if (moveValue.x == 0f && rb.linearVelocity.x != 0)
+        {
+            if (rb.linearVelocity.x > 0.01f)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x - groundSpeed * currentDeccelerationFactor, rb.linearVelocity.y);
+            }
+            else if (rb.linearVelocity.x < -0.01f)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x + groundSpeed * currentDeccelerationFactor, rb.linearVelocity.y);
+            }
+            else
+            {
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            }
+        }
+
+        // If player starts moving in the opposite direction, apply decceleration and acceleration
+        else if (moveValue.x * rb.linearVelocity.x < 0)
+        {
+            if (rb.linearVelocity.x > 0f)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x - groundSpeed * currentDeccelerationFactor + moveValue.x * groundSpeed * currentAccelerationFactor, rb.linearVelocity.y);
+            }
+            else if (rb.linearVelocity.x < 0f)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x + groundSpeed * currentDeccelerationFactor + moveValue.x * groundSpeed * currentAccelerationFactor, rb.linearVelocity.y);
+            }
+        }
+        else
+        {
+            // If player is moving, apply acceleration
+            if (Math.Abs(rb.linearVelocity.x) < groundSpeed)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x + moveValue.x * groundSpeed * currentAccelerationFactor, rb.linearVelocity.y);
+            }
+            else
+            {
+                rb.linearVelocity = new Vector2(moveValue.x * groundSpeed, rb.linearVelocity.y);
+            }
         }
     }
 }
