@@ -893,6 +893,13 @@ MonoBehaviour:
       m_Calls: []
   audioSource: {fileID: 0}
   rb: {fileID: 1727395733}
+  playerData: {fileID: 11400000, guid: a15bb403db4bc0de794776bc1399a5bb, type: 2}
+  spriteRenderer: {fileID: 1727395732}
+--- !u!212 &1727395732 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7840128277251567285, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+  m_PrefabInstance: {fileID: 1727395728}
+  m_PrefabAsset: {fileID: 0}
 --- !u!50 &1727395733 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 205604683431498517, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
