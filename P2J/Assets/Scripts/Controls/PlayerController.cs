@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
     InputAction jumpAction;
 
     [SerializeField] private float groundSpeed = 5f;
-    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float jumpForce = 11f;
+    [SerializeField] private float defaultGravity = 2f;
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
         jumpAction = InputSystem.actions.FindAction("Jump");
         col = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = defaultGravity;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

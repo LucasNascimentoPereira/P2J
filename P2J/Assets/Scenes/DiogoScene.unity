@@ -137,7 +137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundSpeed: 5
-  jumpForce: 7.5
+  jumpForce: 11
+  defaultGravity: 2
 --- !u!1001 &551087869
 PrefabInstance:
   m_ObjectHideFlags: 0
