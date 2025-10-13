@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
 
         if (jumpAction.triggered && onGround)
         {
+            Debug.Log(jumpForce);
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
     }

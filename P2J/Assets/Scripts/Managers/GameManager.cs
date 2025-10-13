@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour
     [Header("Currency management")]
     [SerializeField] private int _coins;
     [SerializeField] private int _gems;
-    
+
+    private GameObject currentSpawnPoint;
+
     public static GameManager Instance { get; private set; }
     public bool IsPaused { get; private set; } = false;
     private int _currentLevel = 0;
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     public int Coins { get => _coins; set => _coins = value; }
     public int gems { get => _gems; set => _gems = value; }
+    public GameObject CurrentSpawnPoint { get => currentSpawnPoint; set => currentSpawnPoint = value; }
 
 
 
@@ -92,8 +95,9 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        RaceConditionAvoider();
+        //RaceConditionAvoider();
         //yield return new WaitForSeconds(0.2f);
+        UIManager.Instance.ShowPanel("HUD");
     }
    
     public void SaveGame()
@@ -124,13 +128,30 @@ public class GameManager : MonoBehaviour
 
    
 
-    public void LevelReset()
+    public void LevelReset(GameObject player)
     {
-       
+        Debug.Log(player);
+        if (currentSpawnPoint == null)  return;
+        player.transform.position = currentSpawnPoint.transform.position;
+        if (player.TryGetComponent(out HealthPlayerBase healthPlayer))
+        {
+            healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
+        }
+        for (int i = 0; i < healthPlayer. MaxHealth; ++i)
+        {
+            UIManager.Instance.ChangeHealth(false, i);
+        }
     }
 
-   
+    public void AddCoins()
+    {
+        _coins += 1;
+        UIManager.Instance.Coins.text = _coins.ToString();
+    }
 
-  
+    public Vector3 GetPlayerPosition()
+    {
+        return Vector3.zero;
+    }
 
 }

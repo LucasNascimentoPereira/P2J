@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "UIManagerData", menuName = "Managers/UIManagerData")]
 
@@ -14,6 +15,7 @@ public class UIManagerData : ScriptableObject
     [SerializeField] private List<string> links;
     [SerializeField] private List<string> notifications;
     [SerializeField] private List<string> notificationType;
+    [SerializeField] private List <Sprite> healthImages;
     [SerializeField] private float notificationTime;
     [SerializeField] private float notificationInterval;
     [SerializeField] private float notificationAppearTime;
@@ -31,4 +33,5 @@ public class UIManagerData : ScriptableObject
     public List<int> Resx => resx;
     public List <int> Resy => resy;
     public List<string> Links => links;
+    public List<Sprite> HealthImages => healthImages;
 }
