@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseBlockMovable
       objectReference: {fileID: 0}
+    - target: {fileID: 4485916007394872925, guid: c80d58a890310546a8a8a79d150a2dc4, type: 3}
+      propertyPath: m_Name
+      value: Collider
+      objectReference: {fileID: 0}
     - target: {fileID: 5375811830459757931, guid: c80d58a890310546a8a8a79d150a2dc4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -53,12 +57,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8454917235243725908, guid: c80d58a890310546a8a8a79d150a2dc4, type: 3}
+    - {fileID: 3655152345643390687, guid: c80d58a890310546a8a8a79d150a2dc4, type: 3}
+    - {fileID: 7948442535595312080, guid: c80d58a890310546a8a8a79d150a2dc4, type: 3}
+    - {fileID: 5989077979683775870, guid: c80d58a890310546a8a8a79d150a2dc4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4485916007394872925, guid: c80d58a890310546a8a8a79d150a2dc4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 205604683431498517}
+    - targetCorrespondingSourceObject: {fileID: 4485916007394872925, guid: c80d58a890310546a8a8a79d150a2dc4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7238577011592192681}
   m_SourcePrefab: {fileID: 100100000, guid: c80d58a890310546a8a8a79d150a2dc4, type: 3}
 --- !u!1 &1288580431077923911 stripped
 GameObject:
@@ -91,4 +102,50 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!61 &7238577011592192681
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288580431077923911}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5, y: 5}
+    newSize: {x: 5, y: 5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 5, y: 5}
+  m_EdgeRadius: 0
