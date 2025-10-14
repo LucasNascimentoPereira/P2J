@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private float currentAccelerationFactor;
     private float currentDeccelerationFactor;
     private float jumpTime = -1f;
+    private float dropTime = -1f;
 
     private void Start()
     {
@@ -42,6 +43,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             onGround = false;
+            if (jumpReleased)
+            {
+                dropTime = Time.fixedTime;
+            }
         }
     }
 
@@ -72,22 +77,18 @@ public class PlayerController : MonoBehaviour
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         processMovement(moveValue);
 
-        if (jumpAction.IsPressed()) {
-
-            if (onGround && jumpReleased)
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-                jumpTime = Time.fixedTime;
-            }
-            else if (jumpTime != -1f && Time.fixedTime - jumpTime < 0.3f)
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            }
+        if (jumpAction.IsPressed())
+        {
+            tryToJump();
             jumpReleased = false;
         }
         else
         {
             jumpReleased = true;
+        }
+        if (jumpReleased)
+        {
+            jumpTime = -1f;
         }
     }
 
@@ -152,6 +153,19 @@ public class PlayerController : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(moveValue.x * groundSpeed, rb.linearVelocity.y);
             }
+        }
+    }
+
+    void tryToJump()
+    {
+        if (onGround && jumpReleased)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpTime = Time.fixedTime;
+        }
+        else if (jumpTime != -1f && Time.fixedTime - jumpTime < 0.3f)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
     }
 }
