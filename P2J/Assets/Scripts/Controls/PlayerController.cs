@@ -64,12 +64,12 @@ public class PlayerController : MonoBehaviour
         return col.IsTouchingLayers(8);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         processMovement(moveValue);
 
-        if (jumpAction.triggered && onGround)
+        if (jumpAction.IsPressed() && onGround)
         {
             Debug.Log(jumpForce);
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -92,13 +92,21 @@ public class PlayerController : MonoBehaviour
         // If player stops moving, apply decceleration
         if (moveValue.x == 0f && rb.linearVelocity.x != 0)
         {
-            if (rb.linearVelocity.x > 0.01f)
+            if (rb.linearVelocity.x > 0f)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x - groundSpeed * currentDeccelerationFactor, rb.linearVelocity.y);
+                if (rb.linearVelocity.x < 0f)
+                {
+                    rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                }
             }
-            else if (rb.linearVelocity.x < -0.01f)
+            else if (rb.linearVelocity.x < -0f)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x + groundSpeed * currentDeccelerationFactor, rb.linearVelocity.y);
+                if (rb.linearVelocity.x > 0f)
+                {
+                    rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                }
             }
             else
             {

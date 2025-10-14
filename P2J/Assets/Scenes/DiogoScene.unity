@@ -139,10 +139,10 @@ MonoBehaviour:
   groundSpeed: 5
   jumpForce: 11
   defaultGravity: 2
-  accelerationFactorGround: 0.02
-  deccelerationFactorGround: 0.05
-  accelerationFactorAir: 0.01
-  deccelerationFactorAir: 0.02
+  accelerationFactorGround: 0.1
+  deccelerationFactorGround: 0.25
+  accelerationFactorAir: 0.05
+  deccelerationFactorAir: 0.1
 --- !u!1001 &551087869
 PrefabInstance:
   m_ObjectHideFlags: 0
