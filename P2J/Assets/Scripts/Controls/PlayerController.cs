@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float accelerationFactorAir = 0.08f;
     [SerializeField] private float deccelerationFactorAir = 0.15f;
     [SerializeField] private float coyoteTime = 0.1f;
+    [SerializeField] private float jumpBufferTime = 0.1f;
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private float currentAccelerationFactor;
     private float currentDeccelerationFactor;
     private float jumpTime = -1f;
+    private float jumpPressTime = -1f;
     private float dropTime = -1f;
 
     private void Start()
@@ -40,6 +42,12 @@ public class PlayerController : MonoBehaviour
         if (IsOnGround())
         {
             onGround = true;
+            if (jumpPressTime != -1f && Time.fixedTime - jumpPressTime < jumpBufferTime)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                jumpTime = jumpPressTime;
+                jumpPressTime = -1f;
+            }
         }
         else
         {
@@ -173,6 +181,10 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpTime = Time.fixedTime;
             dropTime = -1f;
+        }
+        else if (jumpReleased)
+        {
+            jumpPressTime = Time.fixedTime;
         }
     }
 }
