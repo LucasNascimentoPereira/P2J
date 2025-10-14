@@ -10,10 +10,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundSpeed = 5f;
     [SerializeField] private float jumpForce = 11f;
     [SerializeField] private float defaultGravity = 2f;
-    [SerializeField] private float accelerationFactorGround = 0.02f;
-    [SerializeField] private float deccelerationFactorGround = 0.05f;
-    [SerializeField] private float accelerationFactorAir = 0.01f;
-    [SerializeField] private float deccelerationFactorAir = 0.01f;
+    [SerializeField] private float accelerationFactorGround = 0.15f;
+    [SerializeField] private float deccelerationFactorGround = 0.38f;
+    [SerializeField] private float accelerationFactorAir = 0.08f;
+    [SerializeField] private float deccelerationFactorAir = 0.15f;
+    [SerializeField] private float coyoteTime = 0.1f;
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
@@ -43,10 +44,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             onGround = false;
-            if (jumpReleased)
-            {
-                dropTime = Time.fixedTime;
-            }
         }
     }
 
@@ -59,6 +56,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             onGround = false;
+            if (jumpReleased)
+            {
+                dropTime = Time.fixedTime;
+            }
         }
     }
 
@@ -166,6 +167,12 @@ public class PlayerController : MonoBehaviour
         else if (jumpTime != -1f && Time.fixedTime - jumpTime < 0.3f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+        else if (dropTime != -1f && Time.fixedTime - dropTime < coyoteTime && jumpReleased)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpTime = Time.fixedTime;
+            dropTime = -1f;
         }
     }
 }
