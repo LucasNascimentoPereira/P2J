@@ -71,13 +71,15 @@ public class PlayerController : MonoBehaviour
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         processMovement(moveValue);
 
-        if (jumpAction.IsPressed() && onGround && jumpReleased)
-        {
-            Debug.Log(jumpForce);
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        if (jumpAction.IsPressed()) {
+            if (onGround && jumpReleased)
+            {
+                Debug.Log(jumpForce);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            }
             jumpReleased = false;
         }
-        else if (!jumpAction.IsPressed())
+        else
         {
             jumpReleased = true;
         }
