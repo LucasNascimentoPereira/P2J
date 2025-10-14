@@ -18,8 +18,11 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D col;
     private Rigidbody2D rb;
     private bool onGround;
+    private bool jumpReleased;
     private float currentAccelerationFactor;
     private float currentDeccelerationFactor;
+    private float jumpTime = -1f;
+    private float dropTime = -1f;
 
     private void Start()
     {
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
         col = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = defaultGravity;
+        jumpReleased = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -39,6 +43,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             onGround = false;
+            if (jumpReleased)
+            {
+                dropTime = Time.fixedTime;
+            }
         }
     }
 
@@ -69,10 +77,18 @@ public class PlayerController : MonoBehaviour
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         processMovement(moveValue);
 
-        if (jumpAction.IsPressed() && onGround)
+        if (jumpAction.IsPressed())
         {
-            Debug.Log(jumpForce);
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            tryToJump();
+            jumpReleased = false;
+        }
+        else
+        {
+            jumpReleased = true;
+        }
+        if (jumpReleased)
+        {
+            jumpTime = -1f;
         }
     }
 
@@ -137,6 +153,19 @@ public class PlayerController : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(moveValue.x * groundSpeed, rb.linearVelocity.y);
             }
+        }
+    }
+
+    void tryToJump()
+    {
+        if (onGround && jumpReleased)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpTime = Time.fixedTime;
+        }
+        else if (jumpTime != -1f && Time.fixedTime - jumpTime < 0.3f)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
     }
 }
