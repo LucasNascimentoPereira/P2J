@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D col;
     private Rigidbody2D rb;
     private bool onGround;
+    private bool jumpReleased;
     private float currentAccelerationFactor;
     private float currentDeccelerationFactor;
 
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
         col = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = defaultGravity;
+        jumpReleased = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -69,10 +71,15 @@ public class PlayerController : MonoBehaviour
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         processMovement(moveValue);
 
-        if (jumpAction.IsPressed() && onGround)
+        if (jumpAction.IsPressed() && onGround && jumpReleased)
         {
             Debug.Log(jumpForce);
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpReleased = false;
+        }
+        else if (!jumpAction.IsPressed())
+        {
+            jumpReleased = true;
         }
     }
 
