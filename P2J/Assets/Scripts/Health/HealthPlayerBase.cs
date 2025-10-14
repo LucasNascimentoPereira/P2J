@@ -9,10 +9,15 @@ public class HealthPlayerBase : HealthBase
     [SerializeField] private PlayerData playerData;
     [SerializeField] private SpriteRenderer spriteRenderer;
     private bool isInvencible;
+    private UnityEvent _onChangeHealthDamage = new();
+    private UnityEvent _onChangeHealthHeal = new();
 
     protected override void Awake()
     {
         base.Awake();
+        GameManager.Instance.HealthPlayer = this;
+        _onChangeHealthDamage.AddListener(UIManager.Instance.ChangeHealthDamage);
+        _onChangeHealthHeal.AddListener(UIManager.Instance.ChangeHealthHeal);
     }
 
     public void LevelReset()
@@ -25,7 +30,14 @@ public class HealthPlayerBase : HealthBase
         if (isInvencible) return false;
         if (damageDealer == null) return false;
         CalculateHealth(damage);
-        UIManager.Instance.ChangeHealth(isDamage, (int)currentHealth);
+        if (isDamage)
+        {
+            _onChangeHealthDamage.Invoke();
+        }
+        else
+        {
+            _onChangeHealthHeal.Invoke();
+        }
         //audioSource.PlayOneShot();
         StartCoroutine(Invencibility());
         return true;
@@ -37,7 +49,14 @@ public class HealthPlayerBase : HealthBase
         if (damageDealer == null) return false;
         CalculateHealth(damage);
         rb.AddForce(-rb.transform.right * force, ForceMode2D.Force);
-        UIManager.Instance.ChangeHealth(isDamage, (int)currentHealth);
+        if (isDamage)
+        {
+            _onChangeHealthDamage.Invoke();
+        }
+        else
+        {
+            _onChangeHealthHeal.Invoke();
+        }
         //audioSource.PlayOneShot();
         StartCoroutine(Invencibility());
         return true;
