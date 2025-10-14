@@ -104,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particle: {fileID: 2532498662247656246}
   sprite: {fileID: 697718652797143777}
+  _collider2D: {fileID: 727672830043416972}
 --- !u!1 &1775712223546091233
 GameObject:
   m_ObjectHideFlags: 0

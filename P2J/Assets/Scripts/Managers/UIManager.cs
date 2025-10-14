@@ -43,9 +43,7 @@ public class UIManager : MonoBehaviour
     public bool DeviceVibration => deviceVibration;
     public UIManagerData UIManagerData => uiManagerData;
     public GameObject CurrentMenu => _currentMenu;
-
-    public TMP_Text Coins => coins;
-
+    
     private void Awake()
     {
         if(Instance == null)
@@ -71,6 +69,7 @@ public class UIManager : MonoBehaviour
         {
             image.sprite = UIManagerData.HealthImages[0];
         }
+        
     }
 
     private void Update()
@@ -253,14 +252,28 @@ public class UIManager : MonoBehaviour
         Application.targetFrameRate = int.Parse(uiManagerData.FpsLimit[index]);
     }
 
-    public void ChangeHealth(bool damage, int index)
+    public void ChangeHealth()
     {
-        heartImages[index].sprite = damage ? uiManagerData.HealthImages[1] : uiManagerData.HealthImages[0];
+        var currHealth = GameManager.Instance.HealthPlayer.CurrentHealth;
+        var maxHealth = GameManager.Instance.HealthPlayer.MaxHealth;
+        for(int i = 0; i < currHealth; ++i)
+        {
+            heartImages[i].sprite = uiManagerData.HealthImages[0];
+        }
+        for(int i = (int)currHealth; i < maxHealth; ++i)
+        {
+            heartImages[i].sprite = uiManagerData.HealthImages[1];
+        }
     }
 
     public void IncreaseMaxHealth(int index)
     {
         heartImages[index - 1].gameObject.SetActive(true);
+    }
+
+    public void ChangeCoins()
+    {
+        coins.text = GameManager.Instance.Coins.ToString();
     }
     
 }
