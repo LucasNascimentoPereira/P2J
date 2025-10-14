@@ -252,19 +252,18 @@ public class UIManager : MonoBehaviour
         Application.targetFrameRate = int.Parse(uiManagerData.FpsLimit[index]);
     }
 
-    public void ChangeHealthDamage()
+    public void ChangeHealth()
     {
-        heartImages[(int)GameManager.Instance.HealthPlayer.CurrentHealth].sprite = uiManagerData.HealthImages[1];
-    }
-
-    public void ChangeHealthHeal()
-    {
-        heartImages[(int)GameManager.Instance.HealthPlayer.CurrentHealth].sprite = uiManagerData.HealthImages[0];
-    }
-
-    public void ChangeHealthHealAmount()
-    {
-        
+        var currHealth = GameManager.Instance.HealthPlayer.CurrentHealth;
+        var maxHealth = GameManager.Instance.HealthPlayer.MaxHealth;
+        for(int i = 0; i < currHealth; ++i)
+        {
+            heartImages[i].sprite = uiManagerData.HealthImages[0];
+        }
+        for(int i = (int)currHealth; i < maxHealth; ++i)
+        {
+            heartImages[i].sprite = uiManagerData.HealthImages[1];
+        }
     }
 
     public void IncreaseMaxHealth(int index)

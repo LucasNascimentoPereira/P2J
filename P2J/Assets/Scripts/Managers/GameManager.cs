@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
     {
         //_gameData = SaveSystem.LoadGame();
         _onCoins?.AddListener(UIManager.Instance.ChangeCoins);
-        _onLevelReset?.AddListener(UIManager.Instance.ChangeHealthHeal);
+        _onLevelReset?.AddListener(UIManager.Instance.ChangeHealth);
     }
 
     private void OnEnable()
@@ -138,19 +138,13 @@ public class GameManager : MonoBehaviour
 
    
 
-    public void LevelReset(GameObject player)
+    public void LevelReset()
     {
-        Debug.Log(player);
         if (currentSpawnPoint == null)  return;
-        player.transform.position = currentSpawnPoint.transform.position;
-        if (player.TryGetComponent(out HealthPlayerBase healthPlayer))
-        {
-            healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
-        }
-        for (int i = 0; i < healthPlayer. MaxHealth; ++i)
-        {
-            //UIManager.Instance.ChangeHealth(false, i);
-        }
+        if (healthPlayer == null) return;
+        healthPlayer.transform.position = currentSpawnPoint.transform.position;
+        healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
+        _onLevelReset.Invoke();
     }
 
     public void AddCoins()
