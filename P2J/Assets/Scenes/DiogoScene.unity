@@ -137,12 +137,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundSpeed: 5
-  jumpForce: 11
+  jumpForce: 8
   defaultGravity: 2
-  accelerationFactorGround: 0.1
-  deccelerationFactorGround: 0.25
-  accelerationFactorAir: 0.05
-  deccelerationFactorAir: 0.1
+  accelerationFactorGround: 0.15
+  deccelerationFactorGround: 0.38
+  accelerationFactorAir: 0.08
+  deccelerationFactorAir: 0.15
 --- !u!1001 &551087869
 PrefabInstance:
   m_ObjectHideFlags: 0

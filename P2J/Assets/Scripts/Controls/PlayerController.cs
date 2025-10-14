@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private bool jumpReleased;
     private float currentAccelerationFactor;
     private float currentDeccelerationFactor;
+    private float jumpTime = -1f;
 
     private void Start()
     {
@@ -72,9 +73,14 @@ public class PlayerController : MonoBehaviour
         processMovement(moveValue);
 
         if (jumpAction.IsPressed()) {
+
             if (onGround && jumpReleased)
             {
-                Debug.Log(jumpForce);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                jumpTime = Time.fixedTime;
+            }
+            else if (jumpTime != -1f && Time.fixedTime - jumpTime < 0.3f)
+            {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             }
             jumpReleased = false;
