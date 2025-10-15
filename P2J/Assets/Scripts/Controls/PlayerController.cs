@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     private float jumpPressTime = -1f;
     private float dropTime = -1f;
 
+    private IInteractable interactable = null;
+
     private void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
@@ -186,5 +188,20 @@ public class PlayerController : MonoBehaviour
         {
             jumpPressTime = Time.fixedTime;
         }
+    }
+
+    public void RegisterInteractable(IInteractable envInteractable)
+    {
+        interactable = envInteractable;
+    }
+
+    private void Interact()
+    {
+        interactable?.Interact();
+    }
+
+    public void DashAbilityUnlock()
+    {
+        Debug.Log("Unlocked dash");
     }
 }

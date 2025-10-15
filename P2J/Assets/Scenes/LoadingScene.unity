@@ -2107,21 +2107,6 @@ MonoBehaviour:
   gameManagerData: {fileID: 11400000, guid: 9b3dc1feca17b9c45996fd223fdc368d, type: 2}
   audioManagerData: {fileID: 11400000, guid: 754bb92aa45b50e469aa21cac94915d6, type: 2}
   uiManagerData: {fileID: 11400000, guid: b471cc75a36e66c4cb5df8c0cc7cf179, type: 2}
-  _OnCoins:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2129571022}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: changeCoins
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   _currentGameLevel: 15
   _coins: 0
   _gems: 0

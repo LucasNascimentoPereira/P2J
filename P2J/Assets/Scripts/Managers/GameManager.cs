@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Objects")]
     private HealthPlayerBase healthPlayer;
-    private GameObject _ball;
+    private PlayerController _playerController;
     private GameObject _baseGameObject;
 
     [Header("Level management")]
@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     public int gems { get => _gems; set => _gems = value; }
     public GameObject CurrentSpawnPoint { get => currentSpawnPoint; set => currentSpawnPoint = value; }
     public HealthPlayerBase HealthPlayer {  get => healthPlayer; set => healthPlayer = value; }
+    public PlayerController PlayerController { get => _playerController; set => _playerController = value; }
 
 
 
@@ -142,7 +143,8 @@ public class GameManager : MonoBehaviour
     {
         if (currentSpawnPoint == null)  return;
         if (healthPlayer == null) return;
-        healthPlayer.transform.position = currentSpawnPoint.transform.position;
+        //healthPlayer.transform.position = currentSpawnPoint.transform.position;
+        healthPlayer.Rb.MovePosition(currentSpawnPoint.transform.position);
         healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
         _onLevelReset.Invoke();
     }
