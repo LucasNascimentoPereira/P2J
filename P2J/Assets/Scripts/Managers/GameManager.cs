@@ -156,9 +156,4 @@ public class GameManager : MonoBehaviour
         //UIManager.Instance.Coins.text = _coins.ToString();
     }
 
-    public Vector3 GetPlayerPosition()
-    {
-        return Vector3.zero;
-    }
-
 }

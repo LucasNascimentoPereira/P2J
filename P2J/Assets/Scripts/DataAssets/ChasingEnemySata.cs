@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "UIManagerData", menuName = "Managers/ChasingEnemySata")]
+[CreateAssetMenu(fileName = "ChasingEnemySata", menuName = "Managers/ChasingEnemySata")]
 
 public class ChasingEnemySata : ScriptableObject
 {
