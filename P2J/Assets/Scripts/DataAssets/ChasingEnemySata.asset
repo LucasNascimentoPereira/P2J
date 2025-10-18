@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: ChasingEnemySata
   m_EditorClassIdentifier: 
   chaseSpeed: 1
-  lungeStrength: 1000
+  lungeSpeed: 3
+  lungeTime: 1.5
   restTime: 4
+  damage: 1
+  knockBack: 1000
+  jump: 1000
