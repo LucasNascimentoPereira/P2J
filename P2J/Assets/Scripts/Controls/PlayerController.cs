@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     InputAction moveAction;
     InputAction jumpAction;
+    InputAction meleeAction;
 
     [SerializeField] private float groundSpeed = 5f;
     [SerializeField] private float jumpForce = 11f;
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
+        meleeAction = InputSystem.actions.FindAction("Attack");
         col = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = defaultGravity;
@@ -100,6 +102,10 @@ public class PlayerController : MonoBehaviour
         if (jumpReleased)
         {
             jumpTime = -1f;
+        }
+        if (meleeAction.IsPressed())
+        {
+            attackWithMelee();
         }
     }
 
@@ -187,6 +193,19 @@ public class PlayerController : MonoBehaviour
         else if (jumpReleased)
         {
             jumpPressTime = Time.fixedTime;
+        }
+    }
+
+    void attackWithMelee()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + Vector2.left * 0.5f, 0.5f, 64);
+        Debug.Log(hitEnemies.Length + " enemies hit");
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            if (enemy.TryGetComponent(out HealthBase enemyHealth))
+            {
+                //enemy taking damage code goes here (I think)
+            }
         }
     }
 
