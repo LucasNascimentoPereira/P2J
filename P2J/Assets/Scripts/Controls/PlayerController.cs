@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private float jumpTime = -1f;
     private float jumpPressTime = -1f;
     private float dropTime = -1f;
+    private Vector2 meleeDirection;
 
     private IInteractable interactable = null;
 
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = defaultGravity;
         jumpReleased = true;
+        meleeDirection = Vector2.right * 0.5f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -89,6 +91,14 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         processMovement(moveValue);
+        if (moveValue.x > 0)
+        {
+            meleeDirection = Vector2.right * 0.5f;
+        }
+        else if (moveValue.x < 0)
+        {
+            meleeDirection = Vector2.left * 0.5f;
+        }
 
         if (jumpAction.IsPressed())
         {
@@ -105,7 +115,7 @@ public class PlayerController : MonoBehaviour
         }
         if (meleeAction.IsPressed())
         {
-            attackWithMelee();
+            attackWithMelee(meleeDirection);
         }
     }
 
@@ -196,9 +206,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void attackWithMelee()
+    void attackWithMelee(Vector2 meleeDirection)
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + Vector2.left * 0.5f, 0.5f, 64);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.centerOfMass + meleeDirection, 0.5f, 64);
         Debug.Log(hitEnemies.Length + " enemies hit");
         foreach (Collider2D enemy in hitEnemies)
         {
