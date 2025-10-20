@@ -93,6 +93,16 @@ public class PlayerController : MonoBehaviour
             // - Kind Regards, Denis
             jumpTime = -1f;
         }
+
+        // Determine how strong gravity is depending on if the player is falling
+        if (rb.linearVelocityY > 0)
+        {
+            rb.gravityScale = defaultGravity;
+        } else
+        {
+            // Increase the player's gravity when falling to make platforming less floaty
+            rb.gravityScale = defaultGravity * 2.5f;
+        }
     }
 
     void processMovement(Vector2 moveValue)
