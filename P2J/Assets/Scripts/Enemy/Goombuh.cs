@@ -11,6 +11,7 @@ public class Goombuh : MonoBehaviour
     private int patrolIndex = 0;
     private Vector2 dir = Vector2.zero;
     [SerializeField] private Detector detector;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
@@ -24,7 +25,8 @@ public class Goombuh : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
+        spriteRenderer.flipX = dir.x < 0;
         rb.linearVelocity = new Vector2(dir.x, 0) * goombuhData.GoombuhSpeed;
     }
     public void ChangeTarget(int index)
