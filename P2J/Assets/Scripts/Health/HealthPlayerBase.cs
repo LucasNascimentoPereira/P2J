@@ -12,8 +12,6 @@ public class HealthPlayerBase : HealthBase
     private UnityEvent _onChangeHealth = new();
     private UnityEvent _onChangeStatus = new();
 
-    public Rigidbody2D Rb => rb;
-
     protected override void Awake()
     {
         base.Awake();
@@ -53,8 +51,8 @@ public class HealthPlayerBase : HealthBase
     protected override void Death()
     {
         Debug.Log(gameObject);
-        _onChangeStatus.Invoke();
-        Debug.Log(rb.linearVelocity);
+        rb.linearVelocity = Vector2.zero;
+        GameManager.Instance.LevelReset();
     }
     
     private IEnumerator Invencibility()
