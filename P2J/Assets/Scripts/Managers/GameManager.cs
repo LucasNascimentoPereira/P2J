@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Objects")]
     private HealthPlayerBase healthPlayer;
+    private PlayerController playerController;
     private GameObject _ball;
     private GameObject _baseGameObject;
 
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
     public int gems { get => _gems; set => _gems = value; }
     public GameObject CurrentSpawnPoint { get => currentSpawnPoint; set => currentSpawnPoint = value; }
     public HealthPlayerBase HealthPlayer {  get => healthPlayer; set => healthPlayer = value; }
+    public PlayerController PlayerController { get => playerController; set => playerController = value; }
 
 
 
