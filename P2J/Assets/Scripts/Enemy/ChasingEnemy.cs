@@ -17,6 +17,10 @@ public class ChasingEnemy : MonoBehaviour
     [SerializeField] private Transform castGroundLimit;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private ContactFilter2D contactFilter;
+    [Header("Positions of the limis")]
+    [SerializeField] private List<Transform> patrolPoints;
+    private int patrolIndex = 0;
+    private Vector2 dir = Vector2.zero;
     private List<RaycastHit2D> hitLeft = new();
     private List<RaycastHit2D> hitRight = new();
     private Vector2 _dir = Vector2.zero;
@@ -29,6 +33,7 @@ public class ChasingEnemy : MonoBehaviour
     private void Start()
     {
         _player = GameManager.Instance.HealthPlayer.gameObject;
+        Move();
     }
 
     public void DetectedPlayer()
@@ -46,6 +51,7 @@ public class ChasingEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        spriteRenderer.flipX = dir.x < 0;
         if (!_detectedPlayer) return;
         if (!_isLunge)
         {
@@ -98,4 +104,16 @@ public class ChasingEnemy : MonoBehaviour
             healthPlayer.TakeDamage(gameObject, true, chasingEnemySata.Damage, chasingEnemySata.KnockBack);
         }
     }
+
+    private void Move()
+    {
+        dir = patrolPoints[patrolIndex].transform.position - gameObject.transform.position;
+        dir = dir.normalized;
+    }
+    public void ChangeTarget(int index)
+    {
+        patrolIndex = index;
+        Move();
+    }
+
 }

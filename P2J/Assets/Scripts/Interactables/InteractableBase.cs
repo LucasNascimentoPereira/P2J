@@ -1,20 +1,15 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AbilityUnlockBase : MonoBehaviour, IInteractable
+public class InteractableBase : MonoBehaviour, IInteractable
 {
 
     protected PlayerController controller;
-    protected UnityEvent _onInteract = new();
+    [SerializeField] protected UnityEvent _onInteract = new();
 
     protected virtual void OnEnable()
     {
         controller = GameManager.Instance.PlayerController;
-    }
-
-    public void Interact()
-    {
-        _onInteract.Invoke();
     }
 
     public void RegisterInteractable()
@@ -23,10 +18,14 @@ public class AbilityUnlockBase : MonoBehaviour, IInteractable
         controller.RegisterInteractable(this);
     }
 
-    public void UnregisterInteractable() 
+    public void UnregisterInteractable()
     {
         if (controller == null) return;
         controller.RegisterInteractable(null);
     }
 
+    public void Interact()
+    {
+        _onInteract.Invoke();
+    }
 }

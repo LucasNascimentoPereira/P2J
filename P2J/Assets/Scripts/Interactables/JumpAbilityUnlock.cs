@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class JumpAbilityUnlock : AbilityUnlockBase
+public class JumpAbilityUnlock : InteractableBase
 {
     protected override void OnEnable()
     {

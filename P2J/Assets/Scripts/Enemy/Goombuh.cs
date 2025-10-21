@@ -24,7 +24,7 @@ public class Goombuh : MonoBehaviour
         dir = dir.normalized;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {   
         spriteRenderer.flipX = dir.x < 0;
         rb.linearVelocity = new Vector2(dir.x, 0) * goombuhData.GoombuhSpeed;

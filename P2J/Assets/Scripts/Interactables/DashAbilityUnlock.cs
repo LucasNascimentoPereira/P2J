@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DashAbilityUnlock : AbilityUnlockBase
+public class DashAbilityUnlock : InteractableBase
 {
-
     protected override void OnEnable()
     {
         base.OnEnable();
