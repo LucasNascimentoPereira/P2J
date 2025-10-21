@@ -1,32 +1,12 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DashAbilityUnlock : MonoBehaviour, IInteractable
+public class DashAbilityUnlock : AbilityUnlockBase
 {
 
-    private PlayerController controller;
-    private UnityEvent _onInteract;
-
-    private void Start()
+    protected override void OnEnable()
     {
-        _onInteract.AddListener(GameManager.Instance.PlayerController.DashAbilityUnlock);
-        controller = GameManager.Instance.PlayerController;
+        base.OnEnable();
+        _onInteract.AddListener(controller.DashAbilityUnlock);
     }
-    public void Interact()
-    {
-        _onInteract.Invoke();
-    }
-
-    public void RegisterInteractable()
-    {
-        if (controller == null) return;
-        controller.RegisterInteractable(this);
-    }
-
-    public void UnregisterInteractable()
-    {
-        if (controller == null) return;
-        controller.RegisterInteractable(null);
-    }
-
 }

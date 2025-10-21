@@ -7,9 +7,4 @@ public class Coin : Pickup
     {
         _onPickup.AddListener(GameManager.Instance.AddCoins);
     }
-    public override void PickUp()
-    {
-        _onPickup.Invoke();
-        Destroy(gameObject);
-    }
 }

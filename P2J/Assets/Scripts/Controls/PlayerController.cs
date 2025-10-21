@@ -236,4 +236,9 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Unlocked dash");
     }
+
+    public void JumpAbilityUnlock()
+    {
+        Debug.Log("Unlocked jump");
+    }
 }

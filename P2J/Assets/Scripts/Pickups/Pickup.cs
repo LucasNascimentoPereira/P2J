@@ -12,6 +12,7 @@ public class Pickup : MonoBehaviour
 
     public virtual void PickUp()
     {
-
+        _onPickup.Invoke();
+        Destroy(gameObject);
     }
 }
