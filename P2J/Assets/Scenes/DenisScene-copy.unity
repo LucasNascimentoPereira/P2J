@@ -701,7 +701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7999697321723636585, guid: f272856cac4abfe4a8e414b1b99833eb, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8054422449129339418, guid: f272856cac4abfe4a8e414b1b99833eb, type: 3}
       propertyPath: OnEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -729,7 +729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526236210163000982, guid: f272856cac4abfe4a8e414b1b99833eb, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8710838459228184581, guid: f272856cac4abfe4a8e414b1b99833eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1097,6 +1097,9 @@ MonoBehaviour:
   deccelerationFactorAir: 0.15
   coyoteTime: 0.1
   jumpBufferTime: 0.1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &1727395731
 MonoBehaviour:
   m_ObjectHideFlags: 0

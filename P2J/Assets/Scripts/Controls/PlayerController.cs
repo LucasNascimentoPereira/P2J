@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deccelerationFactorAir = 0.15f;
     [SerializeField] private float coyoteTime = 0.1f;
     [SerializeField] private float jumpBufferTime = 0.1f;
+    [SerializeField] private LayerMask enemyLayer = 64;
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
@@ -208,10 +210,11 @@ public class PlayerController : MonoBehaviour
 
     void attackWithMelee(Vector2 meleeDirection)
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.centerOfMass + meleeDirection, 0.5f, 64);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, 0.5f, enemyLayer);
         Debug.Log(hitEnemies.Length + " enemies hit");
         foreach (Collider2D enemy in hitEnemies)
         {
+            Debug.Log(enemy.gameObject);
             if (enemy.TryGetComponent(out HealthBase enemyHealth))
             {
                 //enemy taking damage code goes here (I think)
