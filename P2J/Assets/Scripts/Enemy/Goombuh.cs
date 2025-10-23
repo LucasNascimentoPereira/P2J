@@ -13,9 +13,14 @@ public class Goombuh : MonoBehaviour
     [SerializeField] private Detector detector;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
-    private void Start()
+    private void OnBecameVisible()
     {
         Move();
+    }
+
+    private void OnBecameInvisible()
+    {
+        dir = Vector2.zero;
     }
 
     private void Move()
