@@ -86,10 +86,10 @@ public class PlayerController : MonoBehaviour
         {
             jumpReleased = true;
         }
-        if (jumpReleased && rb.linearVelocityY > 0)
+        if (jumpReleased /*&& rb.linearVelocityY > 0*/)
         {
             // Attempted to make some fancy code to make the variable jump height more snappy
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.2f);
+            //rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.2f);
             // - Kind Regards, Denis
             jumpTime = -1f;
         }
