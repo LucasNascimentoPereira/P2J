@@ -17,10 +17,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deccelerationFactorGround = 0.38f;
     [SerializeField] private float accelerationFactorAir = 0.08f;
     [SerializeField] private float deccelerationFactorAir = 0.15f;
+    [SerializeField] private float maxJumpDuration = 0.3f;
     [SerializeField] private float coyoteTime = 0.1f;
     [SerializeField] private float jumpBufferTime = 0.1f;
     [SerializeField] private float dashForce = 15f;
+    [SerializeField] private float dashCooldown = 1.0f;
     [SerializeField] private LayerMask enemyLayer = 64;
+    [SerializeField] private LayerMask groundLayer = 8;
     [SerializeField] private bool dashUnlocked = false;
 
     private BoxCollider2D col;
@@ -33,6 +36,8 @@ public class PlayerController : MonoBehaviour
     private float jumpTime = -1f;
     private float jumpPressTime = -1f;
     private float dropTime = -1f;
+    private float dashTime = -1f;
+    private int airDashCount = 0;
     private Vector2 meleeDirection;
 
     private IInteractable interactable = null;
@@ -56,6 +61,7 @@ public class PlayerController : MonoBehaviour
         if (IsOnGround())
         {
             onGround = true;
+            airDashCount = 0;
             if (jumpPressTime != -1f && Time.fixedTime - jumpPressTime < jumpBufferTime)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -74,6 +80,7 @@ public class PlayerController : MonoBehaviour
         if (IsOnGround())
         {
             onGround = true;
+            airDashCount = 0;
         }
         else
         {
@@ -92,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
     private bool IsOnGround()
     {
-        return col.IsTouchingLayers(8);
+        return col.IsTouchingLayers(groundLayer);
     }
 
     void FixedUpdate()
@@ -195,7 +202,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                //rb.linearVelocity = new Vector2(moveValue.x * groundSpeed, rb.linearVelocity.y);
+                // If velocity exceeds max velocity, apply decceleration
                 if (rb.linearVelocity.x > 0f)
                 {
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x - groundSpeed * currentDeccelerationFactor + moveValue.x * groundSpeed * currentAccelerationFactor, rb.linearVelocity.y);
@@ -215,7 +222,7 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpTime = Time.fixedTime;
         }
-        else if (jumpTime != -1f && Time.fixedTime - jumpTime < 0.3f)
+        else if (jumpTime != -1f && Time.fixedTime - jumpTime < maxJumpDuration)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
@@ -270,7 +277,16 @@ public class PlayerController : MonoBehaviour
     {
         if (dashReleased)
         {
-            rb.linearVelocity = new Vector2(dashForce * moveValue.x, dashForce * moveValue.y);
+            if (onGround && (dashTime == -1f || Time.fixedTime - dashTime > dashCooldown))
+            {
+                rb.linearVelocity = new Vector2(dashForce * moveValue.x, 0);
+                dashTime = Time.fixedTime;
+            }
+            else if (!onGround && airDashCount == 0)
+            {
+                rb.linearVelocity = new Vector2(dashForce * moveValue.x, dashForce * moveValue.y);
+                airDashCount++;
+            }
         }
     }
 }
