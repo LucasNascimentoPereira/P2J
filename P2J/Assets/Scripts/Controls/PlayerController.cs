@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     InputAction moveAction;
     InputAction jumpAction;
     InputAction meleeAction;
+    InputAction dashAction;
 
     [SerializeField] private float groundSpeed = 5f;
     [SerializeField] private float jumpForce = 11f;
@@ -18,12 +19,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deccelerationFactorAir = 0.15f;
     [SerializeField] private float coyoteTime = 0.1f;
     [SerializeField] private float jumpBufferTime = 0.1f;
+    [SerializeField] private float dashForce = 15f;
     [SerializeField] private LayerMask enemyLayer = 64;
+    [SerializeField] private bool dashUnlocked = false;
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
     private bool onGround;
     private bool jumpReleased;
+    private bool dashReleased;
     private float currentAccelerationFactor;
     private float currentDeccelerationFactor;
     private float jumpTime = -1f;
@@ -38,10 +42,12 @@ public class PlayerController : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         meleeAction = InputSystem.actions.FindAction("Attack");
+        dashAction = InputSystem.actions.FindAction("Dash");
         col = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = defaultGravity;
         jumpReleased = true;
+        dashReleased = true;
         meleeDirection = Vector2.right * 0.5f;
     }
 
@@ -119,6 +125,15 @@ public class PlayerController : MonoBehaviour
         {
             attackWithMelee(meleeDirection);
         }
+        if (dashAction.IsPressed() && dashUnlocked)
+        {
+            dash(moveValue);
+            dashReleased = false;
+        }
+        else
+        {
+            dashReleased = true;
+        }
     }
 
     void processMovement(Vector2 moveValue)
@@ -180,7 +195,15 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                rb.linearVelocity = new Vector2(moveValue.x * groundSpeed, rb.linearVelocity.y);
+                //rb.linearVelocity = new Vector2(moveValue.x * groundSpeed, rb.linearVelocity.y);
+                if (rb.linearVelocity.x > 0f)
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x - groundSpeed * currentDeccelerationFactor + moveValue.x * groundSpeed * currentAccelerationFactor, rb.linearVelocity.y);
+                }
+                else if (rb.linearVelocity.x < 0f)
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x + groundSpeed * currentDeccelerationFactor + moveValue.x * groundSpeed * currentAccelerationFactor, rb.linearVelocity.y);
+                }
             }
         }
     }
@@ -235,10 +258,19 @@ public class PlayerController : MonoBehaviour
     public void DashAbilityUnlock()
     {
         Debug.Log("Unlocked dash");
+        dashUnlocked = true;
     }
 
     public void JumpAbilityUnlock()
     {
         Debug.Log("Unlocked jump");
+    }
+
+    private void dash(Vector2 moveValue)
+    {
+        if (dashReleased)
+        {
+            rb.linearVelocity = new Vector2(dashForce * moveValue.x, dashForce * moveValue.y);
+        }
     }
 }

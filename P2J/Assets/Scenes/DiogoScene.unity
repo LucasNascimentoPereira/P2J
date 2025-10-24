@@ -143,6 +143,13 @@ MonoBehaviour:
   deccelerationFactorGround: 0.38
   accelerationFactorAir: 0.08
   deccelerationFactorAir: 0.15
+  coyoteTime: 0.1
+  jumpBufferTime: 0.1
+  dashForce: 15
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  dashUnlocked: 1
 --- !u!1001 &551087869
 PrefabInstance:
   m_ObjectHideFlags: 0
