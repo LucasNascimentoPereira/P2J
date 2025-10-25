@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private float dashTime = -1f;
     private int airDashCount = 0;
     private Vector2 meleeDirection;
+    private bool playerDirection;
 
     private IInteractable interactable = null;
 
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         jumpReleased = true;
         dashReleased = true;
         meleeDirection = Vector2.right * 0.5f;
+        playerDirection = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -109,10 +111,13 @@ public class PlayerController : MonoBehaviour
         if (moveValue.x > 0)
         {
             meleeDirection = Vector2.right * 0.5f;
+            playerDirection = true;
+            
         }
         else if (moveValue.x < 0)
         {
             meleeDirection = Vector2.left * 0.5f;
+            playerDirection = false;
         }
 
         if (jumpAction.IsPressed())
@@ -134,7 +139,7 @@ public class PlayerController : MonoBehaviour
         }
         if (dashAction.IsPressed() && dashUnlocked)
         {
-            dash(moveValue);
+            dash(moveValue, playerDirection);
             dashReleased = false;
         }
         else
@@ -273,18 +278,46 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Unlocked jump");
     }
 
-    private void dash(Vector2 moveValue)
+    private void dash(Vector2 moveValue, bool playerDirecton)
     {
         if (dashReleased)
         {
             if (onGround && (dashTime == -1f || Time.fixedTime - dashTime > dashCooldown))
             {
-                rb.linearVelocity = new Vector2(dashForce * moveValue.x, 0);
+                if (moveValue == Vector2.zero)
+                {
+                    if (playerDirection)
+                    {
+                        rb.linearVelocity = new Vector2(dashForce, 0);
+                    }
+                    else
+                    {
+                        rb.linearVelocity = new Vector2(-dashForce, 0);
+                    }
+                }
+                else
+                {
+                    rb.linearVelocity = new Vector2(dashForce * moveValue.x, 0);
+                }
                 dashTime = Time.fixedTime;
             }
             else if (!onGround && airDashCount == 0)
             {
-                rb.linearVelocity = new Vector2(dashForce * moveValue.x, dashForce * moveValue.y);
+                if (moveValue == Vector2.zero)
+                {
+                    if (playerDirection)
+                    {
+                        rb.linearVelocity = new Vector2(dashForce, 0);
+                    }
+                    else
+                    {
+                        rb.linearVelocity = new Vector2(-dashForce, 0);
+                    }
+                }
+                else
+                {
+                    rb.linearVelocity = new Vector2(dashForce * moveValue.x, dashForce * moveValue.y);
+                }
                 airDashCount++;
             }
         }
