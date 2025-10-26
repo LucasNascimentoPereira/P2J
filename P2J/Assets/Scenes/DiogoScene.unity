@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundSpeed: 5
   jumpForce: 8
-  defaultGravity: 2
+  defaultGravity: 3
   accelerationFactorGround: 0.15
   deccelerationFactorGround: 0.38
   accelerationFactorAir: 0.08
@@ -237,9 +237,13 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7238577011592192681, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_Size.x
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalScale.y

@@ -109,10 +109,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        rb.gravityScale = defaultGravity;
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         processMovement(moveValue);
         processDirection(moveValue);
-        rb.gravityScale = defaultGravity;
 
         if (jumpAction.IsPressed())
         {
@@ -126,6 +126,11 @@ public class PlayerController : MonoBehaviour
         if (jumpReleased)
         {
             jumpTime = -1f;
+        }
+
+        if (rb.linearVelocity.y < 0f)
+        {
+            rb.gravityScale = defaultGravity * 1.5f;
         }
 
         if (meleeAction.IsPressed())
@@ -234,7 +239,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (dropTime != -1f && Time.fixedTime - dropTime < coyoteTime && jumpReleased)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            rb.gravityScale = defaultGravity * 0.3f;
             jumpTime = Time.fixedTime;
             dropTime = -1f;
         }
