@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float groundSpeed = 5f;
     [SerializeField] private float jumpForce = 11f;
-    [SerializeField] private float defaultGravity = 2f;
+    [SerializeField] private float defaultGravity = 3f;
     [SerializeField] private float accelerationFactorGround = 0.15f;
     [SerializeField] private float deccelerationFactorGround = 0.38f;
     [SerializeField] private float accelerationFactorAir = 0.08f;
@@ -235,11 +235,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (jumpTime != -1f && Time.fixedTime - jumpTime < maxJumpDuration)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            rb.gravityScale = defaultGravity * 0.1f;
         }
         else if (dropTime != -1f && Time.fixedTime - dropTime < coyoteTime && jumpReleased)
         {
-            rb.gravityScale = defaultGravity * 0.3f;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpTime = Time.fixedTime;
             dropTime = -1f;
         }
