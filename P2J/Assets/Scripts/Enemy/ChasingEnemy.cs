@@ -163,7 +163,7 @@ public class ChasingEnemy : MonoBehaviour
     private IEnumerator IdleTime(float time)
     {
         yield return new WaitForSeconds(time);
-        chasingEnemyBaseState.ExitState();
+        if (_detectedPlayer) chasingEnemyBaseState.ExitState();
     }
     public void BeginIdleTime(float time)
     {
