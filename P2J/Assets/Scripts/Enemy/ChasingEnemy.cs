@@ -10,6 +10,7 @@ public class ChasingEnemy : MonoBehaviour
     [SerializeField] private ChasingEnemySata chasingEnemySata;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Detector detector;
+    [SerializeField] private Detector rangeDetector;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("RayCasts")]
@@ -108,6 +109,12 @@ public class ChasingEnemy : MonoBehaviour
     {
         _detectedPlayer = false;
         chasingEnemyBaseState.ExitState();
+    }
+
+    public void NotInRange()
+    {
+        if (rangeDetector.Collider.gameObject != gameObject) return;
+        ChangeState(EnemyStates.IDLE);
     }
 
     private void FixedUpdate()
