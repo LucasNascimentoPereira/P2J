@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class ChasingEnemy : MonoBehaviour
@@ -29,7 +30,6 @@ public class ChasingEnemy : MonoBehaviour
 
 
     private int patrolIndex = 0;
-    private List<RaycastHit2D> hitLeft = new();
     private List<RaycastHit2D> hitRight = new();
     private Vector2 _dir = Vector2.zero;
     private bool _detectedPlayer = false;
@@ -121,26 +121,36 @@ public class ChasingEnemy : MonoBehaviour
     {
         if (chasingEnemyBaseState == null) return;
         chasingEnemyBaseState.UpdateState();
-        spriteRenderer.flipX = _dir.x < 0;
+        Rotate();
 
 
-        Physics2D.Linecast(castLeft.position, castLeftLimit.position, contactFilter, hitLeft);
         Physics2D.Linecast(castRight.position, castRightLimit.position, contactFilter, hitRight);
         _isGrounded = Physics2D.Linecast(castGround.position, castGroundLimit.position, groundLayer);
         Debug.DrawLine(castGround.position, castGroundLimit.position, Color.red);
-        Debug.DrawLine(castLeft.position, castLeftLimit.position, Color.red);
-        Debug.DrawLine(castRight.position, castRightLimit.position, Color.red);
+        Debug.DrawLine(castRight.position, castRightLimit.position, Color.green);
 
         if (enemyState == EnemyStates.JUMPING && _isGrounded)
         {
             chasingEnemyBaseState.ExitState();
         }
 
-        if ((hitLeft.Count != 0 || hitRight.Count != 0) && _isGrounded && enemyState != EnemyStates.IDLE && enemyState != EnemyStates.JUMPING)
+        if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.IDLE && enemyState != EnemyStates.JUMPING)
         {
             ChangeState(EnemyStates.JUMPING);
         }
 
+    }
+
+    private void Rotate()
+    {
+        if (transform.localEulerAngles.y != 180 && _dir.x < 0)
+        {
+            transform.Rotate(0.0f, 180.0f, 0.0f);
+        }
+        else if (transform.localEulerAngles.y != 0 && _dir.x > 0)
+        {
+            transform.Rotate(0.0f, -180.0f, 0.0f);
+        }
     }
     
     public void Damage()

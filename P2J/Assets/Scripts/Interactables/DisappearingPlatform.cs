@@ -14,7 +14,10 @@ public class DisappearingPlatform : MonoBehaviour
     [Tooltip("This variable is the amount of time between alpha changes")]
     [Range(0f, 1f)]
     [SerializeField] private float appearTimeInterval = 0.1f;
-    [SerializeField]
+    [Range(0f, 1f)]
+    [SerializeField] private float disappearInterval = 0.1f;
+    [Range (0f, 1f)]
+    [SerializeField] private float disappearTimeInterval = 0.1f;
     private bool isGrounded;
     public void ChangeIsGrounded(bool value)
     {
