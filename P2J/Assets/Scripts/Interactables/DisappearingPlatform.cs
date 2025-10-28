@@ -3,32 +3,31 @@ using UnityEngine;
 
 public class DisappearingPlatform : MonoBehaviour
 {
+
     [SerializeField] private BoxCollider2D boxCollider2D;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private float interval = 0.1f;
-    [SerializeField] private float timeInterval = 0.1f;
-    private bool isGrounded;
 
-    private void OnBecameVisible()
-    {
-        StartCoroutine(ChangeTransparency());
-    }
-    private void OnBecameInvisible()
-    {
-        StopCoroutine(ChangeTransparency());
-    }
+    [Header("Timer values")]
+    [Tooltip("This variable changes the amount the spriterenderer alpha value that increases over time")]
+    [Range(0f, 1f)]
+    [SerializeField] private float appearInterval = 0.1f;
+    [Tooltip("This variable is the amount of time between alpha changes")]
+    [Range(0f, 1f)]
+    [SerializeField] private float appearTimeInterval = 0.1f;
+    [SerializeField]
+    private bool isGrounded;
     public void ChangeIsGrounded(bool value)
     {
         isGrounded = value;
-        Debug.Log(isGrounded);
+
     }
 
     private IEnumerator ChangeTransparency()
     {
         while (true)
         {
-            spriteRenderer.color = isGrounded ? new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(spriteRenderer.color.a - interval, 0.0f, 1.0f))
-               : new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(spriteRenderer.color.a + interval, 0.0f, 1.0f));
+            spriteRenderer.color = isGrounded ? new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(spriteRenderer.color.a - appearInterval, 0.0f, 1.0f))
+               : new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(spriteRenderer.color.a + appearInterval, 0.0f, 1.0f));
             if (spriteRenderer.color.a <= 0.0f)
             {
                 boxCollider2D.enabled = false;
@@ -37,7 +36,7 @@ public class DisappearingPlatform : MonoBehaviour
             {
                 boxCollider2D.enabled = true;
             }
-            yield return new WaitForSeconds(timeInterval);
+            yield return new WaitForSeconds(appearTimeInterval);
         }
     }
 }
