@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,13 +34,16 @@ public class UIManager : MonoBehaviour
     [Header("Game Information")]
     [SerializeField] private TMP_Text versionNumber;
     [SerializeField] private TMP_Text fpsCounter;
+    [SerializeField] private TMP_Text coins;
+    [SerializeField] private GameObject heartsContainer;
+    private List<Image> heartImages = new();
 
 
 
     public bool DeviceVibration => deviceVibration;
     public UIManagerData UIManagerData => uiManagerData;
     public GameObject CurrentMenu => _currentMenu;
-
+    
     private void Awake()
     {
         if(Instance == null)
@@ -60,11 +64,19 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         ChangeVersionNumber();
+        heartImages = heartsContainer.GetComponentsInChildren<Image>(true).ToList();
+        foreach (var image in heartImages)
+        {
+            image.sprite = UIManagerData.HealthImages[0];
+        }
+        
     }
 
     private void Update()
     {
         fpsCounter.text = (1 / Time.deltaTime).ToString("F1");
+        //ChangeHealth(true, 2);
+        //GameManager.Instance.AddCoins();
     }
 
     public void ShowPanel(string menuName)
@@ -238,6 +250,30 @@ public class UIManager : MonoBehaviour
         }
         
         Application.targetFrameRate = int.Parse(uiManagerData.FpsLimit[index]);
+    }
+
+    public void ChangeHealth()
+    {
+        var currHealth = GameManager.Instance.HealthPlayer.CurrentHealth;
+        var maxHealth = GameManager.Instance.HealthPlayer.MaxHealth;
+        for(int i = 0; i < currHealth; ++i)
+        {
+            heartImages[i].sprite = uiManagerData.HealthImages[0];
+        }
+        for(int i = (int)currHealth; i < maxHealth; ++i)
+        {
+            heartImages[i].sprite = uiManagerData.HealthImages[1];
+        }
+    }
+
+    public void IncreaseMaxHealth(int index)
+    {
+        heartImages[index - 1].gameObject.SetActive(true);
+    }
+
+    public void ChangeCoins()
+    {
+        coins.text = GameManager.Instance.Coins.ToString();
     }
     
 }

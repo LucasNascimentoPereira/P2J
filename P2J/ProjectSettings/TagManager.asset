@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Ground
+  - Wall
+  - Pickup
+  - Limit
+  - Goombuh
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -11,7 +17,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 

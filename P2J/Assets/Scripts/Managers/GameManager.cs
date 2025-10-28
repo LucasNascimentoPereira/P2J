@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Analytics;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+ 
 
 public class GameManager : MonoBehaviour
 {
@@ -11,9 +14,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameManagerData gameManagerData;
     [SerializeField] private AudioManagerData audioManagerData;
     [SerializeField] private UIManagerData uiManagerData;
+    
+    [Header("Events")]
+    private UnityEvent _onCoins = new();
+    private UnityEvent _onLevelReset = new();
 
     [Header("Game Objects")]
-    private GameObject _hitter;
+    private HealthPlayerBase healthPlayer;
+    private PlayerController playerController;
     private GameObject _ball;
     private GameObject _baseGameObject;
 
@@ -23,7 +31,9 @@ public class GameManager : MonoBehaviour
     [Header("Currency management")]
     [SerializeField] private int _coins;
     [SerializeField] private int _gems;
-    
+
+    private GameObject currentSpawnPoint;
+
     public static GameManager Instance { get; private set; }
     public bool IsPaused { get; private set; } = false;
     private int _currentLevel = 0;
@@ -33,8 +43,11 @@ public class GameManager : MonoBehaviour
     public GameData GameData => _gameData;
     public int CurrentGameLevel { get => _currentGameLevel; set => _currentGameLevel = value; }
 
-    public int Coins { get => _coins; set => _coins = value; }
+    public int Coins => _coins;
     public int gems { get => _gems; set => _gems = value; }
+    public GameObject CurrentSpawnPoint { get => currentSpawnPoint; set => currentSpawnPoint = value; }
+    public HealthPlayerBase HealthPlayer {  get => healthPlayer; set => healthPlayer = value; }
+    public PlayerController PlayerController { get => playerController; set => playerController = value; }
 
 
 
@@ -53,7 +66,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _gameData = SaveSystem.LoadGame();
+        //_gameData = SaveSystem.LoadGame();
+        _onCoins?.AddListener(UIManager.Instance.ChangeCoins);
+        _onLevelReset?.AddListener(UIManager.Instance.ChangeHealth);
     }
 
     private void OnEnable()
@@ -92,8 +107,9 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        RaceConditionAvoider();
+        //RaceConditionAvoider();
         //yield return new WaitForSeconds(0.2f);
+        UIManager.Instance.ShowPanel("HUD");
     }
    
     public void SaveGame()
@@ -126,11 +142,23 @@ public class GameManager : MonoBehaviour
 
     public void LevelReset()
     {
-       
+        if (currentSpawnPoint == null)  return;
+        if (healthPlayer == null) return;
+        healthPlayer.transform.position = currentSpawnPoint.transform.position;
+        healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
+        _onLevelReset.Invoke();
     }
 
-   
+    public void AddCoins()
+    {
+        _coins += 1;
+        _onCoins.Invoke();
+        //UIManager.Instance.Coins.text = _coins.ToString();
+    }
 
-  
+    public Vector3 GetPlayerPosition()
+    {
+        return Vector3.zero;
+    }
 
 }
