@@ -113,7 +113,7 @@ public class ChasingEnemy : MonoBehaviour
 
     public void NotInRange()
     {
-        if (rangeDetector.Collider.gameObject != gameObject) return;
+        if (rangeDetector.Collider.gameObject != null && rangeDetector.Collider.gameObject != gameObject) return;
         ChangeState(EnemyStates.IDLE);
     }
 
