@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsOnGround() && rb.linearVelocityY == 0f)
+        if (IsOnGround())
         {
             onGround = true;
             airDashCount = 0;
