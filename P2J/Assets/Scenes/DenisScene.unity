@@ -3439,7 +3439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 194480181312708756, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 205604683431498517, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_Constraints
@@ -3459,11 +3459,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.6
+      value: -50.8
       objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5
+      value: 63.6
       objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3522,13 +3522,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c1f4e4bf8516747bcfe1a625520f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundSpeed: 9
-  jumpForce: 15
-  defaultGravity: 2.5
+  groundSpeed: 10
+  jumpForce: 20
+  defaultGravity: 5
   accelerationFactorGround: 0.15
   deccelerationFactorGround: 0.5
-  accelerationFactorAir: 0.08
-  deccelerationFactorAir: 0.15
+  accelerationFactorAir: 0.1
+  deccelerationFactorAir: 0.2
+  maxJumpDuration: 0.3
+  gravityResistanceOnJump: 10
+  postJumpDecceleration: 3
+  coyoteTime: 0.1
+  jumpBufferTime: 0.1
+  dashForce: 25
+  dashCooldown: 1
+  dashDuration: 0.2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  dashUnlocked: 1
 --- !u!1 &730337665
 GameObject:
   m_ObjectHideFlags: 0
@@ -11110,7 +11125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &7374726461234244907
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11246,7 +11261,7 @@ MonoBehaviour:
   deccelerationFactorGround: 0.5
   accelerationFactorAir: 0.08
   deccelerationFactorAir: 0.15
-  canDoubleJump: 1
+  canDoubleJump: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

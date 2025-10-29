@@ -10,18 +10,20 @@ public class PlayerController : MonoBehaviour
     InputAction meleeAction;
     InputAction dashAction;
 
-    [SerializeField] private float groundSpeed = 5f;
-    [SerializeField] private float jumpForce = 11f;
-    [SerializeField] private float defaultGravity = 3f;
+    [SerializeField] private float groundSpeed = 10f;
+    [SerializeField] private float jumpForce = 20f;
+    [SerializeField] private float defaultGravity = 5f;
     [SerializeField] private float accelerationFactorGround = 0.15f;
-    [SerializeField] private float deccelerationFactorGround = 0.38f;
-    [SerializeField] private float accelerationFactorAir = 0.08f;
-    [SerializeField] private float deccelerationFactorAir = 0.15f;
+    [SerializeField] private float deccelerationFactorGround = 0.5f;
+    [SerializeField] private float accelerationFactorAir = 0.1f;
+    [SerializeField] private float deccelerationFactorAir = 0.2f;
     [SerializeField] private float maxJumpDuration = 0.3f;
+    [SerializeField] private float gravityResistanceOnJump = 10f;
+    [SerializeField] private float postJumpDecceleration = 3f;
     [SerializeField] private float coyoteTime = 0.1f;
     [SerializeField] private float jumpBufferTime = 0.1f;
-    [SerializeField] private float dashForce = 10f;
-    [SerializeField] private float dashCooldown = 1.0f;
+    [SerializeField] private float dashForce = 25f;
+    [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private LayerMask enemyLayer = 64;
     [SerializeField] private LayerMask groundLayer = 8;
@@ -123,17 +125,17 @@ public class PlayerController : MonoBehaviour
         {
             jumpReleased = true;
         }
-        if (jumpReleased /*&& rb.linearVelocityY > 0*/)
+        if (jumpReleased)
         {
-            // Attempted to make some fancy code to make the variable jump height more snappy
-            //rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.2f);
-            // - Kind Regards, Denis
             jumpTime = -1f;
         }
-
-        if (rb.linearVelocity.y < 0f)
+        if (rb.linearVelocity.y > 0)
         {
-            rb.gravityScale = defaultGravity * 1.5f;
+            if ((jumpReleased && Time.fixedTime - jumpTime <= maxJumpDuration)
+                || Time.fixedTime - jumpTime > maxJumpDuration)
+            {
+                rb.gravityScale = defaultGravity * postJumpDecceleration;
+            }
         }
 
         if (meleeAction.IsPressed())
@@ -238,7 +240,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (jumpTime != -1f && Time.fixedTime - jumpTime < maxJumpDuration)
         {
-            rb.gravityScale = defaultGravity * 0.1f;
+            rb.gravityScale = defaultGravity / gravityResistanceOnJump;
         }
         else if (dropTime != -1f && Time.fixedTime - dropTime < coyoteTime && jumpReleased)
         {
@@ -305,7 +307,7 @@ public class PlayerController : MonoBehaviour
     {
         if (dashReleased)
         {
-            if (onGround && (dashTime == -1f || Time.fixedTime - dashTime > dashCooldown))
+            if (onGround && (groundDashTime == -1f || Time.fixedTime - groundDashTime > dashCooldown))
             {
                 if (moveValue == Vector2.zero)
                 {
