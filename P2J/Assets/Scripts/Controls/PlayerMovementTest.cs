@@ -21,8 +21,6 @@ public class PlayerMovementTest : MonoBehaviour
     private float currentAccelerationFactor;
     private float currentDeccelerationFactor;
     private bool jumpPressed;
-    [SerializeField]
-    private bool canDoubleJump = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -149,15 +147,8 @@ public class PlayerMovementTest : MonoBehaviour
 
     private void TryToJump()
     {
-        if (IsOnGround() || canDoubleJump)
+        if (IsOnGround())
         {
-            if (!IsOnGround() && canDoubleJump)
-            {
-                // If this method was called because the player double jumped
-                // Disable double jump
-                canDoubleJump = false;
-            }
-
             // If the player is on the ground, then we jump
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
@@ -166,14 +157,5 @@ public class PlayerMovementTest : MonoBehaviour
     private bool IsOnGround()
     {
         return col.IsTouchingLayers(8);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (IsOnGround())
-        {
-            // Player can use double jump again once they've landed on the ground
-            canDoubleJump = true;
-        }
     }
 }

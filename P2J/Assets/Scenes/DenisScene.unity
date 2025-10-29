@@ -11292,13 +11292,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundSpeed: 9
-  jumpForce: 20
-  defaultGravity: 2.55
+  jumpForce: 22
+  defaultGravity: 3.4
   accelerationFactorGround: 0.15
   deccelerationFactorGround: 0.5
   accelerationFactorAir: 0.08
   deccelerationFactorAir: 0.15
-  canDoubleJump: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
