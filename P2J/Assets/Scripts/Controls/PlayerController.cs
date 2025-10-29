@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
-using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundSpeed = 10f;
     [SerializeField] private float jumpForce = 20f;
     [SerializeField] private float defaultGravity = 5f;
+    [SerializeField] private float maxFallingSpeed = 50f;
     [SerializeField] private float accelerationFactorGround = 0.15f;
     [SerializeField] private float deccelerationFactorGround = 0.5f;
     [SerializeField] private float accelerationFactorAir = 0.1f;
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsOnGround())
+        if (IsOnGround() && rb.linearVelocityY == 0f)
         {
             onGround = true;
             airDashCount = 0;
@@ -91,11 +91,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            onGround = false;
-            if (jumpReleased)
+            if (jumpReleased && onGround)
             {
                 dropTime = Time.fixedTime;
             }
+            onGround = false;
         }
     }
 
@@ -156,6 +156,11 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = 0f;
             rb.linearVelocity = new Vector2(dashForce * dashDirection.x, dashForce * dashDirection.y);
+        }
+
+        if (rb.linearVelocity.y < -maxFallingSpeed)
+        {
+            rb.gravityScale = 0f;
         }
     }
 

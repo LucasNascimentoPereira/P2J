@@ -3442,8 +3442,44 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 205604683431498517, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 205604683431498517, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 205604683431498517, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 205604683431498517, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_LinearDamping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 205604683431498517, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_AngularDamping
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 205604683431498517, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238577011592192681, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238577011592192681, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_AutoTiling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238577011592192681, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_EdgeRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238577011592192681, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_CompositeOperation
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalScale.x
@@ -3525,13 +3561,14 @@ MonoBehaviour:
   groundSpeed: 10
   jumpForce: 20
   defaultGravity: 5
+  maxFallingSpeed: 35
   accelerationFactorGround: 0.15
   deccelerationFactorGround: 0.5
   accelerationFactorAir: 0.1
   deccelerationFactorAir: 0.2
   maxJumpDuration: 0.3
   gravityResistanceOnJump: 10
-  postJumpDecceleration: 3
+  postJumpDecceleration: 5
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   dashForce: 25
