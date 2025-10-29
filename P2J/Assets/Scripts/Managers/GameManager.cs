@@ -5,6 +5,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
  
 
@@ -14,7 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameManagerData gameManagerData;
     [SerializeField] private AudioManagerData audioManagerData;
     [SerializeField] private UIManagerData uiManagerData;
-    
+
+    InputAction pause;
+
     [Header("Events")]
     private UnityEvent _onCoins = new();
     private UnityEvent _onLevelReset = new();
@@ -69,13 +72,22 @@ public class GameManager : MonoBehaviour
         //_gameData = SaveSystem.LoadGame();
         _onCoins?.AddListener(UIManager.Instance.ChangeCoins);
         _onLevelReset?.AddListener(UIManager.Instance.ChangeHealth);
+        pause = InputSystem.actions.FindAction("Pause");
     }
 
     private void OnEnable()
     {
         //LoadLevel(1);
     }
-    
+
+    private void Update()
+    {
+        if (pause.WasPressedThisFrame())
+        {
+            PauseGame(!IsPaused);
+        }
+    }
+
 
     public void LoadLevel(int levelIndex)
     {
@@ -93,6 +105,7 @@ public class GameManager : MonoBehaviour
     {
         IsPaused = paused;
         Time.timeScale = paused ? 0.0f : 1.0f;
+        UIManager.Instance.ShowPanel(IsPaused ? "PauseMenu" : "NoMenu");
     }
 
     private IEnumerator LoadNextLevelAsyc(int level)
