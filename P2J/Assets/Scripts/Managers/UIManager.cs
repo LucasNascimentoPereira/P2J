@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -23,6 +24,8 @@ public class UIManager : MonoBehaviour
     
     private GameObject _currentMenu = null;
     private GameObject _previousMenu = null;
+
+    [SerializeField] EventSystem _eventSystem;
 
     [Header("Notification Texts")]
     [SerializeField] private TMP_Text notificationsText;
@@ -116,6 +119,11 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
+        if (_currentMenu != null) 
+        {
+            _eventSystem.SetSelectedGameObject(_currentMenu.transform.GetChild(0).gameObject);
+        }
+
         Debug.Log("Changed to menu: " + _panelDictionary.GetValueOrDefault(menuName));
     }
 
