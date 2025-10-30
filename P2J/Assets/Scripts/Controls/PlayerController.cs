@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer = 64;
     [SerializeField] private LayerMask groundLayer = 8;
     [SerializeField] private bool dashUnlocked = false;
+    [SerializeField] private int  damage = 1;
+    [SerializeField] private float knockback = 10.0f; 
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
@@ -261,7 +263,7 @@ public class PlayerController : MonoBehaviour
 
     void attackWithMelee(Vector2 meleeDirection)
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, 0.5f, enemyLayer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, 10f, enemyLayer);
         Debug.Log(hitEnemies.Length + " enemies hit");
         foreach (Collider2D enemy in hitEnemies)
         {
@@ -269,6 +271,7 @@ public class PlayerController : MonoBehaviour
             if (enemy.TryGetComponent(out HealthBase enemyHealth))
             {
                 //enemy taking damage code goes here (I think)
+                enemyHealth.TakeDamage(gameObject, true, damage, knockback);
             }
         }
     }

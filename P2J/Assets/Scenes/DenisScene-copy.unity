@@ -545,6 +545,10 @@ PrefabInstance:
       propertyPath: contactFilter.layerMask.m_Bits
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4405264531729823857, guid: 1b4a04ceaddab5b4a84ca0150beabcc6, type: 3}
+      propertyPath: maxHealth
+      value: 99
+      objectReference: {fileID: 0}
     - target: {fileID: 7141107963643814985, guid: 1b4a04ceaddab5b4a84ca0150beabcc6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -28.2
@@ -1123,11 +1127,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.43
+      value: -3.6
       objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -30.71
+      value: -11.4
       objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1196,11 +1200,21 @@ MonoBehaviour:
   deccelerationFactorGround: 0.38
   accelerationFactorAir: 0.08
   deccelerationFactorAir: 0.15
+  maxJumpDuration: 0.3
   coyoteTime: 0.1
   jumpBufferTime: 0.1
+  dashForce: 10
+  dashCooldown: 1
+  dashDuration: 0.2
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  dashUnlocked: 0
+  damage: 1
+  knockback: 10
 --- !u!114 &1727395731
 MonoBehaviour:
   m_ObjectHideFlags: 0
