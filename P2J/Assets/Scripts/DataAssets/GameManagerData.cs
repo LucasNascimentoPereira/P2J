@@ -1,10 +1,10 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "GameManagerData", menuName = "Managers/GameManagerData")]
 
 public class GameManagerData : ScriptableObject
 {
-    [Header("Purchase Values")]
-    [SerializeField] private int turretMenuPrice;
+    //[Header("Purchase Values")]
+    //private 
 }
