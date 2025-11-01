@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour
         {
             meleeDirection = Vector2.left * meleeRange / 2f;
         }
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, 5f, enemyLayer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, meleeRange / 2f, enemyLayer);
         Debug.Log(hitEnemies.Length + " enemies hit");
         foreach (Collider2D enemy in hitEnemies)
         {
