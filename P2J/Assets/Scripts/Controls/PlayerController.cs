@@ -13,13 +13,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 20f;
     [SerializeField] private float defaultGravity = 5f;
     [SerializeField] private float maxFallingSpeed = 50f;
-    [SerializeField] private float accelerationFactorGround = 0.15f;
-    [SerializeField] private float deccelerationFactorGround = 0.5f;
-    [SerializeField] private float accelerationFactorAir = 0.1f;
-    [SerializeField] private float deccelerationFactorAir = 0.2f;
-    [SerializeField] private float maxJumpDuration = 0.3f;
-    [SerializeField] private float gravityResistanceOnJump = 10f;
-    [SerializeField] private float postJumpDecceleration = 3f;
+    /*[SerializeField]*/ private float accelerationFactorGround = 0.15f;
+    /*[SerializeField]*/ private float deccelerationFactorGround = 0.5f;
+    /*[SerializeField]*/ private float accelerationFactorAir = 0.1f;
+    /*[SerializeField]*/ private float deccelerationFactorAir = 0.2f;
+    /*[SerializeField]*/ private float maxJumpDuration = 0.3f;
+    /*[SerializeField]*/ private float gravityResistanceOnJump = 10f;
+    /*[SerializeField]*/ private float postJumpDecceleration = 3f;
     [SerializeField] private float coyoteTime = 0.1f;
     [SerializeField] private float jumpBufferTime = 0.1f;
     [SerializeField] private float dashForce = 25f;
@@ -133,8 +133,8 @@ public class PlayerController : MonoBehaviour
         }
         if (rb.linearVelocity.y > 0)
         {
-            if ((jumpReleased && Time.fixedTime - jumpTime <= maxJumpDuration)
-                || Time.fixedTime - jumpTime > maxJumpDuration)
+            if ((jumpReleased /*&& Time.fixedTime - jumpTime <= maxJumpDuration*/)
+                /*|| Time.fixedTime - jumpTime > maxJumpDuration*/)
             {
                 rb.gravityScale = defaultGravity * postJumpDecceleration;
             }
