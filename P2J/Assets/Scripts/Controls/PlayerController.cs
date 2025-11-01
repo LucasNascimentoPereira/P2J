@@ -290,14 +290,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void RegisterInteractable(IInteractable envInteractable)
-    {
-        interactable = envInteractable;
-    }
-
     private void Interact()
     {
-        interactable?.Interact();
+        if (!GameManager.Instance.Interactable.TryGetComponent(out IInteractable interactable)) return;
+        interactable.Interact();
     }
 
     public void DashAbilityUnlock()
