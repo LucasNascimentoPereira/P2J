@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     /*[SerializeField]*/ private float deccelerationFactorAir = 0.2f;
     /*[SerializeField]*/ private float maxJumpDuration = 0.3f;
     /*[SerializeField]*/ private float gravityResistanceOnJump = 10f;
-    /*[SerializeField]*/ private float postJumpDecceleration = 3f;
+    /*[SerializeField]*/ private float postJumpDecceleration = 5f;
     [SerializeField] private float coyoteTime = 0.1f;
     [SerializeField] private float jumpBufferTime = 0.1f;
     [SerializeField] private float dashForce = 25f;
