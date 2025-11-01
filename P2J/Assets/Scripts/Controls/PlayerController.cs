@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxFallingSpeed = 50f;
     /*[SerializeField]*/ private float accelerationFactorGround = 0.15f;
     /*[SerializeField]*/ private float deccelerationFactorGround = 0.5f;
-    /*[SerializeField]*/ private float accelerationFactorAir = 0.1f;
-    /*[SerializeField]*/ private float deccelerationFactorAir = 0.2f;
+    /*[SerializeField]*/ private float accelerationFactorAir = 0.08f;
+    /*[SerializeField]*/ private float deccelerationFactorAir = 0.15f;
     /*[SerializeField]*/ private float maxJumpDuration = 0.3f;
     /*[SerializeField]*/ private float gravityResistanceOnJump = 10f;
     /*[SerializeField]*/ private float postJumpDecceleration = 5f;
