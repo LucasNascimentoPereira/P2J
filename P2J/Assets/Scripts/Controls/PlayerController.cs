@@ -28,14 +28,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer = 64;
     [SerializeField] private LayerMask groundLayer = 8;
     [SerializeField] private bool dashUnlocked = false;
-    [SerializeField] private int  damage = 1;
-    [SerializeField] private float knockback = 10.0f; 
+    [SerializeField] private int  meleeDamage = 1;
+    [SerializeField] private float meleeKnockback = 10.0f;
+    [SerializeField] private float meleeRange = 10.0f;
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
     private bool onGround;
     private bool jumpReleased;
     private bool dashReleased;
+    private bool meleeReleased;
     private float currentAccelerationFactor;
     private float currentDeccelerationFactor;
     private float jumpTime = -1f;
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = defaultGravity;
         jumpReleased = true;
         dashReleased = true;
-        meleeDirection = Vector2.right * 0.5f;
+        meleeReleased = true;
         playerDirection = true;
     }
 
@@ -142,7 +144,15 @@ public class PlayerController : MonoBehaviour
 
         if (meleeAction.IsPressed())
         {
-            attackWithMelee(meleeDirection);
+            if (meleeReleased)
+            {
+                attackWithMelee(playerDirection);
+            }
+            meleeReleased = false;
+        }
+        else
+        {
+            meleeReleased = true;
         }
 
         if (dashUnlocked && dashAction.IsPressed())
@@ -261,17 +271,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void attackWithMelee(Vector2 meleeDirection)
+    void attackWithMelee(bool playerDirection)
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, 10f, enemyLayer);
+        if (playerDirection)
+        {
+            meleeDirection = Vector2.right * meleeRange / 2f;
+        }
+        else
+        {
+            meleeDirection = Vector2.left * meleeRange / 2f;
+        }
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, 5f, enemyLayer);
         Debug.Log(hitEnemies.Length + " enemies hit");
         foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log(enemy.gameObject);
             if (enemy.TryGetComponent(out HealthBase enemyHealth))
             {
-                //enemy taking damage code goes here (I think)
-                enemyHealth.TakeDamage(gameObject, true, damage, knockback);
+                enemyHealth.TakeDamage(gameObject, true, meleeDamage, meleeKnockback);
             }
         }
     }
@@ -279,13 +296,11 @@ public class PlayerController : MonoBehaviour
     void processDirection(Vector2 moveValue) {
         if (moveValue.x > 0)
         {
-            meleeDirection = Vector2.right * 0.5f;
             playerDirection = true;
 
         }
         else if (moveValue.x < 0)
         {
-            meleeDirection = Vector2.left * 0.5f;
             playerDirection = false;
         }
     }
