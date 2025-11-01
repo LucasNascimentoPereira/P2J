@@ -8089,13 +8089,6 @@ MonoBehaviour:
   jumpForce: 20
   defaultGravity: 5
   maxFallingSpeed: 35
-  accelerationFactorGround: 0.15
-  deccelerationFactorGround: 0.5
-  accelerationFactorAir: 0.1
-  deccelerationFactorAir: 0.2
-  maxJumpDuration: 0.3
-  gravityResistanceOnJump: 10
-  postJumpDecceleration: 5
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   dashForce: 25
@@ -10553,7 +10546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &880237645
 MonoBehaviour:
   m_ObjectHideFlags: 0
