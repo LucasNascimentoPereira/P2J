@@ -15,7 +15,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIManagerData uiManagerData;
 
 
-    [Header("Menu Panels")]    
+    [Header("Menu Panels")]
+    [SerializeField] private GameObject panelsGameObject;
     [SerializeField] private List<GameObject> panelsList = new();
     private Dictionary<string, GameObject> _panelDictionary = new();
 
@@ -39,7 +40,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text fpsCounter;
     [SerializeField] private TMP_Text coins;
     [SerializeField] private GameObject heartsContainer;
+    [SerializeField] private GameObject abilityImagesContainer;
     private List<Image> heartImages = new();
+    private Dictionary<string, Image> abilityImages = new();
 
 
 
@@ -60,14 +63,23 @@ public class UIManager : MonoBehaviour
         }
         foreach (var panel in panelsList)
         {
-            _panelDictionary.Add(panel.name, panel);
+            //_panelDictionary.Add(panel.name, panel);
         }
+
     }
 
     private void Start()
     {
         ChangeVersionNumber();
         heartImages = heartsContainer.GetComponentsInChildren<Image>(true).ToList();
+        for (int i = 0; i == panelsGameObject.transform.childCount - 1; ++i)
+        {
+            _panelDictionary.Add(panelsGameObject.transform.GetChild(i).name, panelsGameObject.transform.GetChild(i).gameObject);
+        }
+        foreach (var image in abilityImagesContainer.GetComponentsInChildren<Image>(true))
+        {
+            abilityImages.Add(image.gameObject.name, image);
+        }
         foreach (var image in heartImages)
         {
             image.sprite = UIManagerData.HealthImages[0];
@@ -222,6 +234,16 @@ public class UIManager : MonoBehaviour
         yield return null;
         panelsList[^1].SetActive(false);
         StopCoroutine(DisappearText());
+    }
+
+    private IEnumerator AppearImage(Image image)
+    {
+        yield return null;
+    }
+
+    private IEnumerator DisappearImage(Image image)
+    {
+        yield return null;
     }
 
     public void ChangeResolution(int index)

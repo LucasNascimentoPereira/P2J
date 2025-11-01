@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
     private Vector2 dashDirection;
     private bool playerDirection;
 
-    private IInteractable interactable = null;
 
     private void Start()
     {
