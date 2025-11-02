@@ -9,7 +9,10 @@ public class UIManagerData : ScriptableObject
 {
     
     [Header("UI Data")]
+    [Tooltip("Fps values")]
     [SerializeField] private List<string> fpsLimit;
+    [Header("Resolutions")]
+    [Tooltip("Available resolutions")]
     [SerializeField] private List<int> resx;
     [SerializeField] private List<int> resy;
     [SerializeField] private List<string> links;
@@ -21,6 +24,15 @@ public class UIManagerData : ScriptableObject
     [SerializeField] private float notificationAppearTime;
     [SerializeField] private float notificationDisappearTime;
     [SerializeField] private float startButtonWaitTime;
+    [Header("Ability images values")]
+    [Range(0f, 1f)]
+    [SerializeField] private float appearImageInterval;
+    [Range(0f, 1f)]
+    [SerializeField] private float appearImageTimeInterval;
+    [Range (0f, 1f)]
+    [SerializeField] private float disappearImageInterval;
+    [Range (0f, 1f)]
+    [SerializeField] private float disappearImageTimeInterval;
 
     public float NotificationDisappearTime => notificationDisappearTime;
     public float NotificationAppearTime => notificationAppearTime;
@@ -34,4 +46,8 @@ public class UIManagerData : ScriptableObject
     public List <int> Resy => resy;
     public List<string> Links => links;
     public List<Sprite> HealthImages => healthImages;
+    public float AppearImageInterval => appearImageInterval;
+    public float DisappearImageInterval => disappearImageInterval;
+    public float AppearImageTimeInterval => appearImageTimeInterval;
+    public float DisappearImageTimeInterval => disappearImageTimeInterval;
 }

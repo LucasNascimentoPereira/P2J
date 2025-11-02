@@ -61,18 +61,7 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        foreach (var panel in panelsList)
-        {
-            //_panelDictionary.Add(panel.name, panel);
-        }
-
-    }
-
-    private void Start()
-    {
-        ChangeVersionNumber();
-        heartImages = heartsContainer.GetComponentsInChildren<Image>(true).ToList();
-        for (int i = 0; i == panelsGameObject.transform.childCount - 1; ++i)
+        for (int i = 0; i < panelsGameObject.transform.childCount; ++i)
         {
             _panelDictionary.Add(panelsGameObject.transform.GetChild(i).name, panelsGameObject.transform.GetChild(i).gameObject);
         }
@@ -80,11 +69,17 @@ public class UIManager : MonoBehaviour
         {
             abilityImages.Add(image.gameObject.name, image);
         }
+        heartImages = heartsContainer.GetComponentsInChildren<Image>(true).ToList();
         foreach (var image in heartImages)
         {
             image.sprite = UIManagerData.HealthImages[0];
         }
-        
+
+    }
+
+    private void Start()
+    {
+        ChangeVersionNumber();
     }
 
     private void Update()
@@ -236,14 +231,24 @@ public class UIManager : MonoBehaviour
         StopCoroutine(DisappearText());
     }
 
-    private IEnumerator AppearImage(Image image)
+    public IEnumerator AppearImage(string image)
     {
-        yield return null;
+        if (!abilityImages.TryGetValue(image, out var result)) StopCoroutine(AppearImage(image));
+        while (result.color.a < 1)
+        {
+            result.color = new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(result.color.a + uiManagerData.AppearImageInterval, 0.0f, 1.0f));
+            yield return new WaitForSeconds(uiManagerData.AppearImageTimeInterval);
+        }
     }
 
-    private IEnumerator DisappearImage(Image image)
+    public IEnumerator DisappearImage(string image)
     {
-        yield return null;
+        if (!abilityImages.TryGetValue(image, out var result)) StopCoroutine(DisappearImage(image));
+        while(result.color.a > 0)
+        {
+            result.color = new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(result.color.a - uiManagerData.DisappearImageInterval, 0.0f, 1.0f));
+            yield return new WaitForSeconds(uiManagerData.DisappearImageTimeInterval);
+        }
     }
 
     public void ChangeResolution(int index)

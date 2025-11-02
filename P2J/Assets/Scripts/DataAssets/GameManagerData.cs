@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class GameManagerData : ScriptableObject
 {
-    //[Header("Purchase Values")]
-    //private 
+    [Header("Purchase Values")]
+    private List<string> upgradeName;
+    private List<int> upgradeValue;
 }

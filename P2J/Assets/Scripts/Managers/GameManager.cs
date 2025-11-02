@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     [Header("Currency management")]
     [SerializeField] private int _coins;
     [SerializeField] private int _gems;
+    private Dictionary<string, int> prices = new();
 
     private GameObject currentSpawnPoint;
 
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
     public HealthPlayerBase HealthPlayer {  get => healthPlayer; set => healthPlayer = value; }
     public PlayerController PlayerController { get => playerController; set => playerController = value; }
     public GameObject Interactable => interactable;
+    public Dictionary<string, int> Prices => prices;
 
 
 
@@ -75,6 +77,7 @@ public class GameManager : MonoBehaviour
         _onCoins?.AddListener(UIManager.Instance.ChangeCoins);
         _onLevelReset?.AddListener(UIManager.Instance.ChangeHealth);
         pause = InputSystem.actions.FindAction("Pause");
+
     }
 
     private void OnEnable()
@@ -197,6 +200,12 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Ability does not correspond");
                 break;
         }
+        StartCoroutine(UIManager.Instance.DisappearImage(interactable.name));
+    }
+
+    public void PurchaseAbilityUpgrade()
+    {
+
     }
     public void RegisterInteractable(GameObject envInteractable)
     {
