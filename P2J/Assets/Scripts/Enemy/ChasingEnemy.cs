@@ -124,7 +124,6 @@ public class ChasingEnemy : MonoBehaviour
         chasingEnemyBaseState.UpdateState();
         Rotate();
 
-        hitRight.Clear();
         Physics2D.Linecast(castRight.position, castRightLimit.position, contactFilter, hitRight);
         _isGrounded = Physics2D.Linecast(castGround.position, castGroundLimit.position, groundLayer);
         Debug.DrawLine(castGround.position, castGroundLimit.position, Color.red);
