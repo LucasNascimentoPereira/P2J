@@ -130,7 +130,13 @@ public class UIManager : MonoBehaviour
         {
             _eventSystem.SetSelectedGameObject(_currentMenu.transform.GetChild(0).gameObject);
         }
-
+        if (menuName == "Skilles")
+        {
+            if(_currentMenu.TryGetComponent(out Skilles skilles))
+            {
+                skilles.UpdateMenu();
+            }
+        }
         Debug.Log("Changed to menu: " + _panelDictionary.GetValueOrDefault(menuName));
     }
 
@@ -234,6 +240,7 @@ public class UIManager : MonoBehaviour
     public IEnumerator AppearImage(string image)
     {
         if (!abilityImages.TryGetValue(image, out var result)) StopCoroutine(AppearImage(image));
+        result.enabled = true;
         while (result.color.a < 1)
         {
             result.color = new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(result.color.a + uiManagerData.AppearImageInterval, 0.0f, 1.0f));
@@ -249,6 +256,7 @@ public class UIManager : MonoBehaviour
             result.color = new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(result.color.a - uiManagerData.DisappearImageInterval, 0.0f, 1.0f));
             yield return new WaitForSeconds(uiManagerData.DisappearImageTimeInterval);
         }
+        result.enabled = false;
     }
 
     public void ChangeResolution(int index)

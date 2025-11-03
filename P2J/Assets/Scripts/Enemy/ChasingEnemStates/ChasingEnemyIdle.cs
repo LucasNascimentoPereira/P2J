@@ -6,7 +6,6 @@ public class ChasingEnemyIdle : ChasingEnemyBaseState
     {
         base.BeginState(enemy);
         chasingEnemy.Move();
-        Debug.Log("enemy idle");
     }
 
     public override void UpdateState()

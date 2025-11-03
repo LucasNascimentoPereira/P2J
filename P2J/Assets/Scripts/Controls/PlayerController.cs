@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     InputAction jumpAction;
     InputAction meleeAction;
     InputAction dashAction;
+    InputAction interactAction;
 
     [Header("Movement values")]
     [SerializeField] private float groundSpeed = 5f;
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         jumpAction = InputSystem.actions.FindAction("Jump");
         meleeAction = InputSystem.actions.FindAction("Attack");
         dashAction = InputSystem.actions.FindAction("Dash");
+        interactAction = InputSystem.actions.FindAction("Interact");
         col = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = defaultGravity;
@@ -107,6 +109,14 @@ public class PlayerController : MonoBehaviour
     private bool IsOnGround()
     {
         return col.IsTouchingLayers(groundLayer);
+    }
+
+    private void Update()
+    {
+        if (interactAction.WasPressedThisFrame())
+        {
+            Interact();
+        }
     }
 
     void FixedUpdate()
@@ -285,6 +295,7 @@ public class PlayerController : MonoBehaviour
 
     private void Interact()
     {
+        if (!GameManager.Instance.Interactable) return;
         if (!GameManager.Instance.Interactable.TryGetComponent(out IInteractable interactable)) return;
         interactable.Interact();
     }

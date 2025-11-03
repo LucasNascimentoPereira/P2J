@@ -10,29 +10,28 @@ public class Skilles : MonoBehaviour
     [SerializeField] private Color buyColor = Color.green;
     [SerializeField] private Color notBuyColor = Color.red;
 
-    private void Start()
+    private void OnEnable()
     {
         for (int i = 0; i < textsGameObject.transform.childCount; ++i) 
         {
-            pricesTexts.Add(textsGameObject.transform.GetChild(i).name, textsGameObject.transform.GetChild (i).GetComponent<TMP_Text>());
+            pricesTexts.Add(textsGameObject.transform.GetChild(i).name, textsGameObject.transform.GetChild (i).GetComponentInChildren<TMP_Text>());
         }
         foreach (var price in pricesTexts)
         {
-            price.Value.text = GameManager.Instance.Prices.GetValueOrDefault(price.Key).ToString();
+            price.Value.text = GameManager.Instance.Prices.GetValueOrDefault(price.Key).UpgradeValue.ToString();
         }
     }
-    private void OnEnable()
-    {
-        UpdateMenu();
-    }
+    
+    
 
     public void UpdateMenu()
     {
         coins.text = GameManager.Instance.Coins.ToString();
         foreach(var price in pricesTexts)
         {
-            if (int.Parse(price.Value.text.Trim()) >= int.Parse(coins.text.Trim()))
+            if (int.Parse(price.Value.text.Trim()) <= GameManager.Instance.Coins)
             {
+                Debug.Log(int.Parse(price.Value.text.Trim()));
                 price.Value.color = buyColor;
             }
             else 

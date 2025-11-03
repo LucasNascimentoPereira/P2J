@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e67feca63dff0e49a5438d44cd40f24, type: 3}
   m_Name: GameManagerData
   m_EditorClassIdentifier: 
+  upgradeData:
+  - _upgradeName: 
+    _upgradeLevel: 0
+    _upgradeValue: 10
