@@ -10,7 +10,7 @@ public class ChasingEnemyIdle : ChasingEnemyBaseState
 
     public override void UpdateState()
     {
-        chasingEnemy.Rb.linearVelocity = new Vector2(chasingEnemy.Dir.normalized.x, chasingEnemy.Rb.linearVelocityY) * chasingEnemy.ChasingEnemySata.ChaseSpeed;
+        chasingEnemy.Rb.linearVelocity = new Vector2(chasingEnemy.Dir.normalized.x * chasingEnemy.ChasingEnemySata.ChaseSpeed, chasingEnemy.Rb.linearVelocityY);
     }
 
     public override void ExitState()

@@ -38,6 +38,7 @@ public class ChasingEnemy : MonoBehaviour
     private bool _isJumping = false;
     private ChasingEnemyBaseState chasingEnemyBaseState;
     private EnemyStates enemyState = EnemyStates.IDLE;
+    private Coroutine _timerCoroutine;
 
     public Rigidbody2D Rb { get => rb; set => rb = value; }
     public Vector2 Dir { get => _dir; set => _dir = value; }
@@ -123,7 +124,7 @@ public class ChasingEnemy : MonoBehaviour
         chasingEnemyBaseState.UpdateState();
         Rotate();
 
-
+        hitRight.Clear();
         Physics2D.Linecast(castRight.position, castRightLimit.position, contactFilter, hitRight);
         _isGrounded = Physics2D.Linecast(castGround.position, castGroundLimit.position, groundLayer);
         Debug.DrawLine(castGround.position, castGroundLimit.position, Color.red);
@@ -180,14 +181,23 @@ public class ChasingEnemy : MonoBehaviour
     private IEnumerator IdleTime(float time)
     {
         yield return new WaitForSeconds(time);
-        if (_detectedPlayer) chasingEnemyBaseState.ExitState();
+        _timerCoroutine = null;
+        if (chasingEnemyBaseState != null)
+        {
+            chasingEnemyBaseState.ExitState();
+        }
     }
     public void BeginIdleTime(float time)
     {
-        StartCoroutine(IdleTime(time));
+        EndIdleTime();
+        _timerCoroutine = StartCoroutine(IdleTime(time));
     }
     public void EndIdleTime() 
     {
-        StopCoroutine(IdleTime(0.0f));
+        if (_timerCoroutine != null)
+        {
+            StopCoroutine(_timerCoroutine);
+            _timerCoroutine = null;
+        }
     }
 }

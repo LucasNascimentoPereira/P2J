@@ -19,7 +19,7 @@ public class ChasingEnemyResting : ChasingEnemyBaseState
 
     public override void ExitState()
     {
-        //chasingEnemy.EndIdleTime();
+        chasingEnemy.EndIdleTime();
         if (chasingEnemy.DetectedPlayerCharacter)
         {
             chasingEnemy.ChangeState(ChasingEnemy.EnemyStates.LUNGING);

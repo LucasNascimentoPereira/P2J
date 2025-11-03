@@ -13,12 +13,12 @@ public class ChasingEnemyLunging : ChasingEnemyBaseState
     public override void UpdateState()
     {
         chasingEnemy.Dir = chasingEnemy.Player.transform.position - chasingEnemy.gameObject.transform.position;
-        chasingEnemy.Rb.linearVelocity = new Vector2(chasingEnemy.Dir.normalized.x, chasingEnemy.Rb.linearVelocityY) * chasingEnemy.ChasingEnemySata.LungeSpeed;
+        chasingEnemy.Rb.linearVelocity = new Vector2(chasingEnemy.Dir.normalized.x * chasingEnemy.ChasingEnemySata.LungeSpeed, chasingEnemy.Rb.linearVelocityY);
     }
 
     public override void ExitState()
     {
-        //chasingEnemy.EndIdleTime();
+        chasingEnemy.EndIdleTime();
         if (chasingEnemy.IsJumping)
         {
             chasingEnemy.ChangeState(ChasingEnemy.EnemyStates.JUMPING);
