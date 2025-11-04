@@ -9,6 +9,7 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Detector detector;
     [SerializeField] private Detector rangeDetector;
+    private Detector patrolDetector;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
 
@@ -106,7 +107,7 @@ public class FlyingEnemy : MonoBehaviour
 
     public void NotInRange()
     {
-        if (rangeDetector.Collider.gameObject != null && rangeDetector.Collider.gameObject != gameObject) return;
+        if (rangeDetector.Collider != null && rangeDetector.Collider.gameObject != gameObject) return;
         ChangeState(EnemyStates.IDLE);
     }
 
@@ -150,8 +151,15 @@ public class FlyingEnemy : MonoBehaviour
 
     public void ChangeTarget(int index)
     {
+        if (detector.Collider != null && detector.Collider.gameObject != gameObject) return;
         patrolIndex = index;
         Move();
+    }
+
+    public void PatrolDetector(Detector detector)
+    {
+        if (detector == null) return;
+        patrolDetector = detector;
     }
 
     private IEnumerator IdleTime(float time)

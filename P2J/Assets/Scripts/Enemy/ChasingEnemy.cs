@@ -12,6 +12,7 @@ public class ChasingEnemy : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Detector detector;
     [SerializeField] private Detector rangeDetector;
+    private Detector patrolDetector;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("RayCasts")]
@@ -70,7 +71,7 @@ public class ChasingEnemy : MonoBehaviour
 
     public void ChangeState(EnemyStates state)
     {
-        switch (state){
+        switch (state) {
             case EnemyStates.IDLE:
                 enemyState = EnemyStates.IDLE;
                 chasingEnemyBaseState = new ChasingEnemyIdle();
@@ -150,7 +151,7 @@ public class ChasingEnemy : MonoBehaviour
             transform.Rotate(0.0f, -180.0f, 0.0f);
         }
     }
-    
+
     public void Damage()
     {
         chasingEnemyBaseState.ExitState();
@@ -171,8 +172,15 @@ public class ChasingEnemy : MonoBehaviour
 
     public void ChangeTarget(int index)
     {
+        if (patrolDetector.Collider != null && patrolDetector.Collider.gameObject != gameObject) return;
         patrolIndex = index;
         Move();
+    }
+
+    public void PatrolDetector(Detector detector)
+    {
+        if (detector == null) return;
+        patrolDetector = detector;
     }
 
     private IEnumerator IdleTime(float time)
@@ -189,7 +197,7 @@ public class ChasingEnemy : MonoBehaviour
         EndIdleTime();
         _timerCoroutine = StartCoroutine(IdleTime(time));
     }
-    public void EndIdleTime() 
+    public void EndIdleTime()
     {
         if (_timerCoroutine != null)
         {
@@ -197,4 +205,7 @@ public class ChasingEnemy : MonoBehaviour
             _timerCoroutine = null;
         }
     }
+
+   
+
 }
