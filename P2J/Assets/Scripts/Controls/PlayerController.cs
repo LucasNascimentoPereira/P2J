@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     InputAction jumpAction;
     InputAction meleeAction;
     InputAction dashAction;
+    InputAction lookAction;
 
     [SerializeField] private float groundSpeed = 10f;
     [SerializeField] private float jumpForce = 20f;
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour
     private int airDashCount = 0;
     private Vector2 meleeDirection;
     private Vector2 dashDirection;
-    private bool playerDirection;
+    private bool playerDirectionIsRight;
 
     private IInteractable interactable = null;
 
@@ -58,13 +59,14 @@ public class PlayerController : MonoBehaviour
         jumpAction = InputSystem.actions.FindAction("Jump");
         meleeAction = InputSystem.actions.FindAction("Attack");
         dashAction = InputSystem.actions.FindAction("Dash");
+        lookAction = InputSystem.actions.FindAction("Look");
         col = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = defaultGravity;
         jumpReleased = true;
         dashReleased = true;
         meleeReleased = true;
-        playerDirection = true;
+        playerDirectionIsRight = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -117,6 +119,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.gravityScale = defaultGravity;
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
+        Vector2 lookValue = lookAction.ReadValue<Vector2>();
         processMovement(moveValue);
         processDirection(moveValue);
 
@@ -146,7 +149,7 @@ public class PlayerController : MonoBehaviour
         {
             if (meleeReleased)
             {
-                attackWithMelee(playerDirection, moveValue);
+                attackWithMelee(playerDirectionIsRight, lookValue);
             }
             meleeReleased = false;
         }
@@ -157,7 +160,7 @@ public class PlayerController : MonoBehaviour
 
         if (dashUnlocked && dashAction.IsPressed())
         {
-            dash(playerDirection);
+            dash(playerDirectionIsRight);
             dashReleased = false;
         }
         else
@@ -271,9 +274,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void attackWithMelee(bool playerDirection, Vector2 moveValue)
+    void attackWithMelee(bool playerDirection, Vector2 lookValue)
     {
-        if (moveValue == Vector2.zero)
+        if (lookValue == Vector2.zero)
         {
             if (playerDirection)
             {
@@ -286,7 +289,7 @@ public class PlayerController : MonoBehaviour
         } 
         else
         {
-            meleeDirection = moveValue * meleeRange / 2f;
+            meleeDirection = lookValue * meleeRange / 2f;
         }
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, meleeRange / 2f, enemyLayer);
         Debug.Log(hitEnemies.Length + " enemies hit");
@@ -304,12 +307,11 @@ public class PlayerController : MonoBehaviour
     void processDirection(Vector2 moveValue) {
         if (moveValue.x > 0)
         {
-            playerDirection = true;
-
+            playerDirectionIsRight = true;
         }
         else if (moveValue.x < 0)
         {
-            playerDirection = false;
+            playerDirectionIsRight = false;
         }
     }
 
