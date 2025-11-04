@@ -1,12 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
-public class ChasingEnemy : MonoBehaviour
+public class FlyingEnemy : MonoBehaviour
 {
-
     [Header("Components")]
     [SerializeField] private ChasingEnemySata chasingEnemySata;
     [SerializeField] private Rigidbody2D rb;
@@ -34,7 +31,7 @@ public class ChasingEnemy : MonoBehaviour
     private GameObject _player = null;
     private bool _isGrounded = true;
     private bool _isJumping = false;
-    private ChasingEnemyBaseState chasingEnemyBaseState;
+    private FlyingEnemyBaseState chasingEnemyBaseState;
     private EnemyStates enemyState = EnemyStates.IDLE;
     private Coroutine _timerCoroutine;
 
@@ -70,27 +67,28 @@ public class ChasingEnemy : MonoBehaviour
 
     public void ChangeState(EnemyStates state)
     {
-        switch (state){
+        switch (state)
+        {
             case EnemyStates.IDLE:
                 enemyState = EnemyStates.IDLE;
-                chasingEnemyBaseState = new ChasingEnemyIdle();
+                chasingEnemyBaseState = new FlyingEnemIdle();
                 break;
             case EnemyStates.LUNGING:
                 enemyState = EnemyStates.LUNGING;
-                chasingEnemyBaseState = new ChasingEnemyLunging();
+                chasingEnemyBaseState = new FlyingEnemyLunging();
                 break;
             case EnemyStates.RESTING:
                 enemyState = EnemyStates.RESTING;
-                chasingEnemyBaseState = new ChasingEnemyResting();
+                chasingEnemyBaseState = new FlyingEnemyResting();
                 Debug.Log(enemyState);
                 break;
             case EnemyStates.INVISIBLE:
                 enemyState = EnemyStates.INVISIBLE;
-                chasingEnemyBaseState = new ChasingEnemyInvisible();
+                chasingEnemyBaseState = new FlyingEnemyInvisible();
                 break;
             case EnemyStates.JUMPING:
                 enemyState = EnemyStates.JUMPING;
-                chasingEnemyBaseState = new ChasingEnemyJump();
+                chasingEnemyBaseState = new FlyingEnemyShoot();
                 break;
             default:
                 break;
@@ -150,7 +148,7 @@ public class ChasingEnemy : MonoBehaviour
             transform.Rotate(0.0f, -180.0f, 0.0f);
         }
     }
-    
+
     public void Damage()
     {
         chasingEnemyBaseState.ExitState();
@@ -189,7 +187,7 @@ public class ChasingEnemy : MonoBehaviour
         EndIdleTime();
         _timerCoroutine = StartCoroutine(IdleTime(time));
     }
-    public void EndIdleTime() 
+    public void EndIdleTime()
     {
         if (_timerCoroutine != null)
         {
