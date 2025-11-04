@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
 
         if (dashUnlocked && dashAction.IsPressed())
         {
-            dash(moveValue, playerDirection);
+            dash(playerDirection);
             dashReleased = false;
         }
         else
@@ -330,52 +330,36 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Unlocked jump");
     }
 
-    private void dash(Vector2 moveValue, bool playerDirecton)
+    private void dash(bool playerDirecton)
     {
         if (dashReleased)
         {
             if (onGround && (groundDashTime == -1f || Time.fixedTime - groundDashTime > dashCooldown))
             {
-                if (moveValue == Vector2.zero)
+                if (playerDirecton)
                 {
-                    if (playerDirecton)
-                    {
-                        rb.linearVelocity = new Vector2(dashForce, 0);
-                        dashDirection = Vector2.right;
-                    }
-                    else
-                    {
-                        rb.linearVelocity = new Vector2(-dashForce, 0);
-                        dashDirection = Vector2.left;
-                    }
+                    rb.linearVelocity = new Vector2(dashForce, 0);
+                    dashDirection = Vector2.right;
                 }
                 else
                 {
-                    rb.linearVelocity = new Vector2(dashForce * moveValue.x, dashForce * moveValue.y);
-                    dashDirection = moveValue;
+                    rb.linearVelocity = new Vector2(-dashForce, 0);
+                    dashDirection = Vector2.left;
                 }
                 dashTime = Time.fixedTime;
                 groundDashTime = Time.fixedTime;
             }
             else if (!onGround && airDashCount == 0)
             {
-                if (moveValue == Vector2.zero)
+                if (playerDirecton)
                 {
-                    if (playerDirecton)
-                    {
-                        rb.linearVelocity = new Vector2(dashForce, 0);
-                        dashDirection = Vector2.right;
-                    }
-                    else
-                    {
-                        rb.linearVelocity = new Vector2(-dashForce, 0);
-                        dashDirection = Vector2.left;
-                    }
+                    rb.linearVelocity = new Vector2(dashForce, 0);
+                    dashDirection = Vector2.right;
                 }
                 else
                 {
-                    rb.linearVelocity = new Vector2(dashForce * moveValue.x, dashForce * moveValue.y);
-                    dashDirection = moveValue;
+                    rb.linearVelocity = new Vector2(-dashForce, 0);
+                    dashDirection = Vector2.left;
                 }
                 dashTime = Time.fixedTime;
                 airDashCount++;
