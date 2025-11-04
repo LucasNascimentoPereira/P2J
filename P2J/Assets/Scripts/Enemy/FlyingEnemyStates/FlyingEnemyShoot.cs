@@ -21,11 +21,8 @@ public class FlyingEnemyShoot : FlyingEnemyBaseState
         //flyingEnemy.EndIdleTime();
         if (flyingEnemy.DetectedPlayerCharacter)
         {
-            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.LUNGING);
+            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.RESTING);
         }
-        else
-        {
-            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.IDLE);
-        }
+
     }
 }

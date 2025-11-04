@@ -19,13 +19,16 @@ public class FlyingEnemyResting : FlyingEnemyBaseState
     public override void ExitState()
     {
         flyingEnemy.EndIdleTime();
+        //evade
+
         if (flyingEnemy.DetectedPlayerCharacter)
         {
-            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.LUNGING);
+            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.SHOOT);
         }
         else
         {
             flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.IDLE);
         }
+
     }
 }

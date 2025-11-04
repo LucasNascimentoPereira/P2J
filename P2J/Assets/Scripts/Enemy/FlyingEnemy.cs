@@ -5,19 +5,11 @@ using UnityEngine;
 public class FlyingEnemy : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private ChasingEnemySata chasingEnemySata;
+    [SerializeField] private FlyingEnemyData chasingEnemySata;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Detector detector;
     [SerializeField] private Detector rangeDetector;
     [SerializeField] private SpriteRenderer spriteRenderer;
-
-    [Header("RayCasts")]
-    [SerializeField] private Transform castRight;
-    [SerializeField] private Transform castRightLimit;
-    [SerializeField] private Transform castGround;
-    [SerializeField] private Transform castGroundLimit;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private ContactFilter2D contactFilter;
 
 
     [Header("Positions of the limis")]
@@ -25,7 +17,6 @@ public class FlyingEnemy : MonoBehaviour
 
 
     private int patrolIndex = 0;
-    private List<RaycastHit2D> hitRight = new();
     private Vector2 _dir = Vector2.zero;
     private bool _detectedPlayer = false;
     private GameObject _player = null;
@@ -37,7 +28,7 @@ public class FlyingEnemy : MonoBehaviour
 
     public Rigidbody2D Rb { get => rb; set => rb = value; }
     public Vector2 Dir { get => _dir; set => _dir = value; }
-    public ChasingEnemySata ChasingEnemySata => chasingEnemySata;
+    public FlyingEnemyData ChasingEnemySata => chasingEnemySata;
     public GameObject Player => _player;
     public bool IsJumping { get => _isJumping; set => _isJumping = value; }
     public bool DetectedPlayerCharacter { get => _detectedPlayer; set => _detectedPlayer = value; }
@@ -45,10 +36,11 @@ public class FlyingEnemy : MonoBehaviour
     public enum EnemyStates
     {
         IDLE,
-        LUNGING,
+        EVADE,
         RESTING,
-        JUMPING,
-        INVISIBLE
+        INVISIBLE,
+        LUNGING,
+        SHOOT
     }
 
     private void Start()
@@ -73,9 +65,9 @@ public class FlyingEnemy : MonoBehaviour
                 enemyState = EnemyStates.IDLE;
                 chasingEnemyBaseState = new FlyingEnemIdle();
                 break;
-            case EnemyStates.LUNGING:
-                enemyState = EnemyStates.LUNGING;
-                chasingEnemyBaseState = new FlyingEnemyLunging();
+            case EnemyStates.EVADE:
+                enemyState = EnemyStates.EVADE;
+                chasingEnemyBaseState = new FlyingEnemyEvade();
                 break;
             case EnemyStates.RESTING:
                 enemyState = EnemyStates.RESTING;
@@ -86,9 +78,13 @@ public class FlyingEnemy : MonoBehaviour
                 enemyState = EnemyStates.INVISIBLE;
                 chasingEnemyBaseState = new FlyingEnemyInvisible();
                 break;
-            case EnemyStates.JUMPING:
-                enemyState = EnemyStates.JUMPING;
+            case EnemyStates.SHOOT:
+                enemyState = EnemyStates.SHOOT;
                 chasingEnemyBaseState = new FlyingEnemyShoot();
+                break;
+            case EnemyStates.LUNGING:
+                enemyState=EnemyStates.LUNGING;
+                chasingEnemyBaseState = new FlyingEnemyLunging();
                 break;
             default:
                 break;
@@ -119,21 +115,6 @@ public class FlyingEnemy : MonoBehaviour
         if (chasingEnemyBaseState == null) return;
         chasingEnemyBaseState.UpdateState();
         Rotate();
-
-        Physics2D.Linecast(castRight.position, castRightLimit.position, contactFilter, hitRight);
-        _isGrounded = Physics2D.Linecast(castGround.position, castGroundLimit.position, groundLayer);
-        Debug.DrawLine(castGround.position, castGroundLimit.position, Color.red);
-        Debug.DrawLine(castRight.position, castRightLimit.position, Color.green);
-
-        if (enemyState == EnemyStates.JUMPING && _isGrounded)
-        {
-            chasingEnemyBaseState.ExitState();
-        }
-
-        if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.IDLE && enemyState != EnemyStates.JUMPING)
-        {
-            ChangeState(EnemyStates.JUMPING);
-        }
 
     }
 

@@ -10,7 +10,7 @@ public class FlyingEnemIdle : FlyingEnemyBaseState
 
     public override void UpdateState()
     {
-        flyingEnemy.Rb.linearVelocity = flyingEnemy.Dir.normalized * flyingEnemy.ChasingEnemySata.ChaseSpeed;
+        flyingEnemy.Rb.linearVelocity = flyingEnemy.Dir.normalized * flyingEnemy.ChasingEnemySata.IdleSpeed;
     }
 
     public override void ExitState()

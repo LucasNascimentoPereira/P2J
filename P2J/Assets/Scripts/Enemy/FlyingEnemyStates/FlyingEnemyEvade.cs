@@ -18,11 +18,11 @@ public class FlyingEnemyEvade : FlyingEnemyBaseState
         flyingEnemy.EndIdleTime();
         if (flyingEnemy.DetectedPlayerCharacter)
         {
-            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.LUNGING);
+            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.SHOOT);
         }
         else
         {
-            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.IDLE);
+            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.RESTING);
         }
     }
 }
