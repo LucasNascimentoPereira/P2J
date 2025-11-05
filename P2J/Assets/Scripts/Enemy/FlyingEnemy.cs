@@ -20,6 +20,7 @@ public class FlyingEnemy : MonoBehaviour
     private int patrolIndex = 0;
     private Vector2 _dir = Vector2.zero;
     private bool _detectedPlayer = false;
+    private bool _detectedPlayerEvade = false;
     private GameObject _player = null;
     private bool _isGrounded = true;
     private bool _isJumping = false;
@@ -33,6 +34,7 @@ public class FlyingEnemy : MonoBehaviour
     public GameObject Player => _player;
     public bool IsJumping { get => _isJumping; set => _isJumping = value; }
     public bool DetectedPlayerCharacter { get => _detectedPlayer; set => _detectedPlayer = value; }
+    public bool DetectedPlayerEvade { get => _detectedPlayerEvade; set => _detectedPlayerEvade= value; }
 
     public enum EnemyStates
     {
@@ -103,6 +105,11 @@ public class FlyingEnemy : MonoBehaviour
     {
         _detectedPlayer = false;
         chasingEnemyBaseState.ExitState();
+    }
+
+    public void DetectedPlayerEvadeState()
+    {
+        _detectedPlayerEvade = !_detectedPlayerEvade;
     }
 
     public void NotInRange()
@@ -183,5 +190,10 @@ public class FlyingEnemy : MonoBehaviour
             StopCoroutine(_timerCoroutine);
             _timerCoroutine = null;
         }
+    }
+
+    public void ShootBullet()
+    {
+        GameObject bullet = GameObject.Instantiate(chasingEnemySata.BulletPrefab, transform.position, transform.rotation);
     }
 }

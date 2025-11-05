@@ -20,7 +20,11 @@ public class FlyingEnemyResting : FlyingEnemyBaseState
     {
         flyingEnemy.EndIdleTime();
         //evade
-
+        if (flyingEnemy.DetectedPlayerEvade)
+        {
+            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.EVADE);
+            return;
+        }
         if (flyingEnemy.DetectedPlayerCharacter)
         {
             flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.SHOOT);

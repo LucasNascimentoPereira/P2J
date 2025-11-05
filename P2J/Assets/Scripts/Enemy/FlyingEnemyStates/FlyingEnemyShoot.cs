@@ -7,7 +7,8 @@ public class FlyingEnemyShoot : FlyingEnemyBaseState
         base.BeginState(enemy);
         flyingEnemy.Dir = Vector2.zero;
         flyingEnemy.Rb.linearVelocity = Vector2.zero;
-        //flyingEnemy.BeginIdleTime(flyingEnemy.ChasingEnemySata.RestTime);
+        flyingEnemy.BeginIdleTime(flyingEnemy.ChasingEnemySata.ShootTime);
+        flyingEnemy.ShootBullet();
         Debug.Log("enemy resting");
     }
 
@@ -18,7 +19,7 @@ public class FlyingEnemyShoot : FlyingEnemyBaseState
 
     public override void ExitState()
     {
-        //flyingEnemy.EndIdleTime();
+        flyingEnemy.EndIdleTime();
         if (flyingEnemy.DetectedPlayerCharacter)
         {
             flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.RESTING);
