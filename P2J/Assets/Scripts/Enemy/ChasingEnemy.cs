@@ -113,7 +113,7 @@ public class ChasingEnemy : MonoBehaviour
 
     public void NotInRange()
     {
-        if (rangeDetector.Collider.gameObject != null && rangeDetector.Collider.gameObject != gameObject) return;
+        if (rangeDetector.Collider.gameObject != null || rangeDetector.Collider.gameObject != gameObject) return;
         ChangeState(EnemyStates.IDLE);
     }
 
@@ -172,7 +172,7 @@ public class ChasingEnemy : MonoBehaviour
 
     public void ChangeTarget(int index)
     {
-        if (patrolDetector.Collider != null && patrolDetector.Collider.gameObject != gameObject) return;
+        if (patrolDetector.Collider != null || patrolDetector.Collider.gameObject != gameObject) return;
         patrolIndex = index;
         Move();
     }

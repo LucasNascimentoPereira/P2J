@@ -9,7 +9,7 @@ public class FlyingEnemyShoot : FlyingEnemyBaseState
         flyingEnemy.Rb.linearVelocity = Vector2.zero;
         flyingEnemy.BeginIdleTime(flyingEnemy.ChasingEnemySata.ShootTime);
         flyingEnemy.ShootBullet();
-        Debug.Log("enemy resting");
+        Debug.Log("enemy shooting");
     }
 
     public override void UpdateState()
