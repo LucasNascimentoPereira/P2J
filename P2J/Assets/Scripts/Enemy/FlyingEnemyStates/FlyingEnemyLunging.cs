@@ -5,6 +5,7 @@ public class FlyingEnemyLunging : FlyingEnemyBaseState
     public override void BeginState(FlyingEnemy enemy)
     {
         base.BeginState(enemy);
+        Debug.Log("Enemy lungung");
     }
 
     public override void UpdateState()

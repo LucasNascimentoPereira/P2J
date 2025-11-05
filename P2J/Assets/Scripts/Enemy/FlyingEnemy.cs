@@ -9,6 +9,7 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Detector detector;
     [SerializeField] private Detector rangeDetector;
+    [SerializeField] private Detector evadeDetector;
     private Detector patrolDetector;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
@@ -135,16 +136,6 @@ public class FlyingEnemy : MonoBehaviour
         else if (transform.localEulerAngles.y != 0 && _dir.x > 0)
         {
             transform.Rotate(0.0f, -180.0f, 0.0f);
-        }
-    }
-
-    public void Damage()
-    {
-        chasingEnemyBaseState.ExitState();
-        Debug.Log(enemyState);
-        if (detector.Collider.TryGetComponent(out HealthPlayerBase healthPlayer))
-        {
-            healthPlayer.TakeDamage(gameObject, true, chasingEnemySata.Damage, chasingEnemySata.KnockBack);
         }
     }
 

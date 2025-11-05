@@ -6,6 +6,7 @@ public class FlyingEnemIdle : FlyingEnemyBaseState
     {
         base.BeginState(enemy);
         flyingEnemy.Move();
+        Debug.Log("Enemy idle");
     }
 
     public override void UpdateState()
