@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -12,12 +13,18 @@ public class HealthPlayerBase : HealthBase
     private UnityEvent _onChangeHealth = new();
     private UnityEvent _onChangeStatus = new();
 
+    private UnityEvent _onPlaySound = new();
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private List<AudioClip> _audioClips;
+    private int soundIndex;
+
     protected override void Awake()
     {
         base.Awake();
         GameManager.Instance.HealthPlayer = this;
         _onChangeHealth.AddListener(UIManager.Instance.ChangeHealth);
         _onChangeStatus.AddListener(GameManager.Instance.LevelReset);
+        _onPlaySound.AddListener(PlaySound);
     }
 
     public void LevelReset()
@@ -33,6 +40,8 @@ public class HealthPlayerBase : HealthBase
         _onChangeHealth.Invoke();
         //audioSource.PlayOneShot();
         StartCoroutine(Invencibility());
+        soundIndex = 0;
+        _onPlaySound.Invoke();
         return true;
     }
 
@@ -45,6 +54,8 @@ public class HealthPlayerBase : HealthBase
         _onChangeHealth.Invoke();
         //audioSource.PlayOneShot();
         StartCoroutine(Invencibility());
+        soundIndex = 0;
+        _onPlaySound.Invoke();
         return true;
     }
 
@@ -52,6 +63,8 @@ public class HealthPlayerBase : HealthBase
     {
         Debug.Log(gameObject);
         rb.linearVelocity = Vector2.zero;
+        soundIndex = 1;
+        _onPlaySound.Invoke();
         GameManager.Instance.LevelReset();
     }
     
@@ -75,6 +88,11 @@ public class HealthPlayerBase : HealthBase
             yield return new WaitForSeconds(playerData.PlayerInvencibilityTime / (playerData.PlayerInvencibilityBlinks * 2));
         }
         yield return null;
+    }
+
+    private void PlaySound()
+    {
+        _audioSource.PlayOneShot(_audioClips[soundIndex]);
     }
 
 }

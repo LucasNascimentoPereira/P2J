@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
@@ -48,6 +50,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 dashDirection;
     private bool playerDirection;
 
+    private UnityEvent _onPlaySound = new();
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private List<AudioClip> _audioClips;
+    private int soundIndex;
+
 
     private void Start()
     {
@@ -63,6 +70,8 @@ public class PlayerController : MonoBehaviour
         dashReleased = true;
         meleeDirection = Vector2.right * 0.5f;
         playerDirection = true;
+
+        _onPlaySound.AddListener(PlaySound);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -277,6 +286,8 @@ public class PlayerController : MonoBehaviour
                 enemyHealth.TakeDamage(gameObject, true, damage, knockback);
             }
         }
+        soundIndex = 0;
+        _onPlaySound.Invoke();
     }
 
     void processDirection(Vector2 moveValue) {
@@ -362,5 +373,10 @@ public class PlayerController : MonoBehaviour
                 airDashCount++;
             }
         }
+    }
+
+    private void PlaySound()
+    {
+        //_audioSource.PlayOneShot(_audioClips[soundIndex]);
     }
 }

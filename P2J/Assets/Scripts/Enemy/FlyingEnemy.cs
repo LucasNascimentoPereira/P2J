@@ -115,7 +115,7 @@ public class FlyingEnemy : MonoBehaviour
 
     public void NotInRange()
     {
-        if (rangeDetector.Collider != null || rangeDetector.Collider.gameObject != gameObject) return;
+        if (rangeDetector.Collider != null && rangeDetector.Collider.gameObject != gameObject) return;
         ChangeState(EnemyStates.IDLE);
     }
 
@@ -149,7 +149,8 @@ public class FlyingEnemy : MonoBehaviour
 
     public void ChangeTarget(int index)
     {
-        if (detector.Collider != null || detector.Collider.gameObject != gameObject) return;
+        if (patrolDetector.Collider != null && patrolDetector.Collider.gameObject != gameObject) return;
+        if(index != patrolIndex + 1 && index != 0) return;
         patrolIndex = index;
         Move();
     }
@@ -157,6 +158,7 @@ public class FlyingEnemy : MonoBehaviour
     public void PatrolDetector(Detector detector)
     {
         if (detector == null) return;
+        ChangeState(EnemyStates.RESTING);
         patrolDetector = detector;
     }
 

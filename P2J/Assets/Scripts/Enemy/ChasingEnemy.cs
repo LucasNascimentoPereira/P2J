@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ChasingEnemy : MonoBehaviour
 {
@@ -22,6 +23,12 @@ public class ChasingEnemy : MonoBehaviour
     [SerializeField] private Transform castGroundLimit;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private ContactFilter2D contactFilter;
+
+    [SerializeField] protected UnityEvent onPlaySound;
+
+    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected List<AudioClip> audioClips;
+    protected int soundIndex;
 
 
     [Header("Positions of the limis")]
@@ -59,6 +66,7 @@ public class ChasingEnemy : MonoBehaviour
     {
         _player = GameManager.Instance.HealthPlayer.gameObject;
         ChangeState(EnemyStates.IDLE);
+        onPlaySound.AddListener(PlaySound);
     }
     private void OnBecameVisible()
     {
@@ -113,7 +121,7 @@ public class ChasingEnemy : MonoBehaviour
 
     public void NotInRange()
     {
-        if (rangeDetector.Collider.gameObject != null || rangeDetector.Collider.gameObject != gameObject) return;
+        if (rangeDetector.Collider.gameObject != null && rangeDetector.Collider.gameObject != gameObject) return;
         ChangeState(EnemyStates.IDLE);
     }
 
@@ -133,7 +141,12 @@ public class ChasingEnemy : MonoBehaviour
             chasingEnemyBaseState.ExitState();
         }
 
-        if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.IDLE && enemyState != EnemyStates.JUMPING)
+        //if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.IDLE && enemyState != EnemyStates.JUMPING)
+        //{
+            //ChangeState(EnemyStates.JUMPING);
+        //}
+
+        if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.JUMPING)
         {
             ChangeState(EnemyStates.JUMPING);
         }
@@ -160,6 +173,7 @@ public class ChasingEnemy : MonoBehaviour
         {
             healthPlayer.TakeDamage(gameObject, true, chasingEnemySata.Damage, chasingEnemySata.KnockBack);
         }
+        onPlaySound.Invoke();
     }
 
     public void Move()
@@ -172,7 +186,7 @@ public class ChasingEnemy : MonoBehaviour
 
     public void ChangeTarget(int index)
     {
-        if (patrolDetector.Collider != null || patrolDetector.Collider.gameObject != gameObject) return;
+        if (patrolDetector.Collider != null && patrolDetector.Collider.gameObject != gameObject) return;
         patrolIndex = index;
         Move();
     }
@@ -206,6 +220,10 @@ public class ChasingEnemy : MonoBehaviour
         }
     }
 
+    private void PlaySound()
+    {
+        audioSource.PlayOneShot(audioClips[soundIndex]);
+    }
    
 
 }

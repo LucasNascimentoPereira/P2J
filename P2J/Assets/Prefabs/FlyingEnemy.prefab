@@ -534,7 +534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4271357919684867044, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: OnEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4271357919684867044, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: OnEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
