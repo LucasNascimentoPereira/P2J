@@ -21,14 +21,21 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.gameObject.tag);
         switch (collision.gameObject.tag)
         {
             case "Player":
                 if (!collision.gameObject.TryGetComponent(out HealthPlayerBase healthPlayerBase)) break;
                 healthPlayerBase.TakeDamage(gameObject, true, damage, knockBack);
                 break;
-            default :
+            case "Enemy":
+                Debug.Log("enemy");
+                break;
+            case "Ground":
+                Debug.Log("Ground");
                 Destroy(gameObject);
+                break;
+            default :
                 break;
         }
     }

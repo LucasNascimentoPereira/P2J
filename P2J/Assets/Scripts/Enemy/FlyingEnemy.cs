@@ -187,6 +187,8 @@ public class FlyingEnemy : MonoBehaviour
 
     public void ShootBullet()
     {
-        GameObject bullet = GameObject.Instantiate(chasingEnemySata.BulletPrefab, transform.position, transform.rotation);
+        GameObject bullet = Instantiate(chasingEnemySata.BulletPrefab, transform.position, transform.rotation);
+        if(!bullet.TryGetComponent(out Bullet bulletScript)) return;
+        bulletScript.Shoot(_player.transform.position - gameObject.transform.position, chasingEnemySata.BulletSpeed, chasingEnemySata.Damage, chasingEnemySata.KnockBack);
     }
 }
