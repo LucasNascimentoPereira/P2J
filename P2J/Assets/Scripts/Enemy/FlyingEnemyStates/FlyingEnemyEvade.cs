@@ -6,7 +6,7 @@ public class FlyingEnemyEvade : FlyingEnemyBaseState
     {
         base.BeginState(enemy);
         flyingEnemy.BeginIdleTime(flyingEnemy.ChasingEnemySata.EvadeTime);
-        flyingEnemy.Rb.AddForce((flyingEnemy.gameObject.transform.position - flyingEnemy.Player.transform.position) * flyingEnemy.ChasingEnemySata.EvadeSpeed);
+        flyingEnemy.Rb.AddForce((flyingEnemy.gameObject.transform.position - flyingEnemy.Player.transform.position).normalized * flyingEnemy.ChasingEnemySata.EvadeSpeed);
         Debug.Log("enemy resting");
     }
 
