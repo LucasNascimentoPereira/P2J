@@ -377,6 +377,6 @@ public class PlayerController : MonoBehaviour
 
     private void PlaySound()
     {
-        //_audioSource.PlayOneShot(_audioClips[soundIndex]);
+        _audioSource.PlayOneShot(_audioClips[soundIndex]);
     }
 }

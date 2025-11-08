@@ -1287,9 +1287,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestDummy
       objectReference: {fileID: 0}
+    - target: {fileID: 194480181312708756, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 205604683431498517, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288580431077923911, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1288580431077923911, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_TagString
@@ -1397,6 +1405,8 @@ MonoBehaviour:
   dashUnlocked: 0
   damage: 1
   knockback: 10
+  _audioSource: {fileID: 0}
+  _audioClips: []
 --- !u!114 &1727395731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1417,10 +1427,16 @@ MonoBehaviour:
   onDamage:
     m_PersistentCalls:
       m_Calls: []
+  onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
   audioSource: {fileID: 0}
+  audioClips: []
   rb: {fileID: 1727395733}
   playerData: {fileID: 11400000, guid: a15bb403db4bc0de794776bc1399a5bb, type: 2}
   spriteRenderer: {fileID: 1727395732}
+  _audioSource: {fileID: 0}
+  _audioClips: []
 --- !u!212 &1727395732 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 7840128277251567285, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}

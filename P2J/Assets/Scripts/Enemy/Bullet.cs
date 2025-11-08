@@ -27,12 +27,13 @@ public class Bullet : MonoBehaviour
             case "Player":
                 if (!collision.gameObject.TryGetComponent(out HealthPlayerBase healthPlayerBase)) break;
                 healthPlayerBase.TakeDamage(gameObject, true, damage, knockBack);
+                Destroy(gameObject);
                 break;
-            case "Enemy":
-                Debug.Log("enemy");
+            case "Untagged":
+                Debug.Log("Untagged");
+                Destroy(gameObject);
                 break;
             case "Ground":
-                Debug.Log("Ground");
                 Destroy(gameObject);
                 break;
             default :

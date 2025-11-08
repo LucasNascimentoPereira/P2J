@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dea67a33e420ea4fb9c09cc5aeaa693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 3
   minHealth: 0
   onDefeat:
     m_PersistentCalls:
@@ -60,11 +60,13 @@ MonoBehaviour:
       m_Calls: []
   audioSource: {fileID: 4272735922053999192}
   audioClips: []
-  spriteRenderer: {fileID: 5971287433258392784}
   doorParticleSystem: {fileID: 0}
   door: {fileID: 2238614475719946847}
-  doorSprite: {fileID: 5971287433258392784}
-  perlin: {fileID: 11400000, guid: 5348e01cee0abbd4cb49333fadcee31f, type: 2}
+  doorBits: []
+  index: 0
+  interval: 0.1
+  noiseTime: 1
+  noise: {x: 1, y: 1}
 --- !u!61 &8591985367830333347
 BoxCollider2D:
   m_ObjectHideFlags: 0
