@@ -2,12 +2,15 @@ using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class HealthDoor : HealthBase
 {
 
     [SerializeField] private ParticleSystem doorParticleSystem;
     [SerializeField] private GameObject door;
+    [SerializeField] private List<GameObject> doorBits;
+    [SerializeField] private int index = 0;
 
     [Header("Variables to use noise")]
     [Tooltip("Interval between noise")]
@@ -57,6 +60,9 @@ public class HealthDoor : HealthBase
         {
             _timerCoroutine = StartCoroutine(Noise());
         }
+        ++index;
+        if (!doorBits[index].TryGetComponent(out SpriteRenderer spriteRenderer)) return;
+        spriteRenderer.enabled = false;
     }
 
     private IEnumerator Noise()

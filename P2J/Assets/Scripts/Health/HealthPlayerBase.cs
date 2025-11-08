@@ -16,7 +16,6 @@ public class HealthPlayerBase : HealthBase
     private UnityEvent _onPlaySound = new();
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private List<AudioClip> _audioClips;
-    private int soundIndex;
 
     protected override void Awake()
     {
@@ -88,11 +87,6 @@ public class HealthPlayerBase : HealthBase
             yield return new WaitForSeconds(playerData.PlayerInvencibilityTime / (playerData.PlayerInvencibilityBlinks * 2));
         }
         yield return null;
-    }
-
-    private void PlaySound()
-    {
-        _audioSource.PlayOneShot(_audioClips[soundIndex]);
     }
 
 }

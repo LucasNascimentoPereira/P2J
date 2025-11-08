@@ -23,7 +23,7 @@ public class FlyingEnemy : MonoBehaviour
     private bool _detectedPlayer = false;
     private bool _detectedPlayerEvade = false;
     private GameObject _player = null;
-    private bool _isGrounded = true;
+    //private bool _isGrounded = true;
     private bool _isJumping = false;
     private FlyingEnemyBaseState chasingEnemyBaseState;
     private EnemyStates enemyState = EnemyStates.IDLE;
