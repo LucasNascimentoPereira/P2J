@@ -5,6 +5,6 @@ using System.Collections.Generic;
 
 public class GameManagerData : ScriptableObject
 {
-    //[Header("Purchase Values")]
-    //private 
+
+
 }

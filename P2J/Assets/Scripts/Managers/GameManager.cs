@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
     [Header("Currency management")]
     [SerializeField] private int _coins;
     [SerializeField] private int _gems;
+    private Dictionary<string, UpgradeData> prices = new();
+    [Header("Purchase Values")]
+    [SerializeField] private List<UpgradeData> upgradeData;
 
     private GameObject currentSpawnPoint;
 
@@ -53,6 +56,9 @@ public class GameManager : MonoBehaviour
     public HealthPlayerBase HealthPlayer {  get => healthPlayer; set => healthPlayer = value; }
     public PlayerController PlayerController { get => playerController; set => playerController = value; }
     public GameObject Interactable => interactable;
+    public Dictionary<string, UpgradeData> Prices => prices;
+    public List<UpgradeData> UpgradeData => upgradeData;
+
 
 
 
@@ -75,6 +81,10 @@ public class GameManager : MonoBehaviour
         _onCoins?.AddListener(UIManager.Instance.ChangeCoins);
         _onLevelReset?.AddListener(UIManager.Instance.ChangeHealth);
         pause = InputSystem.actions.FindAction("Pause");
+        for (int i = 0; i < upgradeData.Count; ++i)
+        {
+            prices.Add(upgradeData[i].UpgradeName, upgradeData[i]);
+        }
     }
 
     private void OnEnable()
@@ -179,23 +189,21 @@ public class GameManager : MonoBehaviour
     public void UnlockAbility()
     {
         if(!interactable) return;
-        switch (interactable.name) 
+        UIManager.Instance.ShowPanel("Skilles");
+        StartCoroutine(UIManager.Instance.DisappearImage(interactable.name));
+        Destroy(interactable);
+        interactable = null;
+    }
+
+    public void PurchaseAbilityUpgrade(string upgrade)
+    {
+        Debug.Log(upgrade);
+        if(prices.TryGetValue(upgrade, out var price))
         {
-            case "JumpAbilityUnlock":
-                break;
-            case "DashAbilityUnlock":
-                break;
-            case "HealthAbilityUnlock":
-                break;
-            case "DamageAbilityUnlock":
-                break;
-            case "HammerAbilityUnlock":
-                break;
-            case "CombAbilityUnlock":
-                break;
-            default :
-                Debug.Log("Ability does not correspond");
-                break;
+            if(_coins >= price.UpgradeValue)
+            {
+                _coins -= price.UpgradeValue;
+            }
         }
     }
     public void RegisterInteractable(GameObject envInteractable)

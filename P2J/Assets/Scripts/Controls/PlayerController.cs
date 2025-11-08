@@ -2,6 +2,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
+using Unity.VisualScripting;
+using UnityEngine.Events;
+using System.Collections.Generic;
+
+
 public class PlayerController : MonoBehaviour
 {
     InputAction moveAction;
@@ -9,6 +14,9 @@ public class PlayerController : MonoBehaviour
     InputAction meleeAction;
     InputAction dashAction;
     InputAction lookAction;
+
+    InputAction interactAction;
+
 
     [SerializeField] private float groundSpeed = 10f;
     [SerializeField] private float jumpForce = 20f;
@@ -51,7 +59,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 dashDirection;
     private bool playerDirectionIsRight;
 
-    private IInteractable interactable = null;
+    private UnityEvent _onPlaySound = new();
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private List<AudioClip> _audioClips;
+    private int soundIndex;
+
 
     private void Start()
     {
@@ -60,6 +72,7 @@ public class PlayerController : MonoBehaviour
         meleeAction = InputSystem.actions.FindAction("Attack");
         dashAction = InputSystem.actions.FindAction("Dash");
         lookAction = InputSystem.actions.FindAction("Look");
+        interactAction = InputSystem.actions.FindAction("Interact");
         col = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = defaultGravity;
@@ -67,6 +80,10 @@ public class PlayerController : MonoBehaviour
         dashReleased = true;
         meleeReleased = true;
         playerDirectionIsRight = true;
+        meleeDirection = Vector2.right * 0.5f;
+        playerDirection = true;
+
+        _onPlaySound.AddListener(PlaySound);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -113,6 +130,14 @@ public class PlayerController : MonoBehaviour
     private bool IsOnGround()
     {
         return col.IsTouchingLayers(groundLayer);
+    }
+
+    private void Update()
+    {
+        if (interactAction.WasPressedThisFrame())
+        {
+            Interact();
+        }
     }
 
     void FixedUpdate()
@@ -302,6 +327,8 @@ public class PlayerController : MonoBehaviour
                 enemyHealth.TakeDamage(gameObject, true, meleeDamage, meleeKnockback);
             }
         }
+        soundIndex = 0;
+        _onPlaySound.Invoke();
     }
 
     void processDirection(Vector2 moveValue) {
@@ -317,6 +344,7 @@ public class PlayerController : MonoBehaviour
 
     private void Interact()
     {
+        if (!GameManager.Instance.Interactable) return;
         if (!GameManager.Instance.Interactable.TryGetComponent(out IInteractable interactable)) return;
         interactable.Interact();
     }
@@ -367,5 +395,10 @@ public class PlayerController : MonoBehaviour
                 airDashCount++;
             }
         }
+    }
+
+    private void PlaySound()
+    {
+        _audioSource.PlayOneShot(_audioClips[soundIndex]);
     }
 }

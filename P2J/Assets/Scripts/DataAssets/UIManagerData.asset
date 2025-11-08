@@ -39,3 +39,7 @@ MonoBehaviour:
   notificationAppearTime: 1
   notificationDisappearTime: 1
   startButtonWaitTime: 0.5
+  appearImageInterval: 0.1
+  appearImageTimeInterval: 0.1
+  disappearImageInterval: 0.1
+  disappearImageTimeInterval: 0.1
