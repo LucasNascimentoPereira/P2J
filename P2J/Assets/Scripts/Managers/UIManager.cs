@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject panelsGameObject;
     [SerializeField] private List<GameObject> panelsList = new();
     private Dictionary<string, GameObject> _panelDictionary = new();
+    [SerializeField] private Canvas canvas;
 
     [Header("Necessary Buttons")]
     [SerializeField] private Button startLevelButton;
@@ -317,6 +318,13 @@ public class UIManager : MonoBehaviour
     public void ChangeCoins()
     {
         coins.text = GameManager.Instance.Coins.ToString();
+    }
+
+    public void CameraReference(Camera camera)
+    {
+        canvas.worldCamera.gameObject.SetActive(false);
+        canvas.worldCamera = camera;
+        canvas.worldCamera.gameObject.SetActive(true);
     }
     
 }
