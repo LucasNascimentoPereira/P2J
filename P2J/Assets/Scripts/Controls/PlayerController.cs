@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         meleeReleased = true;
         playerDirectionIsRight = true;
         meleeDirection = Vector2.right * 0.5f;
-        playerDirection = true;
+        //playerDirection = true;
 
         _onPlaySound.AddListener(PlaySound);
     }
