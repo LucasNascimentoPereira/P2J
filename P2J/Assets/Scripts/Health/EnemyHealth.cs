@@ -22,7 +22,7 @@ public class EnemyHealth : HealthBase
         if (damageDealer == null) return false;
         CalculateHealth(damage);
         soundIndex = 0;
-        onPlaySound.Invoke();
+        //onPlaySound.Invoke();
         //audioSource.PlayOneShot();
         return true;
     }
@@ -33,7 +33,7 @@ public class EnemyHealth : HealthBase
         CalculateHealth(damage);
         rb.AddForce(-rb.transform.right * force, ForceMode2D.Force);
         soundIndex = 0;
-        onPlaySound.Invoke();
+        //onPlaySound.Invoke();
         //audioSource.PlayOneShot();
         return true;
     }
@@ -41,7 +41,7 @@ public class EnemyHealth : HealthBase
     protected override void Death()
     {
         soundIndex = 1;
-        onPlaySound.Invoke();
+        //onPlaySound.Invoke();
         Destroy(gameObject);
     }
 }
