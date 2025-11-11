@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-
     [Header("Data Assets")]
     [SerializeField] private UIManagerData uiManagerData;
 
 
-    [Header("Menu Panels")]    
+    [Header("Menu Panels")]
+    [SerializeField] private GameObject panelsGameObject;
     [SerializeField] private List<GameObject> panelsList = new();
     private Dictionary<string, GameObject> _panelDictionary = new();
 
@@ -23,6 +25,8 @@ public class UIManager : MonoBehaviour
     
     private GameObject _currentMenu = null;
     private GameObject _previousMenu = null;
+
+    [SerializeField] EventSystem _eventSystem;
 
     [Header("Notification Texts")]
     [SerializeField] private TMP_Text notificationsText;
@@ -36,7 +40,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text fpsCounter;
     [SerializeField] private TMP_Text coins;
     [SerializeField] private GameObject heartsContainer;
+    [SerializeField] private GameObject abilityImagesContainer;
     private List<Image> heartImages = new();
+    private Dictionary<string, Image> abilityImages = new();
 
 
 
@@ -55,21 +61,25 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        foreach (var panel in panelsList)
+        for (int i = 0; i < panelsGameObject.transform.childCount; ++i)
         {
-            _panelDictionary.Add(panel.name, panel);
+            _panelDictionary.Add(panelsGameObject.transform.GetChild(i).name, panelsGameObject.transform.GetChild(i).gameObject);
         }
-    }
-
-    private void Start()
-    {
-        ChangeVersionNumber();
+        foreach (var image in abilityImagesContainer.GetComponentsInChildren<Image>(true))
+        {
+            abilityImages.Add(image.gameObject.name, image);
+        }
         heartImages = heartsContainer.GetComponentsInChildren<Image>(true).ToList();
         foreach (var image in heartImages)
         {
             image.sprite = UIManagerData.HealthImages[0];
         }
-        
+
+    }
+
+    private void Start()
+    {
+        ChangeVersionNumber();
     }
 
     private void Update()
@@ -114,6 +124,17 @@ public class UIManager : MonoBehaviour
                 {
                     _currentMenu.SetActive(true);
                 }
+            }
+        }
+        if (_currentMenu != null) 
+        {
+            _eventSystem.SetSelectedGameObject(_currentMenu.transform.GetChild(0).gameObject);
+        }
+        if (menuName == "Skilles")
+        {
+            if(_currentMenu.TryGetComponent(out Skilles skilles))
+            {
+                skilles.UpdateMenu();
             }
         }
         Debug.Log("Changed to menu: " + _panelDictionary.GetValueOrDefault(menuName));
@@ -214,6 +235,28 @@ public class UIManager : MonoBehaviour
         yield return null;
         panelsList[^1].SetActive(false);
         StopCoroutine(DisappearText());
+    }
+
+    public IEnumerator AppearImage(string image)
+    {
+        if (!abilityImages.TryGetValue(image, out var result)) StopCoroutine(AppearImage(image));
+        result.enabled = true;
+        while (result.color.a < 1)
+        {
+            result.color = new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(result.color.a + uiManagerData.AppearImageInterval, 0.0f, 1.0f));
+            yield return new WaitForSeconds(uiManagerData.AppearImageTimeInterval);
+        }
+    }
+
+    public IEnumerator DisappearImage(string image)
+    {
+        if (!abilityImages.TryGetValue(image, out var result)) StopCoroutine(DisappearImage(image));
+        while(result.color.a > 0)
+        {
+            result.color = new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(result.color.a - uiManagerData.DisappearImageInterval, 0.0f, 1.0f));
+            yield return new WaitForSeconds(uiManagerData.DisappearImageTimeInterval);
+        }
+        result.enabled = false;
     }
 
     public void ChangeResolution(int index)

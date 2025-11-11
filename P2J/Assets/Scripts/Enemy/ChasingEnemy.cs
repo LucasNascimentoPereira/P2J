@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ChasingEnemy : MonoBehaviour
 {
@@ -11,11 +13,10 @@ public class ChasingEnemy : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Detector detector;
     [SerializeField] private Detector rangeDetector;
+    private Detector patrolDetector;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("RayCasts")]
-    [SerializeField] private Transform castLeft;
-    [SerializeField] private Transform castLeftLimit;
     [SerializeField] private Transform castRight;
     [SerializeField] private Transform castRightLimit;
     [SerializeField] private Transform castGround;
@@ -23,13 +24,18 @@ public class ChasingEnemy : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private ContactFilter2D contactFilter;
 
+    [SerializeField] protected UnityEvent onPlaySound;
+
+    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected List<AudioClip> audioClips;
+    protected int soundIndex;
+
 
     [Header("Positions of the limis")]
     [SerializeField] private List<Transform> patrolPoints;
 
 
     private int patrolIndex = 0;
-    private List<RaycastHit2D> hitLeft = new();
     private List<RaycastHit2D> hitRight = new();
     private Vector2 _dir = Vector2.zero;
     private bool _detectedPlayer = false;
@@ -38,6 +44,7 @@ public class ChasingEnemy : MonoBehaviour
     private bool _isJumping = false;
     private ChasingEnemyBaseState chasingEnemyBaseState;
     private EnemyStates enemyState = EnemyStates.IDLE;
+    private Coroutine _timerCoroutine;
 
     public Rigidbody2D Rb { get => rb; set => rb = value; }
     public Vector2 Dir { get => _dir; set => _dir = value; }
@@ -59,6 +66,7 @@ public class ChasingEnemy : MonoBehaviour
     {
         _player = GameManager.Instance.HealthPlayer.gameObject;
         ChangeState(EnemyStates.IDLE);
+        onPlaySound.AddListener(PlaySound);
     }
     private void OnBecameVisible()
     {
@@ -71,7 +79,7 @@ public class ChasingEnemy : MonoBehaviour
 
     public void ChangeState(EnemyStates state)
     {
-        switch (state){
+        switch (state) {
             case EnemyStates.IDLE:
                 enemyState = EnemyStates.IDLE;
                 chasingEnemyBaseState = new ChasingEnemyIdle();
@@ -113,7 +121,7 @@ public class ChasingEnemy : MonoBehaviour
 
     public void NotInRange()
     {
-        if (rangeDetector.Collider.gameObject != gameObject) return;
+        if (rangeDetector.Collider.gameObject != null && rangeDetector.Collider.gameObject != gameObject) return;
         ChangeState(EnemyStates.IDLE);
     }
 
@@ -121,28 +129,42 @@ public class ChasingEnemy : MonoBehaviour
     {
         if (chasingEnemyBaseState == null) return;
         chasingEnemyBaseState.UpdateState();
-        spriteRenderer.flipX = _dir.x < 0;
+        Rotate();
 
-
-        Physics2D.Linecast(castLeft.position, castLeftLimit.position, contactFilter, hitLeft);
         Physics2D.Linecast(castRight.position, castRightLimit.position, contactFilter, hitRight);
         _isGrounded = Physics2D.Linecast(castGround.position, castGroundLimit.position, groundLayer);
         Debug.DrawLine(castGround.position, castGroundLimit.position, Color.red);
-        Debug.DrawLine(castLeft.position, castLeftLimit.position, Color.red);
-        Debug.DrawLine(castRight.position, castRightLimit.position, Color.red);
+        Debug.DrawLine(castRight.position, castRightLimit.position, Color.green);
 
         if (enemyState == EnemyStates.JUMPING && _isGrounded)
         {
             chasingEnemyBaseState.ExitState();
         }
 
-        if ((hitLeft.Count != 0 || hitRight.Count != 0) && _isGrounded && enemyState != EnemyStates.IDLE && enemyState != EnemyStates.JUMPING)
+        //if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.IDLE && enemyState != EnemyStates.JUMPING)
+        //{
+            //ChangeState(EnemyStates.JUMPING);
+        //}
+
+        if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.JUMPING)
         {
             ChangeState(EnemyStates.JUMPING);
         }
 
     }
-    
+
+    private void Rotate()
+    {
+        if (transform.localEulerAngles.y != 180 && _dir.x < 0)
+        {
+            transform.Rotate(0.0f, 180.0f, 0.0f);
+        }
+        else if (transform.localEulerAngles.y != 0 && _dir.x > 0)
+        {
+            transform.Rotate(0.0f, -180.0f, 0.0f);
+        }
+    }
+
     public void Damage()
     {
         chasingEnemyBaseState.ExitState();
@@ -151,6 +173,7 @@ public class ChasingEnemy : MonoBehaviour
         {
             healthPlayer.TakeDamage(gameObject, true, chasingEnemySata.Damage, chasingEnemySata.KnockBack);
         }
+        onPlaySound.Invoke();
     }
 
     public void Move()
@@ -163,21 +186,44 @@ public class ChasingEnemy : MonoBehaviour
 
     public void ChangeTarget(int index)
     {
+        if (patrolDetector.Collider != null && patrolDetector.Collider.gameObject != gameObject) return;
         patrolIndex = index;
         Move();
+    }
+
+    public void PatrolDetector(Detector detector)
+    {
+        if (detector == null) return;
+        patrolDetector = detector;
     }
 
     private IEnumerator IdleTime(float time)
     {
         yield return new WaitForSeconds(time);
-        if (_detectedPlayer) chasingEnemyBaseState.ExitState();
+        _timerCoroutine = null;
+        if (chasingEnemyBaseState != null)
+        {
+            chasingEnemyBaseState.ExitState();
+        }
     }
     public void BeginIdleTime(float time)
     {
-        StartCoroutine(IdleTime(time));
+        EndIdleTime();
+        _timerCoroutine = StartCoroutine(IdleTime(time));
     }
-    public void EndIdleTime() 
+    public void EndIdleTime()
     {
-        StopCoroutine(IdleTime(0.0f));
+        if (_timerCoroutine != null)
+        {
+            StopCoroutine(_timerCoroutine);
+            _timerCoroutine = null;
+        }
     }
+
+    private void PlaySound()
+    {
+        audioSource.PlayOneShot(audioClips[soundIndex]);
+    }
+   
+
 }

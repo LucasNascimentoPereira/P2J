@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,8 +12,11 @@ public class HealthBase : MonoBehaviour
 
     [SerializeField] private UnityEvent onDefeat;
     [SerializeField] private UnityEvent onDamage;
+    [SerializeField] protected UnityEvent onPlaySound;
 
     [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected List<AudioClip> audioClips;
+    protected int soundIndex;
 
     public float MaxHealth => maxHealth;
     public float CurrentHealth => currentHealth;
@@ -21,6 +25,7 @@ public class HealthBase : MonoBehaviour
     protected virtual void Awake()
     {
         currentHealth = MaxHealth;
+        onPlaySound.AddListener(PlaySound);
     }
     
     protected void CalculateHealth(float delta)
@@ -47,6 +52,11 @@ public class HealthBase : MonoBehaviour
         _isDefeated = true;
         UIManager.Instance.ShowPanel("LevelReset");
         onDefeat.Invoke();
+    }
+
+    protected virtual void PlaySound()
+    {
+        audioSource.PlayOneShot(audioClips[soundIndex]);
     }
 
 

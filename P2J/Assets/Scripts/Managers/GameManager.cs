@@ -5,6 +5,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
  
 
@@ -14,7 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameManagerData gameManagerData;
     [SerializeField] private AudioManagerData audioManagerData;
     [SerializeField] private UIManagerData uiManagerData;
-    
+
+    InputAction pause;
+
     [Header("Events")]
     private UnityEvent _onCoins = new();
     private UnityEvent _onLevelReset = new();
@@ -24,6 +27,7 @@ public class GameManager : MonoBehaviour
     private PlayerController playerController;
     private GameObject _ball;
     private GameObject _baseGameObject;
+    private GameObject interactable;
 
     [Header("Level management")]
     [SerializeField] private int _currentGameLevel;
@@ -31,6 +35,9 @@ public class GameManager : MonoBehaviour
     [Header("Currency management")]
     [SerializeField] private int _coins;
     [SerializeField] private int _gems;
+    private Dictionary<string, UpgradeData> prices = new();
+    [Header("Purchase Values")]
+    [SerializeField] private List<UpgradeData> upgradeData;
 
     private GameObject currentSpawnPoint;
 
@@ -48,6 +55,10 @@ public class GameManager : MonoBehaviour
     public GameObject CurrentSpawnPoint { get => currentSpawnPoint; set => currentSpawnPoint = value; }
     public HealthPlayerBase HealthPlayer {  get => healthPlayer; set => healthPlayer = value; }
     public PlayerController PlayerController { get => playerController; set => playerController = value; }
+    public GameObject Interactable => interactable;
+    public Dictionary<string, UpgradeData> Prices => prices;
+    public List<UpgradeData> UpgradeData => upgradeData;
+
 
 
 
@@ -69,13 +80,26 @@ public class GameManager : MonoBehaviour
         //_gameData = SaveSystem.LoadGame();
         _onCoins?.AddListener(UIManager.Instance.ChangeCoins);
         _onLevelReset?.AddListener(UIManager.Instance.ChangeHealth);
+        pause = InputSystem.actions.FindAction("Pause");
+        for (int i = 0; i < upgradeData.Count; ++i)
+        {
+            prices.Add(upgradeData[i].UpgradeName, upgradeData[i]);
+        }
     }
 
     private void OnEnable()
     {
         //LoadLevel(1);
     }
-    
+
+    private void Update()
+    {
+        if (pause.WasPressedThisFrame())
+        {
+            PauseGame(!IsPaused);
+        }
+    }
+
 
     public void LoadLevel(int levelIndex)
     {
@@ -93,6 +117,7 @@ public class GameManager : MonoBehaviour
     {
         IsPaused = paused;
         Time.timeScale = paused ? 0.0f : 1.0f;
+        UIManager.Instance.ShowPanel(IsPaused ? "PauseMenu" : "NoMenu");
     }
 
     private IEnumerator LoadNextLevelAsyc(int level)
@@ -142,8 +167,8 @@ public class GameManager : MonoBehaviour
 
     public void LevelReset()
     {
-        if (currentSpawnPoint == null)  return;
-        if (healthPlayer == null) return;
+        if (!currentSpawnPoint)  return;
+        if (!healthPlayer) return;
         healthPlayer.transform.position = currentSpawnPoint.transform.position;
         healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
         _onLevelReset.Invoke();
@@ -159,6 +184,31 @@ public class GameManager : MonoBehaviour
     public Vector3 GetPlayerPosition()
     {
         return Vector3.zero;
+    }
+
+    public void UnlockAbility()
+    {
+        if(!interactable) return;
+        UIManager.Instance.ShowPanel("Skilles");
+        StartCoroutine(UIManager.Instance.DisappearImage(interactable.name));
+        Destroy(interactable);
+        interactable = null;
+    }
+
+    public void PurchaseAbilityUpgrade(string upgrade)
+    {
+        Debug.Log(upgrade);
+        if(prices.TryGetValue(upgrade, out var price))
+        {
+            if(_coins >= price.UpgradeValue)
+            {
+                _coins -= price.UpgradeValue;
+            }
+        }
+    }
+    public void RegisterInteractable(GameObject envInteractable)
+    {
+        interactable = envInteractable;
     }
 
 }

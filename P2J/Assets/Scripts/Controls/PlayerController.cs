@@ -1,7 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+
 using Unity.VisualScripting;
+using UnityEngine.Events;
+using System.Collections.Generic;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,29 +13,40 @@ public class PlayerController : MonoBehaviour
     InputAction jumpAction;
     InputAction meleeAction;
     InputAction dashAction;
+    InputAction lookAction;
 
-    [SerializeField] private float groundSpeed = 5f;
-    [SerializeField] private float jumpForce = 11f;
-    [SerializeField] private float defaultGravity = 3f;
-    [SerializeField] private float accelerationFactorGround = 0.15f;
-    [SerializeField] private float deccelerationFactorGround = 0.38f;
-    [SerializeField] private float accelerationFactorAir = 0.08f;
-    [SerializeField] private float deccelerationFactorAir = 0.15f;
-    [SerializeField] private float maxJumpDuration = 0.3f;
+    InputAction interactAction;
+
+
+    [SerializeField] private float groundSpeed = 10f;
+    [SerializeField] private float jumpForce = 20f;
+    [SerializeField] private float defaultGravity = 5f;
+    [SerializeField] private float maxFallingSpeed = 50f;
+    /*[SerializeField]*/ private float accelerationFactorGround = 0.15f;
+    /*[SerializeField]*/ private float deccelerationFactorGround = 0.5f;
+    /*[SerializeField]*/ private float accelerationFactorAir = 0.08f;
+    /*[SerializeField]*/ private float deccelerationFactorAir = 0.15f;
+    /*[SerializeField]*/ private float maxJumpDuration = 0.3f;
+    /*[SerializeField]*/ private float gravityResistanceOnJump = 10f;
+    /*[SerializeField]*/ private float postJumpDecceleration = 5f;
     [SerializeField] private float coyoteTime = 0.1f;
     [SerializeField] private float jumpBufferTime = 0.1f;
-    [SerializeField] private float dashForce = 10f;
-    [SerializeField] private float dashCooldown = 1.0f;
+    [SerializeField] private float dashForce = 25f;
+    [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private LayerMask enemyLayer = 64;
     [SerializeField] private LayerMask groundLayer = 8;
     [SerializeField] private bool dashUnlocked = false;
+    [SerializeField] private int  meleeDamage = 1;
+    [SerializeField] private float meleeKnockback = 10.0f;
+    [SerializeField] private float meleeRange = 3.0f;
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
     private bool onGround;
     private bool jumpReleased;
     private bool dashReleased;
+    private bool meleeReleased;
     private float currentAccelerationFactor;
     private float currentDeccelerationFactor;
     private float jumpTime = -1f;
@@ -42,9 +57,13 @@ public class PlayerController : MonoBehaviour
     private int airDashCount = 0;
     private Vector2 meleeDirection;
     private Vector2 dashDirection;
-    private bool playerDirection;
+    private bool playerDirectionIsRight;
 
-    private IInteractable interactable = null;
+    private UnityEvent _onPlaySound = new();
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private List<AudioClip> _audioClips;
+    private int soundIndex;
+
 
     private void Start()
     {
@@ -52,13 +71,19 @@ public class PlayerController : MonoBehaviour
         jumpAction = InputSystem.actions.FindAction("Jump");
         meleeAction = InputSystem.actions.FindAction("Attack");
         dashAction = InputSystem.actions.FindAction("Dash");
+        lookAction = InputSystem.actions.FindAction("Look");
+        interactAction = InputSystem.actions.FindAction("Interact");
         col = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = defaultGravity;
         jumpReleased = true;
         dashReleased = true;
+        meleeReleased = true;
+        playerDirectionIsRight = true;
         meleeDirection = Vector2.right * 0.5f;
-        playerDirection = true;
+        //playerDirection = true;
+
+        _onPlaySound.AddListener(PlaySound);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -89,11 +114,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            onGround = false;
-            if (jumpReleased)
+            if (jumpReleased && onGround)
             {
                 dropTime = Time.fixedTime;
             }
+            onGround = false;
         }
     }
 
@@ -107,10 +132,19 @@ public class PlayerController : MonoBehaviour
         return col.IsTouchingLayers(groundLayer);
     }
 
+    private void Update()
+    {
+        if (interactAction.WasPressedThisFrame())
+        {
+            Interact();
+        }
+    }
+
     void FixedUpdate()
     {
         rb.gravityScale = defaultGravity;
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
+        Vector2 lookValue = lookAction.ReadValue<Vector2>();
         processMovement(moveValue);
         processDirection(moveValue);
 
@@ -123,27 +157,35 @@ public class PlayerController : MonoBehaviour
         {
             jumpReleased = true;
         }
-        if (jumpReleased /*&& rb.linearVelocityY > 0*/)
+        if (jumpReleased)
         {
-            // Attempted to make some fancy code to make the variable jump height more snappy
-            //rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.2f);
-            // - Kind Regards, Denis
             jumpTime = -1f;
         }
-
-        if (rb.linearVelocity.y < 0f)
+        if (rb.linearVelocity.y > 0)
         {
-            rb.gravityScale = defaultGravity * 1.5f;
+            if ((jumpReleased /*&& Time.fixedTime - jumpTime <= maxJumpDuration*/)
+                /*|| Time.fixedTime - jumpTime > maxJumpDuration*/)
+            {
+                rb.gravityScale = defaultGravity * postJumpDecceleration;
+            }
         }
 
         if (meleeAction.IsPressed())
         {
-            attackWithMelee(meleeDirection);
+            if (meleeReleased)
+            {
+                attackWithMelee(playerDirectionIsRight, lookValue);
+            }
+            meleeReleased = false;
+        }
+        else
+        {
+            meleeReleased = true;
         }
 
         if (dashUnlocked && dashAction.IsPressed())
         {
-            dash(moveValue, playerDirection);
+            dash(playerDirectionIsRight);
             dashReleased = false;
         }
         else
@@ -154,6 +196,11 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = 0f;
             rb.linearVelocity = new Vector2(dashForce * dashDirection.x, dashForce * dashDirection.y);
+        }
+
+        if (rb.linearVelocity.y < -maxFallingSpeed)
+        {
+            rb.gravityScale = 0f;
         }
     }
 
@@ -238,7 +285,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (jumpTime != -1f && Time.fixedTime - jumpTime < maxJumpDuration)
         {
-            rb.gravityScale = defaultGravity * 0.1f;
+            rb.gravityScale = defaultGravity / gravityResistanceOnJump;
         }
         else if (dropTime != -1f && Time.fixedTime - dropTime < coyoteTime && jumpReleased)
         {
@@ -252,42 +299,54 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void attackWithMelee(Vector2 meleeDirection)
+    void attackWithMelee(bool playerDirection, Vector2 lookValue)
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, 0.5f, enemyLayer);
+        if (lookValue == Vector2.zero)
+        {
+            if (playerDirection)
+            {
+                meleeDirection = Vector2.right * meleeRange / 2f;
+            }
+            else
+            {
+                meleeDirection = Vector2.left * meleeRange / 2f;
+            }
+        } 
+        else
+        {
+            meleeDirection = lookValue * meleeRange / 2f;
+        }
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, meleeRange / 2f, enemyLayer);
         Debug.Log(hitEnemies.Length + " enemies hit");
+        Debug.DrawLine(rb.position, rb.position + meleeDirection * 2f);
         foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log(enemy.gameObject);
             if (enemy.TryGetComponent(out HealthBase enemyHealth))
             {
-                //enemy taking damage code goes here (I think)
+                enemyHealth.TakeDamage(gameObject, true, meleeDamage, meleeKnockback);
             }
         }
+        soundIndex = 0;
+        _onPlaySound.Invoke();
     }
 
     void processDirection(Vector2 moveValue) {
         if (moveValue.x > 0)
         {
-            meleeDirection = Vector2.right * 0.5f;
-            playerDirection = true;
-
+            playerDirectionIsRight = true;
         }
         else if (moveValue.x < 0)
         {
-            meleeDirection = Vector2.left * 0.5f;
-            playerDirection = false;
+            playerDirectionIsRight = false;
         }
-    }
-
-    public void RegisterInteractable(IInteractable envInteractable)
-    {
-        interactable = envInteractable;
     }
 
     private void Interact()
     {
-        interactable?.Interact();
+        if (!GameManager.Instance.Interactable) return;
+        if (!GameManager.Instance.Interactable.TryGetComponent(out IInteractable interactable)) return;
+        interactable.Interact();
     }
 
     public void DashAbilityUnlock()
@@ -301,56 +360,45 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Unlocked jump");
     }
 
-    private void dash(Vector2 moveValue, bool playerDirecton)
+    private void dash(bool playerDirecton)
     {
         if (dashReleased)
         {
-            if (onGround && (dashTime == -1f || Time.fixedTime - dashTime > dashCooldown))
+            if (onGround && (groundDashTime == -1f || Time.fixedTime - groundDashTime > dashCooldown))
             {
-                if (moveValue == Vector2.zero)
+                if (playerDirecton)
                 {
-                    if (playerDirecton)
-                    {
-                        rb.linearVelocity = new Vector2(dashForce, 0);
-                        dashDirection = Vector2.right;
-                    }
-                    else
-                    {
-                        rb.linearVelocity = new Vector2(-dashForce, 0);
-                        dashDirection = Vector2.left;
-                    }
+                    rb.linearVelocity = new Vector2(dashForce, 0);
+                    dashDirection = Vector2.right;
                 }
                 else
                 {
-                    rb.linearVelocity = new Vector2(dashForce * moveValue.x, dashForce * moveValue.y);
-                    dashDirection = moveValue;
+                    rb.linearVelocity = new Vector2(-dashForce, 0);
+                    dashDirection = Vector2.left;
                 }
                 dashTime = Time.fixedTime;
                 groundDashTime = Time.fixedTime;
             }
             else if (!onGround && airDashCount == 0)
             {
-                if (moveValue == Vector2.zero)
+                if (playerDirecton)
                 {
-                    if (playerDirecton)
-                    {
-                        rb.linearVelocity = new Vector2(dashForce, 0);
-                        dashDirection = Vector2.right;
-                    }
-                    else
-                    {
-                        rb.linearVelocity = new Vector2(-dashForce, 0);
-                        dashDirection = Vector2.left;
-                    }
+                    rb.linearVelocity = new Vector2(dashForce, 0);
+                    dashDirection = Vector2.right;
                 }
                 else
                 {
-                    rb.linearVelocity = new Vector2(dashForce * moveValue.x, dashForce * moveValue.y);
-                    dashDirection = moveValue;
+                    rb.linearVelocity = new Vector2(-dashForce, 0);
+                    dashDirection = Vector2.left;
                 }
                 dashTime = Time.fixedTime;
                 airDashCount++;
             }
         }
+    }
+
+    private void PlaySound()
+    {
+        _audioSource.PlayOneShot(_audioClips[soundIndex]);
     }
 }

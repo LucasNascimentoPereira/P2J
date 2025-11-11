@@ -30,10 +30,23 @@ public class Goombuh : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {   
-        spriteRenderer.flipX = dir.x < 0;
+    {
+        Rotate();
         rb.linearVelocity = new Vector2(dir.x, 0) * goombuhData.GoombuhSpeed;
     }
+
+    private void Rotate()
+    {
+        if (transform.localEulerAngles.y != 180 && rb.linearVelocityX < 0)
+        {
+            transform.Rotate(0.0f, 180.0f, 0.0f);
+        }
+        else if (transform.localEulerAngles.y != 0 && rb.linearVelocityX > 0)
+        {
+            transform.Rotate(0.0f, -180.0f, 0.0f);
+        }
+    }
+
     public void ChangeTarget(int index)
     {
         patrolIndex = index;
