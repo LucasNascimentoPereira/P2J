@@ -1317,11 +1317,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -45.51
+      value: -3.55
       objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -31.41
+      value: -12.1
       objectReference: {fileID: 0}
     - target: {fileID: 7294249907476277105, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1386,11 +1386,7 @@ MonoBehaviour:
   groundSpeed: 5
   jumpForce: 7.5
   defaultGravity: 2
-  accelerationFactorGround: 0.15
-  deccelerationFactorGround: 0.38
-  accelerationFactorAir: 0.08
-  deccelerationFactorAir: 0.15
-  maxJumpDuration: 0.3
+  maxFallingSpeed: 50
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   dashForce: 10
@@ -1403,8 +1399,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   dashUnlocked: 0
-  damage: 1
-  knockback: 10
+  meleeDamage: 1
+  meleeKnockback: 10
+  meleeRange: 3
   _audioSource: {fileID: 0}
   _audioClips: []
 --- !u!114 &1727395731
