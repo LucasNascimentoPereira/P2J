@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goombuhSpeed: 1
   goombuhDamage: 1
-  goombuhKnockback: 1000
+  goombuhKnockback: 500
   isGoombuhKnockback: 1

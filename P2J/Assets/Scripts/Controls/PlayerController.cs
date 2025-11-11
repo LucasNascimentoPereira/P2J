@@ -40,8 +40,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int  meleeDamage = 1;
     [SerializeField] private float meleeKnockback = 10.0f;
     [SerializeField] private float meleeRange = 3.0f;
+    [SerializeField] private Animator _animatorController;
+    private int animatorHorizontal = Animator.StringToHash("Horizontal");
+    private int animatorVertical = Animator.StringToHash("Vertical");
+    private int animatorJump = Animator.StringToHash("IsOnGround");
 
-    private BoxCollider2D col;
+    private CapsuleCollider2D col;
     private Rigidbody2D rb;
     private bool onGround;
     private bool jumpReleased;
@@ -73,7 +77,7 @@ public class PlayerController : MonoBehaviour
         dashAction = InputSystem.actions.FindAction("Dash");
         lookAction = InputSystem.actions.FindAction("Look");
         interactAction = InputSystem.actions.FindAction("Interact");
-        col = GetComponent<BoxCollider2D>();
+        col = GetComponent<CapsuleCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = defaultGravity;
         jumpReleased = true;
@@ -145,6 +149,11 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = defaultGravity;
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         Vector2 lookValue = lookAction.ReadValue<Vector2>();
+        _animatorController.SetFloat(animatorHorizontal, moveValue.x);
+        _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
+        _animatorController.SetBool(animatorJump, onGround);
+        //_animatorController.SetFloat("Horizontal", moveAction.ReadValue<Vector2>().x);
+
         processMovement(moveValue);
         processDirection(moveValue);
 
@@ -328,7 +337,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         soundIndex = 0;
-        _onPlaySound.Invoke();
+        //_onPlaySound.Invoke();
     }
 
     void processDirection(Vector2 moveValue) {
