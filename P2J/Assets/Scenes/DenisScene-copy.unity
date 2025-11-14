@@ -196,6 +196,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -131
       objectReference: {fileID: 0}
+    - target: {fileID: 337066540257417696, guid: 1b4a04ceaddab5b4a84ca0150beabcc6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 970843777064385976, guid: 1b4a04ceaddab5b4a84ca0150beabcc6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 57
@@ -476,6 +480,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pickup
       objectReference: {fileID: 0}
+    - target: {fileID: 4674165001602315126, guid: ea79af9f1e98f2b4abc0e020e01eafba, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 8186712137036622098, guid: ea79af9f1e98f2b4abc0e020e01eafba, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -537,6 +545,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 756567021729059096, guid: 048796fd77e253244b1bf5c984576a22, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 7107927954919975223, guid: 048796fd77e253244b1bf5c984576a22, type: 3}
       propertyPath: m_Name
       value: DisappearingPlatform
@@ -598,6 +610,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -35.5
       objectReference: {fileID: 0}
+    - target: {fileID: 337066540257417696, guid: 1b4a04ceaddab5b4a84ca0150beabcc6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 970843777064385976, guid: 1b4a04ceaddab5b4a84ca0150beabcc6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 36.4
@@ -933,6 +949,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8951295823776641744, guid: f272856cac4abfe4a8e414b1b99833eb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1402,6 +1422,7 @@ MonoBehaviour:
   meleeDamage: 1
   meleeKnockback: 10
   meleeRange: 3
+  _animatorController: {fileID: 0}
   _audioSource: {fileID: 0}
   _audioClips: []
 --- !u!114 &1727395731
@@ -1432,8 +1453,6 @@ MonoBehaviour:
   rb: {fileID: 1727395733}
   playerData: {fileID: 11400000, guid: a15bb403db4bc0de794776bc1399a5bb, type: 2}
   spriteRenderer: {fileID: 1727395732}
-  _audioSource: {fileID: 0}
-  _audioClips: []
 --- !u!212 &1727395732 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 7840128277251567285, guid: 1c44cb6dff84b2eaaa16eb8ad07e20fb, type: 3}

@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8373491326728114974, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
       propertyPath: m_Name
-      value: JumpUnlock
+      value: JumpAbilityUnlock
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 494084432596137387, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
@@ -102,3 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071147ecd775daf44905061ef9afa2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onInteract:
+    m_PersistentCalls:
+      m_Calls: []
