@@ -6,8 +6,7 @@ public class Liquid : MonoBehaviour
     [SerializeField] private Detector detector;
     public void Damage()
     {
-        if (!detector.gameObject.TryGetComponent(out HealthPlayerBase healthPlayerBase)) return;
+        if (!detector.Collider.TryGetComponent(out HealthPlayerBase healthPlayerBase)) return;
         healthPlayerBase.TakeDamage(gameObject, true, damage);
-        Debug.Log("Lucas você não sabe oque ta fazendo.");
     }
 }
