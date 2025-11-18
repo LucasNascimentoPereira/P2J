@@ -92,6 +92,21 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        checkForGround();
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        checkForGround();
+    }
+
+    private static bool InBetween(float value, float min, float max)
+    {
+        return value > min && value < max;
+    }
+
+    private void checkForGround()
+    {
         if (IsOnGround())
         {
             onGround = true;
@@ -105,19 +120,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            onGround = false;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (IsOnGround())
-        {
-            onGround = true;
-            airDashCount = 0;
-        }
-        else
-        {
             if (jumpReleased && onGround)
             {
                 dropTime = Time.fixedTime;
@@ -125,12 +127,6 @@ public class PlayerController : MonoBehaviour
             onGround = false;
         }
     }
-
-    private static bool InBetween(float value, float min, float max)
-    {
-        return value > min && value < max;
-    }
-
     private bool IsOnGround()
     {
         //return col.IsTouchingLayers(groundLayer);
@@ -141,6 +137,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        checkForGround();
         if (interactAction.WasPressedThisFrame())
         {
             Interact();
@@ -156,19 +153,6 @@ public class PlayerController : MonoBehaviour
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
         _animatorController.SetBool(animatorJump, onGround);
         //_animatorController.SetFloat("Horizontal", moveAction.ReadValue<Vector2>().x);
-        if (IsOnGround())
-        {
-            onGround = true;
-            airDashCount = 0;
-        }
-        else
-        {
-            if (jumpReleased && onGround)
-            {
-                dropTime = Time.fixedTime;
-            }
-            onGround = false;
-        }
 
         processMovement(moveValue);
         processDirection(moveValue);
