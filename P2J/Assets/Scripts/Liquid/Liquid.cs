@@ -8,5 +8,6 @@ public class Liquid : MonoBehaviour
     {
         if (!detector.gameObject.TryGetComponent(out HealthPlayerBase healthPlayerBase)) return;
         healthPlayerBase.TakeDamage(gameObject, true, damage);
+        Debug.Log("Lucas você não sabe oque ta fazendo.");
     }
 }
