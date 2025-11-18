@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float groundSpeed = 10f;
     [SerializeField] private float jumpForce = 20f;
+    [SerializeField] private Vector2 jumpForceWall = new Vector2(12f, 5f);
     [SerializeField] private float defaultGravity = 5f;
     [SerializeField] private float maxFallingSpeed = 50f;
     /*[SerializeField]*/ private float accelerationFactorGround = 0.15f;
@@ -48,6 +49,8 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider2D col;
     private Rigidbody2D rb;
     private bool onGround;
+    private bool onLeftWall;
+    private bool onRightWall;
     private bool jumpReleased;
     private bool dashReleased;
     private bool meleeReleased;
@@ -85,12 +88,28 @@ public class PlayerController : MonoBehaviour
         meleeReleased = true;
         playerDirectionIsRight = true;
         meleeDirection = Vector2.right * 0.5f;
-        //playerDirection = true;
 
         _onPlaySound.AddListener(PlaySound);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
+    {
+        checkForGround();
+        checkForWalls();
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        checkForGround();
+        checkForWalls();
+    }
+
+    private static bool InBetween(float value, float min, float max)
+    {
+        return value > min && value < max;
+    }
+
+    private void checkForGround()
     {
         if (IsOnGround())
         {
@@ -105,19 +124,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            onGround = false;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (IsOnGround())
-        {
-            onGround = true;
-            airDashCount = 0;
-        }
-        else
-        {
             if (jumpReleased && onGround)
             {
                 dropTime = Time.fixedTime;
@@ -126,18 +132,49 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private static bool InBetween(float value, float min, float max)
+    private void checkForWalls()
     {
-        return value > min && value < max;
+        if (IsOnLeftWall())
+        {
+            onLeftWall = true;
+        }
+        else
+        {
+            onLeftWall = false;
+        }
+        if (IsOnRightWall())
+        {
+            onRightWall = true;
+        }
+        else
+        {
+            onRightWall = false;
+        }
     }
 
     private bool IsOnGround()
     {
-        return col.IsTouchingLayers(groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(col.bounds.center, col.bounds.size * 0.9f, 0f, Vector2.down, 0.1f, groundLayer);
+        return raycastHit.collider != null;
+    }
+
+    private bool IsOnLeftWall()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(col.bounds.center, col.bounds.size * 0.9f, 0f, Vector2.left, 0.1f, groundLayer);
+        Debug.Log(raycastHit.collider);
+        return raycastHit.collider != null;
+    }
+
+    private bool IsOnRightWall()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(col.bounds.center, col.bounds.size * 0.9f, 0f, Vector2.right, 0.1f, groundLayer);
+        return raycastHit.collider != null;
     }
 
     private void Update()
     {
+        checkForGround();
+        checkForWalls();
         if (interactAction.WasPressedThisFrame())
         {
             Interact();
@@ -290,6 +327,16 @@ public class PlayerController : MonoBehaviour
         if (onGround && jumpReleased)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpTime = Time.fixedTime;
+        }
+        else if (onLeftWall && jumpReleased)
+        {
+            rb.linearVelocity = jumpForceWall;
+            jumpTime = Time.fixedTime;
+        }
+        else if (onRightWall && jumpReleased)
+        {
+            rb.linearVelocity = new Vector2(-jumpForceWall.x, jumpForceWall.y);
             jumpTime = Time.fixedTime;
         }
         else if (jumpTime != -1f && Time.fixedTime - jumpTime < maxJumpDuration)
