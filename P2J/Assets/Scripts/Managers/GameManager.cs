@@ -134,7 +134,6 @@ public class GameManager : MonoBehaviour
         }
         //RaceConditionAvoider();
         //yield return new WaitForSeconds(0.2f);
-        UIManager.Instance.ShowPanel("HUD");
     }
    
     public void SaveGame()

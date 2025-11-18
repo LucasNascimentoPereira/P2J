@@ -6835,6 +6835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb254e977fc6cbb4d9c5b3e4d56fdee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 1984490006}
 --- !u!1 &694969403
 GameObject:
   m_ObjectHideFlags: 0
@@ -19419,6 +19420,7 @@ MonoBehaviour:
   - {fileID: 1740381613}
   - {fileID: 68801900}
   - {fileID: 478556662}
+  canvas: {fileID: 1902594898}
   startLevelButton: {fileID: 0}
   _eventSystem: {fileID: 2026558892}
   notificationsText: {fileID: 0}
