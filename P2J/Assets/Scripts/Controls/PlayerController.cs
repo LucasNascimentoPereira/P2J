@@ -133,7 +133,10 @@ public class PlayerController : MonoBehaviour
 
     private bool IsOnGround()
     {
-        return col.IsTouchingLayers(groundLayer);
+        //return col.IsTouchingLayers(groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0f, Vector2.down, 0.1f, groundLayer);
+        Debug.Log(raycastHit.collider);
+        return raycastHit.collider != null;
     }
 
     private void Update()
@@ -153,6 +156,19 @@ public class PlayerController : MonoBehaviour
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
         _animatorController.SetBool(animatorJump, onGround);
         //_animatorController.SetFloat("Horizontal", moveAction.ReadValue<Vector2>().x);
+        if (IsOnGround())
+        {
+            onGround = true;
+            airDashCount = 0;
+        }
+        else
+        {
+            if (jumpReleased && onGround)
+            {
+                dropTime = Time.fixedTime;
+            }
+            onGround = false;
+        }
 
         processMovement(moveValue);
         processDirection(moveValue);
