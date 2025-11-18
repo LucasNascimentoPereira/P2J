@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class MainLevel : MonoBehaviour
 {
+    [SerializeField] private Camera _camera;
+
     private void Start()
     {
-        UIManager.Instance.ShowPanel("ControlsUI");
+        UIManager.Instance.CameraReference(_camera);
+        UIManager.Instance.ShowPanel("HUD");
     }
 }

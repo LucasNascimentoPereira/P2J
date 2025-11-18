@@ -14,8 +14,6 @@ public class HealthPlayerBase : HealthBase
     private UnityEvent _onChangeStatus = new();
 
     private UnityEvent _onPlaySound = new();
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private List<AudioClip> _audioClips;
 
     protected override void Awake()
     {
@@ -23,7 +21,6 @@ public class HealthPlayerBase : HealthBase
         GameManager.Instance.HealthPlayer = this;
         _onChangeHealth.AddListener(UIManager.Instance.ChangeHealth);
         _onChangeStatus.AddListener(GameManager.Instance.LevelReset);
-        _onPlaySound.AddListener(PlaySound);
     }
 
     public void LevelReset()
@@ -37,7 +34,6 @@ public class HealthPlayerBase : HealthBase
         if (damageDealer == null) return false;
         CalculateHealth(damage);
         _onChangeHealth.Invoke();
-        //audioSource.PlayOneShot();
         StartCoroutine(Invencibility());
         soundIndex = 0;
         _onPlaySound.Invoke();
@@ -51,7 +47,6 @@ public class HealthPlayerBase : HealthBase
         CalculateHealth(damage);
         rb.AddForce(-rb.transform.right * force, ForceMode2D.Force);
         _onChangeHealth.Invoke();
-        //audioSource.PlayOneShot();
         StartCoroutine(Invencibility());
         soundIndex = 0;
         _onPlaySound.Invoke();

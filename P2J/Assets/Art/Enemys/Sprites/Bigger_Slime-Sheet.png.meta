@@ -1,28 +1,25 @@
 fileFormatVersion: 2
-guid: 8eb42436ae388a841932ef9e0645c2cd
+guid: e8f75e797f7869044a872ab99d5cd1c1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 79637477770846836
-    second: Vesper jump_land animation_R_0
+      213: -6917064287103164268
+    second: Bigger_Slime-Sheet_0
   - first:
-      213: 8783562956574346870
-    second: Vesper jump_land animation_R_1
+      213: 1884487847847315474
+    second: Bigger_Slime-Sheet_1
   - first:
-      213: 5578165045670190490
-    second: Vesper jump_land animation_R_2
+      213: -2878984971311882889
+    second: Bigger_Slime-Sheet_2
   - first:
-      213: 8059736674754311332
-    second: Vesper jump_land animation_R_3
+      213: -2281937349426891325
+    second: Bigger_Slime-Sheet_3
   - first:
-      213: 4830860080736193741
-    second: Vesper jump_land animation_R_4
+      213: 6966619865303150230
+    second: Bigger_Slime-Sheet_4
   - first:
-      213: -8196485058340404939
-    second: Vesper jump_land animation_R_5
-  - first:
-      213: 8032824642396607524
-    second: Vesper jump_land animation_R_6
+      213: -9145186411409328104
+    second: Bigger_Slime-Sheet_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -69,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -118,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Vesper jump_land animation_R_0
+      name: Bigger_Slime-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 76
-        width: 32
-        height: 38
+        y: 480
+        width: 64
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,64 +130,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 472e6553dddea1100800000000000000
-      internalID: 79637477770846836
+      spriteID: 490eca6dda6a100a0800000000000000
+      internalID: -6917064287103164268
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump_land animation_R_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 76
-        width: 32
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 67ec4e0c8fb75e970800000000000000
-      internalID: 8783562956574346870
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Vesper jump_land animation_R_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 76
-        width: 32
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a9d1cadfd8f996d40800000000000000
-      internalID: 5578165045670190490
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Vesper jump_land animation_R_3
+      name: Bigger_Slime-Sheet_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 38
-        width: 32
-        height: 38
+        y: 384
+        width: 64
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -199,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4a43be9adcfe9df60800000000000000
-      internalID: 8059736674754311332
+      spriteID: 218ca7296bb072a10800000000000000
+      internalID: 1884487847847315474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump_land animation_R_4
+      name: Bigger_Slime-Sheet_2
       rect:
         serializedVersion: 2
-        x: 32
-        y: 38
-        width: 32
-        height: 38
+        x: 0
+        y: 288
+        width: 64
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dcc45eff5a9aa0340800000000000000
-      internalID: 4830860080736193741
+      spriteID: 77d544f0c6acb08d0800000000000000
+      internalID: -2878984971311882889
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump_land animation_R_5
+      name: Bigger_Slime-Sheet_3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 38
-        width: 32
-        height: 38
+        x: 0
+        y: 192
+        width: 64
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -243,20 +196,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 531c2da244c304e80800000000000000
-      internalID: -8196485058340404939
+      spriteID: 3c5b6b7221ee450e0800000000000000
+      internalID: -2281937349426891325
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump_land animation_R_6
+      name: Bigger_Slime-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69ee2945bd76ea060800000000000000
+      internalID: 6966619865303150230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bigger_Slime-Sheet_5
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 38
+        width: 64
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,8 +240,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 424dd09d3735a7f60800000000000000
-      internalID: 8032824642396607524
+      spriteID: 818b73f7965c51180800000000000000
+      internalID: -9145186411409328104
       vertices: []
       indices: 
       edges: []
@@ -275,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 6092c65eaad3bbf43a527a36afc554f6
+    spriteID: b0499e7e6731b904fa283af740609421
     internalID: 0
     vertices: []
     indices: 
@@ -285,13 +260,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Vesper jump_land animation_R_0: 79637477770846836
-      Vesper jump_land animation_R_1: 8783562956574346870
-      Vesper jump_land animation_R_2: 5578165045670190490
-      Vesper jump_land animation_R_3: 8059736674754311332
-      Vesper jump_land animation_R_4: 4830860080736193741
-      Vesper jump_land animation_R_5: -8196485058340404939
-      Vesper jump_land animation_R_6: 8032824642396607524
+      Bigger_Slime-Sheet_0: -6917064287103164268
+      Bigger_Slime-Sheet_1: 1884487847847315474
+      Bigger_Slime-Sheet_2: -2878984971311882889
+      Bigger_Slime-Sheet_3: -2281937349426891325
+      Bigger_Slime-Sheet_4: 6966619865303150230
+      Bigger_Slime-Sheet_5: -9145186411409328104
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

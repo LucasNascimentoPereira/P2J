@@ -1,22 +1,28 @@
 fileFormatVersion: 2
-guid: ca5cda1e51686e14d90ee90fd9680eb1
+guid: 1e728c904f2508c478b69ec2eb8d1690
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1165250145232843468
-    second: Vesper jump animation_R_0
+      213: 9152735329987418034
+    second: Vesper jump animation_R (3)_0
   - first:
-      213: 5344927072361063710
-    second: Vesper jump animation_R_1
+      213: -5503529195848231639
+    second: Vesper jump animation_R (3)_1
   - first:
-      213: -5847193452516612431
-    second: Vesper jump animation_R_2
+      213: -8937359110761905065
+    second: Vesper jump animation_R (3)_2
   - first:
-      213: 2190544355865192651
-    second: Vesper jump animation_R_3
+      213: 2971185800946147016
+    second: Vesper jump animation_R (3)_3
   - first:
-      213: -7939502215644687743
-    second: Vesper jump animation_R_4
+      213: 3024994008077559465
+    second: Vesper jump animation_R (3)_4
+  - first:
+      213: 4192906605581129561
+    second: Vesper jump animation_R (3)_5
+  - first:
+      213: 6976136529814600491
+    second: Vesper jump animation_R (3)_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -112,7 +118,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Vesper jump animation_R_0
+      name: Vesper jump animation_R (3)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -127,14 +133,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 43d8ceaaa2334dfe0800000000000000
-      internalID: -1165250145232843468
+      spriteID: 2b751131a4c050f70800000000000000
+      internalID: 9152735329987418034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump animation_R_1
+      name: Vesper jump animation_R (3)_1
       rect:
         serializedVersion: 2
         x: 32
@@ -149,14 +155,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e15237a8adefc2a40800000000000000
-      internalID: 5344927072361063710
+      spriteID: 9259976fa598f93b0800000000000000
+      internalID: -5503529195848231639
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump animation_R_2
+      name: Vesper jump animation_R (3)_2
       rect:
         serializedVersion: 2
         x: 0
@@ -171,14 +177,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1b6e1c1e8889adea0800000000000000
-      internalID: -5847193452516612431
+      spriteID: 7548fecad3f18f380800000000000000
+      internalID: -8937359110761905065
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump animation_R_3
+      name: Vesper jump animation_R (3)_3
       rect:
         serializedVersion: 2
         x: 32
@@ -193,14 +199,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bc8e4145c70666e10800000000000000
-      internalID: 2190544355865192651
+      spriteID: 8ce54137eb5cb3920800000000000000
+      internalID: 2971185800946147016
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump animation_R_4
+      name: Vesper jump animation_R (3)_4
       rect:
         serializedVersion: 2
         x: 0
@@ -215,8 +221,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1825217dcc831d190800000000000000
-      internalID: -7939502215644687743
+      spriteID: 9a6e523f500faf920800000000000000
+      internalID: 3024994008077559465
       vertices: []
       indices: 
       edges: []
@@ -225,7 +231,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0121294548d274946bce31a1fb2e522d
+    spriteID: 11db3aa15b1a53f469bcbb9d0e71d5ce
     internalID: 0
     vertices: []
     indices: 
@@ -235,11 +241,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Vesper jump animation_R_0: -1165250145232843468
-      Vesper jump animation_R_1: 5344927072361063710
-      Vesper jump animation_R_2: -5847193452516612431
-      Vesper jump animation_R_3: 2190544355865192651
-      Vesper jump animation_R_4: -7939502215644687743
+      Vesper jump animation_R (3)_0: 9152735329987418034
+      Vesper jump animation_R (3)_1: -5503529195848231639
+      Vesper jump animation_R (3)_2: -8937359110761905065
+      Vesper jump animation_R (3)_3: 2971185800946147016
+      Vesper jump animation_R (3)_4: 3024994008077559465
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -6835,6 +6835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb254e977fc6cbb4d9c5b3e4d56fdee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 1984490006}
 --- !u!1 &694969403
 GameObject:
   m_ObjectHideFlags: 0
@@ -13853,7 +13854,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -17756,7 +17757,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!1001 &1914204930
 PrefabInstance:
@@ -19419,6 +19420,7 @@ MonoBehaviour:
   - {fileID: 1740381613}
   - {fileID: 68801900}
   - {fileID: 478556662}
+  canvas: {fileID: 1902594898}
   startLevelButton: {fileID: 0}
   _eventSystem: {fileID: 2026558892}
   notificationsText: {fileID: 0}

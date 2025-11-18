@@ -1,28 +1,16 @@
 fileFormatVersion: 2
-guid: 8eb42436ae388a841932ef9e0645c2cd
+guid: c58b06f2ba6af994585490b700ab9fa5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 79637477770846836
-    second: Vesper jump_land animation_R_0
+      213: 3672175780270928829
+    second: Liquid-Sheet_0
   - first:
-      213: 8783562956574346870
-    second: Vesper jump_land animation_R_1
+      213: 7444732934619481065
+    second: Liquid-Sheet_1
   - first:
-      213: 5578165045670190490
-    second: Vesper jump_land animation_R_2
-  - first:
-      213: 8059736674754311332
-    second: Vesper jump_land animation_R_3
-  - first:
-      213: 4830860080736193741
-    second: Vesper jump_land animation_R_4
-  - first:
-      213: -8196485058340404939
-    second: Vesper jump_land animation_R_5
-  - first:
-      213: 8032824642396607524
-    second: Vesper jump_land animation_R_6
+      213: -6004733610690158956
+    second: Liquid-Sheet_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -118,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Vesper jump_land animation_R_0
+      name: Liquid-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 76
-        width: 32
-        height: 38
+        y: 240
+        width: 128
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,64 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 472e6553dddea1100800000000000000
-      internalID: 79637477770846836
+      spriteID: db377d78a6036f230800000000000000
+      internalID: 3672175780270928829
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump_land animation_R_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 76
-        width: 32
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 67ec4e0c8fb75e970800000000000000
-      internalID: 8783562956574346870
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Vesper jump_land animation_R_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 76
-        width: 32
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a9d1cadfd8f996d40800000000000000
-      internalID: 5578165045670190490
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Vesper jump_land animation_R_3
+      name: Liquid-Sheet_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 38
-        width: 32
-        height: 38
+        y: 192
+        width: 128
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -199,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4a43be9adcfe9df60800000000000000
-      internalID: 8059736674754311332
+      spriteID: 9e345aff821015760800000000000000
+      internalID: 7444732934619481065
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump_land animation_R_4
+      name: Liquid-Sheet_2
       rect:
         serializedVersion: 2
-        x: 32
-        y: 38
-        width: 32
-        height: 38
+        x: 0
+        y: 144
+        width: 128
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,52 +165,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dcc45eff5a9aa0340800000000000000
-      internalID: 4830860080736193741
+      spriteID: 49ed6f37896eaaca0800000000000000
+      internalID: -6004733610690158956
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump_land animation_R_5
+      name: Liquid-Sheet_3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 38
-        width: 32
-        height: 38
+        x: 0
+        y: 96
+        width: 128
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 531c2da244c304e80800000000000000
-      internalID: -8196485058340404939
+      spriteID: 0b392cb19446c454f861eac30c1b6415
+      internalID: -1783657822
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper jump_land animation_R_6
+      name: Liquid-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 128
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19b933382742a0a41a14fba54826c31d
+      internalID: 1165225310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Liquid-Sheet_5
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 38
+        width: 128
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 424dd09d3735a7f60800000000000000
-      internalID: 8032824642396607524
+      spriteID: e7ad877700c75ee469b6882ba83bb0eb
+      internalID: 1947641554
       vertices: []
       indices: 
       edges: []
@@ -275,7 +241,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 6092c65eaad3bbf43a527a36afc554f6
+    spriteID: f06de76f2ba6e2442a517b122e847ffc
     internalID: 0
     vertices: []
     indices: 
@@ -285,13 +251,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Vesper jump_land animation_R_0: 79637477770846836
-      Vesper jump_land animation_R_1: 8783562956574346870
-      Vesper jump_land animation_R_2: 5578165045670190490
-      Vesper jump_land animation_R_3: 8059736674754311332
-      Vesper jump_land animation_R_4: 4830860080736193741
-      Vesper jump_land animation_R_5: -8196485058340404939
-      Vesper jump_land animation_R_6: 8032824642396607524
+      Liquid-Sheet_0: 3672175780270928829
+      Liquid-Sheet_1: 7444732934619481065
+      Liquid-Sheet_2: -6004733610690158956
+      Liquid-Sheet_3: -1783657822
+      Liquid-Sheet_4: 1165225310
+      Liquid-Sheet_5: 1947641554
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
