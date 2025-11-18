@@ -1,7 +1,6 @@
-// Must be inside a folder named "Editor"
 using UnityEditor;
 using UnityEngine;
-using System.IO; // We will need this later for path/file operations
+using System.IO;
 
 public class NormalMapGeneratorWindow : EditorWindow
 {
