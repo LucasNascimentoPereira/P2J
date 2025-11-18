@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private int animatorHorizontal = Animator.StringToHash("Horizontal");
     private int animatorVertical = Animator.StringToHash("Vertical");
     private int animatorJump = Animator.StringToHash("IsOnGround");
+    private int animatorPlayerDirection = Animator.StringToHash("IsRight");
 
     private CapsuleCollider2D col;
     private Rigidbody2D rb;
@@ -68,7 +69,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private List<AudioClip> _audioClips;
     private int soundIndex;
 
-
     private void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
@@ -86,8 +86,10 @@ public class PlayerController : MonoBehaviour
         playerDirectionIsRight = true;
         meleeDirection = Vector2.right * 0.5f;
         //playerDirection = true;
+        GameManager.Instance.PlayerController = this;
 
         _onPlaySound.AddListener(PlaySound);
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -152,7 +154,7 @@ public class PlayerController : MonoBehaviour
         _animatorController.SetFloat(animatorHorizontal, moveValue.x);
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
         _animatorController.SetBool(animatorJump, onGround);
-        //_animatorController.SetFloat("Horizontal", moveAction.ReadValue<Vector2>().x);
+        _animatorController.SetBool(animatorPlayerDirection, playerDirectionIsRight);
 
         processMovement(moveValue);
         processDirection(moveValue);
@@ -358,15 +360,17 @@ public class PlayerController : MonoBehaviour
         interactable.Interact();
     }
 
-    public void DashAbilityUnlock()
+    public void AbilityUnlock(string name)
     {
-        Debug.Log("Unlocked dash");
-        dashUnlocked = true;
-    }
-
-    public void JumpAbilityUnlock()
-    {
-        Debug.Log("Unlocked jump");
+        switch (name) {
+            case "Dash":
+                dashUnlocked = true;
+                break;
+            case "DbDash":
+                break;
+            default: 
+                break;
+        }
     }
 
     private void dash(bool playerDirecton)

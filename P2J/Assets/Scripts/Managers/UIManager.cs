@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject abilityImagesContainer;
     private List<Image> heartImages = new();
     private Dictionary<string, Image> abilityImages = new();
+    private Coroutine _abilityImageCoroutine;
 
 
 

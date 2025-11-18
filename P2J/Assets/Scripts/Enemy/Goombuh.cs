@@ -12,6 +12,8 @@ public class Goombuh : MonoBehaviour
     private Vector2 dir = Vector2.zero;
     [SerializeField] private Detector detector;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
+    private int animatorHorizontal = Animator.StringToHash("GoombuhHorizontal");
 
     private void OnBecameVisible()
     {
@@ -31,8 +33,9 @@ public class Goombuh : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Rotate();
+        //Rotate();
         rb.linearVelocity = new Vector2(dir.x, 0) * goombuhData.GoombuhSpeed;
+        animator.SetFloat(animatorHorizontal, rb.linearVelocityX);
     }
 
     private void Rotate()

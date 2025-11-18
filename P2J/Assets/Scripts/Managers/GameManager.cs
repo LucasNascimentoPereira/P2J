@@ -196,12 +196,13 @@ public class GameManager : MonoBehaviour
 
     public void PurchaseAbilityUpgrade(string upgrade)
     {
-        Debug.Log(upgrade);
         if(prices.TryGetValue(upgrade, out var price))
         {
-            if(_coins >= price.UpgradeValue)
+            if (_coins >= price.UpgradeValue)
             {
                 _coins -= price.UpgradeValue;
+                if (!playerController) return;
+                playerController.AbilityUnlock(upgrade);
             }
         }
     }
