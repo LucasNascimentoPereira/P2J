@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioManagerData audioManagerData;
     [SerializeField] private UIManagerData uiManagerData;
 
-    InputAction pause;
-
     [Header("Events")]
     private UnityEvent _onCoins = new();
     private UnityEvent _onLevelReset = new();
@@ -80,7 +78,6 @@ public class GameManager : MonoBehaviour
         //_gameData = SaveSystem.LoadGame();
         _onCoins?.AddListener(UIManager.Instance.ChangeCoins);
         _onLevelReset?.AddListener(UIManager.Instance.ChangeHealth);
-        pause = InputSystem.actions.FindAction("Pause");
         for (int i = 0; i < upgradeData.Count; ++i)
         {
             prices.Add(upgradeData[i].UpgradeName, upgradeData[i]);
@@ -90,14 +87,6 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         //LoadLevel(1);
-    }
-
-    private void Update()
-    {
-        if (pause.WasPressedThisFrame())
-        {
-            PauseGame(!IsPaused);
-        }
     }
 
 

@@ -8,6 +8,7 @@ public class MainLevel : MonoBehaviour
     private void Start()
     {
         UIManager.Instance.CameraReference(_camera);
+        UIManager.Instance.ShowPanel("PauseMenu");
         UIManager.Instance.ShowPanel("HUD");
     }
 }

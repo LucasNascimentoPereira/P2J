@@ -46,11 +46,14 @@ public class UIManager : MonoBehaviour
     private Dictionary<string, Image> abilityImages = new();
     private Coroutine _abilityImageCoroutine;
 
+    InputAction esc;
+
 
 
     public bool DeviceVibration => deviceVibration;
     public UIManagerData UIManagerData => uiManagerData;
     public GameObject CurrentMenu => _currentMenu;
+    public GameObject PreviousMenu { get => _previousMenu; set => _previousMenu = value; }
     
     private void Awake()
     {
@@ -82,13 +85,16 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         ChangeVersionNumber();
+        esc = InputSystem.actions.FindAction("Pause");
     }
 
     private void Update()
     {
         fpsCounter.text = (1 / Time.deltaTime).ToString("F1");
-        //ChangeHealth(true, 2);
-        //GameManager.Instance.AddCoins();
+        if (esc.WasPressedThisFrame())
+        {
+            ShowPanel("ShowPrevious");
+        }
     }
 
     public void ShowPanel(string menuName)
@@ -98,10 +104,17 @@ public class UIManager : MonoBehaviour
         if (menuName == "NoMenu") _currentMenu.SetActive(false);
         if (menuName == "ShowPrevious")
         {
-            _currentMenu.SetActive(false);
-            if (_previousMenu)
+            if (_previousMenu && _previousMenu != _currentMenu)
             {
-                _previousMenu.SetActive(true);
+                _currentMenu.SetActive(false);
+                GameObject menu = _currentMenu;
+                _currentMenu = _previousMenu;
+                _previousMenu = menu;
+                _currentMenu.SetActive(true);
+            }
+            if (_currentMenu.name == "PauseMenu" && !GameManager.Instance.IsPaused)
+            {
+                GameManager.Instance.PauseGame(true);
             }
         }
 
