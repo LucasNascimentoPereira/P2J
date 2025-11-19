@@ -31,7 +31,18 @@ public class EnemyHealth : HealthBase
     {
         if (damageDealer == null) return false;
         CalculateHealth(damage);
-        rb.AddForce(-rb.transform.right * force, ForceMode2D.Force);
+        rb.AddForce(-rb.linearVelocity.normalized * force, ForceMode2D.Force);
+        soundIndex = 0;
+        //onPlaySound.Invoke();
+        //audioSource.PlayOneShot();
+        return true;
+    }
+
+    public bool TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force, Vector2 dir)
+    {
+        if (damageDealer == null) return false;
+        CalculateHealth(damage);
+        rb.AddForce(-rb.linearVelocity.normalized * force, ForceMode2D.Force);
         soundIndex = 0;
         //onPlaySound.Invoke();
         //audioSource.PlayOneShot();

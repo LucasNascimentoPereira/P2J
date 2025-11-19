@@ -35,7 +35,7 @@ public class Goombuh : MonoBehaviour
     {
         //Rotate();
         rb.linearVelocity = new Vector2(dir.x, 0) * goombuhData.GoombuhSpeed;
-        animator.SetFloat(animatorHorizontal, rb.linearVelocityX);
+        //animator.SetFloat(animatorHorizontal, rb.linearVelocityX);
     }
 
     private void Rotate()

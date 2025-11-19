@@ -249,7 +249,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b34ccc52991b9de66abfaea07681bf37, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -295,6 +295,7 @@ MonoBehaviour:
   rb: {fileID: 6353725496803889946}
   detector: {fileID: 1087027815655431809}
   spriteRenderer: {fileID: 8951295823776641744}
+  animator: {fileID: 0}
 --- !u!50 &6353725496803889946
 Rigidbody2D:
   serializedVersion: 5
@@ -334,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baeb7b74c9bdd5942997507bdd664750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 2
   minHealth: 0
   onDefeat:
     m_PersistentCalls:

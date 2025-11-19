@@ -7579,7 +7579,7 @@ Transform:
   m_GameObject: {fileID: 827768310}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -47.001286, y: 22.324718, z: -10}
+  m_LocalPosition: {x: 31.332039, y: 12.334252, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -8970,7 +8970,7 @@ MonoBehaviour:
     m_Bits: 8
   dashUnlocked: 0
   meleeDamage: 1
-  meleeKnockback: 10
+  meleeKnockback: 5000
   meleeRange: 2
   _animatorController: {fileID: 1062029175}
   _audioSource: {fileID: 0}
@@ -9112,7 +9112,7 @@ Transform:
   m_GameObject: {fileID: 1062029168}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50.16, y: 20.580002, z: 0}
+  m_LocalPosition: {x: 25.6, y: 10.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -70482,6 +70482,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4990310943220434862, guid: f272856cac4abfe4a8e414b1b99833eb, type: 3}
+      propertyPath: maxHealth
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 5767992273763481723, guid: f272856cac4abfe4a8e414b1b99833eb, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -71224,7 +71228,7 @@ Transform:
   m_GameObject: {fileID: 1348796696}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50.16, y: 22.313335, z: -10}
+  m_LocalPosition: {x: 25.6, y: 12.433332, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

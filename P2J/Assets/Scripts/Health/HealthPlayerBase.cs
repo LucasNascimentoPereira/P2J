@@ -45,6 +45,7 @@ public class HealthPlayerBase : HealthBase
         if (isInvencible) return false;
         if (damageDealer == null) return false;
         CalculateHealth(damage);
+        Debug.Log(-rb.transform.right);
         rb.AddForce(-rb.transform.right * force, ForceMode2D.Force);
         _onChangeHealth.Invoke();
         StartCoroutine(Invencibility());
