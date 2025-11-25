@@ -5,6 +5,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 
 
 public class PlayerController : MonoBehaviour
@@ -45,6 +46,9 @@ public class PlayerController : MonoBehaviour
     private int animatorHorizontal = Animator.StringToHash("Horizontal");
     private int animatorVertical = Animator.StringToHash("Vertical");
     private int animatorJump = Animator.StringToHash("IsOnGround");
+    private int animatorAttackRight = Animator.StringToHash("IsAttackingRight");
+    private int animatorAttackLeft = Animator.StringToHash("IsAttackingLeft");
+
 
     private CapsuleCollider2D col;
     private Rigidbody2D rb;
@@ -186,6 +190,20 @@ public class PlayerController : MonoBehaviour
             if (meleeReleased)
             {
                 attackWithMelee(playerDirectionIsRight, lookValue);
+                if(lookValue.x > 0.1f)
+                {
+                    _animatorController.SetTrigger(animatorAttackRight);
+                }
+                if(lookValue.x < -0.1f)
+                {
+                    _animatorController.SetTrigger(animatorAttackLeft);
+                }
+                if(lookValue.y > 0.1f)
+                {
+                }
+                if(lookValue.y < -0.1f)
+                {
+                }
             }
             meleeReleased = false;
         }
@@ -203,6 +221,7 @@ public class PlayerController : MonoBehaviour
         _animatorController.SetFloat(animatorHorizontal, moveValue.x);
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
         _animatorController.SetBool(animatorJump, onGround);
+
         //_animatorController.SetFloat("Horizontal", moveAction.ReadValue<Vector2>().x);
 
         processMovement(moveValue);
@@ -371,6 +390,7 @@ public class PlayerController : MonoBehaviour
 
     void attackWithMelee(bool playerDirection, Vector2 lookValue)
     {
+        
         if (lookValue == Vector2.zero)
         {
             if (playerDirection)
