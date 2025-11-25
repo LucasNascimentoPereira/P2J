@@ -173,11 +173,25 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        Vector2 lookValue = lookAction.ReadValue<Vector2>();
+        bool lookValueChanged = lookAction.triggered;
         checkForGround();
         checkForWalls();
         if (interactAction.WasPressedThisFrame())
         {
             Interact();
+        }
+        if (lookValueChanged && lookValue != Vector2.zero)
+        {
+            if (meleeReleased)
+            {
+                attackWithMelee(playerDirectionIsRight, lookValue);
+            }
+            meleeReleased = false;
+        }
+        else
+        {
+            meleeReleased = true;
         }
     }
 
@@ -220,13 +234,13 @@ public class PlayerController : MonoBehaviour
         {
             if (meleeReleased)
             {
-                attackWithMelee(playerDirectionIsRight, lookValue);
+                //attackWithMelee(playerDirectionIsRight, lookValue);
             }
-            meleeReleased = false;
+            //meleeReleased = false;
         }
         else
         {
-            meleeReleased = true;
+            //meleeReleased = true;
         }
 
         if (dashUnlocked && dashAction.IsPressed())
