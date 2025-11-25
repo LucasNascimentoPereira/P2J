@@ -12,11 +12,15 @@ public class HealthBase : MonoBehaviour
 
     [SerializeField] private UnityEvent onDefeat;
     [SerializeField] private UnityEvent onDamage;
-    [SerializeField] protected UnityEvent onPlaySound;
+    [SerializeField] protected UnityEvent onPlaySound = new();
+    [SerializeField] protected UnityEvent onParticle = new();
 
     [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected List<AudioClip> audioClips;
     protected int soundIndex;
+
+    [SerializeField] protected List<ParticleSystem> particleSystemList;
+    protected int particleIndex;
 
     public float MaxHealth => maxHealth;
     public float CurrentHealth => currentHealth;
@@ -26,6 +30,7 @@ public class HealthBase : MonoBehaviour
     {
         currentHealth = MaxHealth;
         onPlaySound.AddListener(PlaySound);
+        onParticle.AddListener(PlayParticle);
     }
     
     protected void CalculateHealth(float delta)
@@ -57,6 +62,11 @@ public class HealthBase : MonoBehaviour
     protected virtual void PlaySound()
     {
         audioSource.PlayOneShot(audioClips[soundIndex]);
+    }
+
+    protected virtual void PlayParticle()
+    {
+        particleSystemList[particleIndex].Play();
     }
 
 

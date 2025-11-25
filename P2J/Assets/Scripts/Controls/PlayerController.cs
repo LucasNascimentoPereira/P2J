@@ -69,6 +69,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private List<AudioClip> _audioClips;
     private int soundIndex;
 
+    [SerializeField] private List<ParticleSystem> particleSystemList;
+    private UnityEvent _onPlayParticle = new();
+    private int particleIndex;
+
     private void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
@@ -89,6 +93,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.PlayerController = this;
 
         _onPlaySound.AddListener(PlaySound);
+        _onPlayParticle.AddListener(PlayParticle);
 
     }
 
@@ -293,6 +298,10 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpTime = Time.fixedTime;
+            soundIndex = 0;
+            _onPlaySound.Invoke();
+            particleIndex = 0;
+            _onPlayParticle.Invoke();
         }
         else if (jumpTime != -1f && Time.fixedTime - jumpTime < maxJumpDuration)
         {
@@ -303,6 +312,10 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpTime = Time.fixedTime;
             dropTime = -1f;
+            soundIndex = 0;
+            _onPlaySound.Invoke();
+            particleIndex = 0;
+            _onPlayParticle.Invoke();
         }
         else if (jumpReleased)
         {
@@ -312,6 +325,8 @@ public class PlayerController : MonoBehaviour
 
     void attackWithMelee(bool playerDirection, Vector2 lookValue)
     {
+        soundIndex = 1;
+        _onPlaySound.Invoke();
         if (lookValue == Vector2.zero)
         {
             if (playerDirection)
@@ -330,6 +345,9 @@ public class PlayerController : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, meleeRange / 2f, enemyLayer);
         Debug.Log(hitEnemies.Length + " enemies hit");
         Debug.DrawLine(rb.position, rb.position + meleeDirection * 2f);
+        if (hitEnemies.Length == 0) return;
+        soundIndex = 2;
+        _onPlaySound.Invoke();
         foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log(enemy.gameObject);
@@ -338,8 +356,7 @@ public class PlayerController : MonoBehaviour
                 enemyHealth.TakeDamage(gameObject, true, meleeDamage, meleeKnockback);
             }
         }
-        soundIndex = 0;
-        //_onPlaySound.Invoke();
+
     }
 
     void processDirection(Vector2 moveValue) {
@@ -365,6 +382,8 @@ public class PlayerController : MonoBehaviour
         switch (name) {
             case "Dash":
                 dashUnlocked = true;
+                soundIndex = 3;
+                _onPlaySound.Invoke();
                 break;
             case "DbDash":
                 break;
@@ -407,11 +426,18 @@ public class PlayerController : MonoBehaviour
                 dashTime = Time.fixedTime;
                 airDashCount++;
             }
+            soundIndex = 4;
+            _onPlaySound.Invoke();
+
         }
     }
 
     private void PlaySound()
     {
         _audioSource.PlayOneShot(_audioClips[soundIndex]);
+    }
+    private void PlayParticle()
+    {
+        particleSystemList[particleIndex].Play();
     }
 }
