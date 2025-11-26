@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 
 public class InteractableBase : MonoBehaviour, IInteractable
 {
 
     [SerializeField] protected UnityEvent _onInteract = new();
-    [SerializeField] protected AudioSource audioSource;
-    [SerializeField] protected List<AudioClip> audioClips;
+    
 
     protected virtual void OnEnable()
     {
@@ -28,10 +28,5 @@ public class InteractableBase : MonoBehaviour, IInteractable
     public void Interact()
     {
         _onInteract.Invoke();
-    }
-
-    protected void PlaySound()
-    {
-
     }
 }

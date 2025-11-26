@@ -14,6 +14,5 @@ public class DoorInteractable : InteractableBase
     private void UnlockDoor()
     {
         doorAnimator.SetTrigger(doorAnimation);
-
     }
 }

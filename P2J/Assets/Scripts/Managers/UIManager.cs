@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -47,6 +48,8 @@ public class UIManager : MonoBehaviour
     private Coroutine _abilityImageCoroutine;
 
     InputAction esc;
+
+    [SerializeField] private UnityEvent onPlaySound = new();
 
 
 
@@ -94,6 +97,7 @@ public class UIManager : MonoBehaviour
         if (esc.WasPressedThisFrame())
         {
             ShowPanel("ShowPrevious");
+            onPlaySound.Invoke();
         }
     }
 

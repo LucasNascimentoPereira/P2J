@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class Pickup : MonoBehaviour
 {
-    protected UnityEvent _onPickup = new();
+    [SerializeField] protected UnityEvent _onPickup = new();
     
     protected virtual void Awake()
     {

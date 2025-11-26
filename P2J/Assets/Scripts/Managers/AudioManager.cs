@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -8,6 +8,13 @@ public class AudioManager : MonoBehaviour
     
     [SerializeField] private AudioMixer defaultAudioMixer = null;
     private AudioSource _myAudioSource = null;
+
+    [SerializeField] private AudioClip click;
+
+    [SerializeField] private StringAudioDictionary _audioDictionary;
+
+    public AudioSource MyAudioSource => _myAudioSource;
+    public AudioMixer DefaultAudioMixer => defaultAudioMixer;
 
     private void Awake()
     {
@@ -38,68 +45,8 @@ public class AudioManager : MonoBehaviour
         defaultAudioMixer.SetFloat("MusicVolume", volumeValue);
     }
 
-    private IEnumerator FadeSound(AudioClip audioClip)
+    public void PlaySoundClick()
     {
-        while (_myAudioSource.volume >= 0.1f)
-        {
-            yield return new WaitForSeconds(0.1f);
-            _myAudioSource.volume -= 0.1f;
-        }
-        _myAudioSource.Stop();
-        _myAudioSource.loop = true;
-        _myAudioSource.clip = audioClip;
-        _myAudioSource.Play();
-        while (_myAudioSource.volume <= 0.99f)
-        {
-            _myAudioSource.volume += 0.1f;
-        }
-        StopCoroutine(nameof(FadeSound));
+        _myAudioSource.PlayOneShot(click);
     }
-    
-    public void PlayAudioClip(AudioClip audioClip, bool loop)
-    {
-        if (loop)
-        {
-            StartCoroutine(FadeSound(audioClip));
-            /*myAudioSource.Stop();
-            myAudioSource.loop = true;
-            myAudioSource.clip = audioClip;
-            myAudioSource.Play();*/
-        }
-        else
-        {
-            PlayAudioClip(audioClip);
-        }
-    }
-    
-
-    public void PlayAudioClip(AudioClip audioClip)
-    {
-        _myAudioSource.PlayOneShot(audioClip);
-    }
-    
-
-    /*public void ChangeSong(string song)
-    {
-        switch(song)
-        {
-            case "MenuSong": 
-                Debug.Log("menusong");
-                myAudioSource.Stop();
-                myAudioSource.PlayOneShot(_audioManagerData.mainMenuSong);
-                myAudioSource.loop = true;
-                break;
-            case "GameplaySong":
-                Debug.Log("gameplaysong");
-                myAudioSource.Stop();
-                myAudioSource.PlayOneShot(_audioManagerData.mainLevelSong);
-                myAudioSource.loop = true;
-                break;
-            default:
-                myAudioSource.PlayOneShot(_audioManagerData.mainMenuSong);
-                break;
-        }
-            
-        
-    }*/
 }

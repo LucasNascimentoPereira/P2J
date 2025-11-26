@@ -58,8 +58,18 @@ MonoBehaviour:
   onPlaySound:
     m_PersistentCalls:
       m_Calls: []
+  onParticle:
+    m_PersistentCalls:
+      m_Calls: []
   audioSource: {fileID: 4272735922053999192}
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+  particleSystemList: []
   doorParticleSystem: {fileID: 0}
   door: {fileID: 2238614475719946847}
   doorBits: []

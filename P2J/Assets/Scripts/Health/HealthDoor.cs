@@ -42,7 +42,7 @@ public class HealthDoor : HealthBase
 
     protected override void Death()
     {
-        //soundIndex = 1;
+        soundIndex = 1;
         onPlaySound.Invoke();
         Destroy(gameObject);
     }
