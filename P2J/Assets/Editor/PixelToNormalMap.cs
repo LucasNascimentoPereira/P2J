@@ -62,7 +62,7 @@ public class NormalMapGeneratorWindow : EditorWindow
             Validate();
         }
 
-        if (texture != null) 
+        if (texture != null)
         {
             sourceFolder = null;
             destinationFolder = null;
@@ -80,6 +80,10 @@ public class NormalMapGeneratorWindow : EditorWindow
             Debug.LogError("Normal Map Generator: You must select a Source Folder or a Texture2D.");
             return;
         }
+        if (sourceFolder != null && destinationFolder == null)
+        {
+            Debug.LogError("Normal Map Generator: You must select a Destination Folder.");
+        }
 
         if (texture != null)
         {
@@ -96,15 +100,38 @@ public class NormalMapGeneratorWindow : EditorWindow
         string sourcePath = AssetDatabase.GetAssetPath(sourceFolder);
         string destinationPath = AssetDatabase.GetAssetPath(destinationFolder);
 
-        Debug.Log($"Starting Normal Map Generation...");
-        Debug.Log($"Source Path: {sourcePath}");
-        Debug.Log($"Destination Path: {destinationPath}");
-        Debug.Log($"Strength: {normalMapStrength}");
+        Debug.Log($"Normal Map Generator: Starting Normal Map Generation...");
+        Debug.Log($"Normal Map Generator: Source Path: {sourcePath}");
+        Debug.Log($"Normal Map Generator: Destination Path: {destinationPath}");
+        Debug.Log($"Normal Map Generator: Strength: {normalMapStrength}");
 
         string[] allFileGUIDs = AssetDatabase.FindAssets("t:Texture2D", new[] { sourcePath });
         Debug.Log($"Found {allFileGUIDs.Length} textures in the source folder.");
 
+        foreach (string fileGUID in allFileGUIDs)
+        {
+            Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(fileGUID);
 
+            if (texture == null) continue;
+
+            Texture2D normalTexture = TextureToNormal(texture);
+
+            if (normalTexture == null)
+            {
+                Debug.LogError($"Normal Map Generator: Failed to generate normal map, make sure import settings are correct!");
+                continue;
+            }
+
+            if (!WriteToFolder(normalTexture, destinationPath))
+            {
+                Debug.Log($"Normal Map Generator: Failed to write to folder, make sure unity has write permissions!");
+                continue;
+            }
+
+            Debug.Log($"Normal Map Generator: Successfully generated and wrote normal map.");
+        }
+
+        AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
 
@@ -113,15 +140,49 @@ public class NormalMapGeneratorWindow : EditorWindow
         string sourcePath = AssetDatabase.GetAssetPath(texture);
         string destinationPath = sourcePath;
 
-        Debug.Log($"Starting Normal Map Generation...");
-        Debug.Log($"Source Path: {sourcePath}");
-        Debug.Log($"Destination Path: {destinationPath}");
-        Debug.Log($"Strength: {normalMapStrength}");
+        Debug.Log($"Normal Map Generator: Starting Normal Map Generation...");
+        Debug.Log($"Normal Map Generator: Source Path: {sourcePath}");
+        Debug.Log($"Normal Map Generator: Destination Path: {destinationPath}");
+        Debug.Log($"Normal Map Generator: Strength: {normalMapStrength}");
 
-        string newFileName = texture.name + "Normal";
+        Texture2D normalTexture = TextureToNormal(texture);
 
-        Debug.Log($"Normal map name: {newFileName}");
+        if (normalTexture == null)
+        {
+            Debug.LogError($"Normal Map Generator: Failed to generate normal map, make sure import settings are correct!");
+            return;
+        }
 
+        Debug.Log($"Normal Map Generator: Normal Map generated writing to {destinationFolder}");
+
+        if (!WriteToFolder(normalTexture, destinationPath))
+        {
+            Debug.Log($"Normal Map Generator: Failed to write to folder, make sure unity has write permissions!");
+        }
+        else 
+        {
+            Debug.Log($"Normal Map Generator: Successfully generated and wrote normal map.");
+        }
+
+        AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+    }
+
+    private Texture2D TextureToNormal(Texture2D texture)
+    {
+        if (texture == null) return null;
+        
+        //Texture2D normalTexture = null;
+        //normalTexture.name = texture.name + "_Normal";
+        texture.name = texture.name + "_Normal";
+        return texture;
+    }
+
+    private bool WriteToFolder(Texture2D normalTexture, string destinationPath)
+    {
+        byte[] bytes = normalTexture.EncodeToPNG();
+        if (bytes == null) return false;
+        File.WriteAllBytes(destinationPath, bytes);
+        return false;
     }
 }
