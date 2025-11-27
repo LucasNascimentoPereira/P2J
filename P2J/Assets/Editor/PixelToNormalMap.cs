@@ -114,21 +114,7 @@ public class NormalMapGeneratorWindow : EditorWindow
 
             if (texture == null) continue;
 
-            Texture2D normalTexture = TextureToNormal(texture);
-
-            if (normalTexture == null)
-            {
-                Debug.LogError($"Normal Map Generator: Failed to generate normal map, make sure import settings are correct!");
-                continue;
-            }
-
-            if (!WriteToFolder(normalTexture, destinationPath))
-            {
-                Debug.Log($"Normal Map Generator: Failed to write to folder, make sure unity has write permissions!");
-                continue;
-            }
-
-            Debug.Log($"Normal Map Generator: Successfully generated and wrote normal map.");
+            TextureToNormal(texture, destinationPath);
         }
 
         AssetDatabase.SaveAssets();
@@ -137,52 +123,68 @@ public class NormalMapGeneratorWindow : EditorWindow
 
     private void RunGenerationProcessSingle()
     {
-        string sourcePath = AssetDatabase.GetAssetPath(texture);
-        string destinationPath = sourcePath;
+        string destinationPath = AssetDatabase.GetAssetPath(texture);
 
         Debug.Log($"Normal Map Generator: Starting Normal Map Generation...");
-        Debug.Log($"Normal Map Generator: Source Path: {sourcePath}");
         Debug.Log($"Normal Map Generator: Destination Path: {destinationPath}");
         Debug.Log($"Normal Map Generator: Strength: {normalMapStrength}");
 
-        Texture2D normalTexture = TextureToNormal(texture);
-
-        if (normalTexture == null)
-        {
-            Debug.LogError($"Normal Map Generator: Failed to generate normal map, make sure import settings are correct!");
-            return;
-        }
-
-        Debug.Log($"Normal Map Generator: Normal Map generated writing to {destinationFolder}");
-
-        if (!WriteToFolder(normalTexture, destinationPath))
-        {
-            Debug.Log($"Normal Map Generator: Failed to write to folder, make sure unity has write permissions!");
-        }
-        else 
-        {
-            Debug.Log($"Normal Map Generator: Successfully generated and wrote normal map.");
-        }
+        TextureToNormal(texture, destinationPath);
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
 
-    private Texture2D TextureToNormal(Texture2D texture)
+    private void TextureToNormal(Texture2D texture, string destinationPath)
     {
-        if (texture == null) return null;
-        
-        //Texture2D normalTexture = null;
-        //normalTexture.name = texture.name + "_Normal";
-        texture.name = texture.name + "_Normal";
-        return texture;
+        if (texture == null) return;
+        TextureImporter textureImporter = AssetImporter.GetAtPath(destinationPath) as TextureImporter;
+        if (textureImporter == null) return;
+        if (!textureImporter.isReadable)
+        {
+            textureImporter.isReadable = true;
+            textureImporter.SaveAndReimport();
+        }
+
+        //generate normal map
+        Texture2D normalTexture = GenerateNormalMap(texture);
+        Debug.Log($"Normal Map Generator: Encoding...");
+
+        byte[] bytes = normalTexture.EncodeToPNG();
+        if (bytes == null || bytes.Length == 0)
+        {
+            Debug.LogError($"Normal Map Generator: Failed to read bytes...");
+            return;
+        }
+        normalTexture.name = texture.name + "_Normal";
+        destinationPath = Path.GetDirectoryName(destinationPath);
+        destinationPath = Path.Combine(destinationPath, normalTexture.name);
+
+        File.WriteAllBytes(destinationPath, bytes);
+
     }
 
-    private bool WriteToFolder(Texture2D normalTexture, string destinationPath)
+    private Texture2D GenerateNormalMap(Texture2D texture)
     {
-        byte[] bytes = normalTexture.EncodeToPNG();
-        if (bytes == null) return false;
-        File.WriteAllBytes(destinationPath, bytes);
-        return false;
+        Texture2D normalTexture = new Texture2D(texture.width, texture.height, TextureFormat.RGB24, false);
+
+        Color[] pixelsColor = texture.GetPixels();
+        Color[] newPixelColor = new Color[pixelsColor.Length];
+
+        for (int i = 0; i < pixelsColor.Length; ++i) 
+        {
+            float grayScale = pixelsColor[i].grayscale;
+            newPixelColor[i] = new Color(grayScale, grayScale, grayScale);
+        }
+
+        for (int y = 0; y < texture.width; ++y)
+        {
+            for (int x = 0; x < texture.height; ++x)
+            {
+                //float x
+                //texture.pix
+            }
+        }
+        return normalTexture;
     }
 }
