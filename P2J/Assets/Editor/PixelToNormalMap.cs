@@ -156,7 +156,7 @@ public class NormalMapGeneratorWindow : EditorWindow
             Debug.LogError($"Normal Map Generator: Failed to read bytes...");
             return;
         }
-        normalTexture.name = texture.name + "_Normal";
+        normalTexture.name = texture.name + "_Normal.PNG";
         destinationPath = Path.GetDirectoryName(destinationPath);
         destinationPath = Path.Combine(destinationPath, normalTexture.name);
 
@@ -174,8 +174,10 @@ public class NormalMapGeneratorWindow : EditorWindow
         for (int i = 0; i < pixelsColor.Length; ++i) 
         {
             float grayScale = pixelsColor[i].grayscale;
-            newPixelColor[i] = new Color(grayScale, grayScale, grayScale);
+            newPixelColor[i] = new Color(grayScale * 0.5f + 0.5f, grayScale * 0.5f + 0.5f, 1.0f);
         }
+        normalTexture.SetPixels(newPixelColor);
+        normalTexture.Apply();
 
         for (int y = 0; y < texture.width; ++y)
         {
