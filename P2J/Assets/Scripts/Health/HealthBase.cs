@@ -51,7 +51,11 @@ public class HealthBase : MonoBehaviour
     {
         return false;
     }
-    
+    public virtual bool TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force, Vector2 dir)
+    {
+        return false;
+    }
+
     protected virtual void Death()
     {
         _isDefeated = true;

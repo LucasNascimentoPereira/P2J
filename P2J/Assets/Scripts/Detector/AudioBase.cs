@@ -20,10 +20,6 @@ public class AudioBase : MonoBehaviour
     public void PlaySound()
     {
         //audioSource.PlayOneShot(audioClips[index]);
-        if (audioDictionary.GetValueOrDefault("eee"))
-        {
-            Debug.Log("eee");
-        }
         audioSource.PlayOneShot(audioDictionary.GetValueOrDefault("eee"));
     }
 

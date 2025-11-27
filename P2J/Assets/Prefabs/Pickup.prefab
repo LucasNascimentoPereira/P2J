@@ -229,10 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioDictionary:
-    keys:
-    - eee
-    values:
-    - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+    keys: []
+    values: []
   audioClips:
   - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
   - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}

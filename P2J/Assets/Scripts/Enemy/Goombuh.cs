@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Goombuh : MonoBehaviour
 {
@@ -11,9 +12,9 @@ public class Goombuh : MonoBehaviour
     private int patrolIndex = 0;
     private Vector2 dir = Vector2.zero;
     [SerializeField] private Detector detector;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Animator animator;
-    private int animatorHorizontal = Animator.StringToHash("GoombuhHorizontal");
+
+    private bool knockBack = false;
+    private Coroutine coroutine;
 
     private void OnBecameVisible()
     {
@@ -34,7 +35,8 @@ public class Goombuh : MonoBehaviour
     private void FixedUpdate()
     {
         //Rotate();
-        rb.linearVelocity = new Vector2(dir.x, 0) * goombuhData.GoombuhSpeed;
+        if (knockBack) return;
+        rb.linearVelocity = new Vector2(dir.x * goombuhData.GoombuhSpeed, rb.linearVelocityY);
         //animator.SetFloat(animatorHorizontal, rb.linearVelocityX);
     }
 
@@ -62,6 +64,27 @@ public class Goombuh : MonoBehaviour
         {
             healthPlayer.TakeDamage(gameObject, true, goombuhData.GoombuhDamage, goombuhData.GoombuhKnockback);
         }
+    }
+
+    public void KnockBack()
+    {
+        if (coroutine == null)
+        {
+            coroutine = StartCoroutine(KnockBackTime());
+        }
+        else
+        {
+            StopCoroutine(coroutine);
+            coroutine = StartCoroutine(KnockBackTime());
+        }
+    }
+
+    private IEnumerator KnockBackTime()
+    {
+        knockBack = true;
+        yield return new WaitForSeconds(goombuhData.KnockbackTime);
+        knockBack = false;
+        coroutine = null;
     }
 
 

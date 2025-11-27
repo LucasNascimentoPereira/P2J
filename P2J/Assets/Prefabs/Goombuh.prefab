@@ -297,8 +297,6 @@ MonoBehaviour:
   - {fileID: 915344071662301758}
   rb: {fileID: 6353725496803889946}
   detector: {fileID: 1087027815655431809}
-  spriteRenderer: {fileID: 8951295823776641744}
-  animator: {fileID: 0}
 --- !u!50 &6353725496803889946
 Rigidbody2D:
   serializedVersion: 5
@@ -345,8 +343,23 @@ MonoBehaviour:
       m_Calls: []
   onDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8171546351048011011}
+        m_TargetAssemblyTypeName: Goombuh, Assembly-CSharp
+        m_MethodName: KnockBack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticle:
     m_PersistentCalls:
       m_Calls: []
   audioSource: {fileID: 2351253038997087957}
@@ -357,6 +370,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
   - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
   - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+  particleSystemList: []
   rb: {fileID: 6353725496803889946}
   spriteRenderer: {fileID: 8951295823776641744}
 --- !u!95 &4733723338263849041

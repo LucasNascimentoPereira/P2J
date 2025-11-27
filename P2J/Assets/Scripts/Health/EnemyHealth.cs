@@ -40,11 +40,11 @@ public class EnemyHealth : HealthBase
         return true;
     }
 
-    public bool TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force, Vector2 dir)
+    public override bool TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force, Vector2 dir)
     {
         if (damageDealer == null) return false;
         CalculateHealth(damage);
-        rb.AddForce(-rb.linearVelocity.normalized * force, ForceMode2D.Force);
+        rb.AddForce(dir.normalized * force, ForceMode2D.Impulse);
         soundIndex = 0;
         onPlaySound.Invoke();
         //audioSource.PlayOneShot();

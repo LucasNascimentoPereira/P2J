@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer = 8;
     [SerializeField] private bool dashUnlocked = false;
     [SerializeField] private int  meleeDamage = 1;
-    [SerializeField] private float meleeKnockback = 10.0f;
+    [SerializeField] private float meleeKnockback = 5.0f;
     [SerializeField] private float meleeRange = 3.0f;
     [SerializeField] private Animator _animatorController;
     private int animatorHorizontal = Animator.StringToHash("Horizontal");
@@ -353,7 +353,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(enemy.gameObject);
             if (enemy.TryGetComponent(out HealthBase enemyHealth))
             {
-                enemyHealth.TakeDamage(gameObject, true, meleeDamage, meleeKnockback);
+                enemyHealth.TakeDamage(gameObject, true, meleeDamage, meleeKnockback, meleeDirection);
             }
         }
 
