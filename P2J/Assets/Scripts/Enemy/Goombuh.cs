@@ -87,5 +87,14 @@ public class Goombuh : MonoBehaviour
         coroutine = null;
     }
 
+    public void SpawnCoins()
+    {
+        for (int i = 0; i < goombuhData.CoinNumber; ++i)
+        {
+            GameObject coin = Instantiate(goombuhData.Coin, transform.position, transform.rotation);
+            coin.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.value, Random.value) * goombuhData.CoinKnockback, ForceMode2D.Impulse);
+        }
+    }
+
 
 }
