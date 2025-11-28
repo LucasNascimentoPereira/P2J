@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     private int animatorJump = Animator.StringToHash("IsOnGround");
     private int animatorAttackRight = Animator.StringToHash("IsAttackingRight");
     private int animatorAttackLeft = Animator.StringToHash("IsAttackingLeft");
+    private int animatorFacingRight = Animator.StringToHash("IsFacingRight");
 
 
     private CapsuleCollider2D col;
@@ -224,6 +225,7 @@ public class PlayerController : MonoBehaviour
         _animatorController.SetFloat(animatorHorizontal, moveValue.x);
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
         _animatorController.SetBool(animatorJump, onGround);
+        _animatorController.SetBool(animatorFacingRight, playerDirectionIsRight);
 
         //_animatorController.SetFloat("Horizontal", moveAction.ReadValue<Vector2>().x);
 
