@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int  meleeDamage = 1;
     [SerializeField] private float meleeKnockback = 10.0f;
     [SerializeField] private float meleeRange = 3.0f;
+    [SerializeField] private float meleeCooldown = 0.4f;
     /*[SerializeField]*/ private float meleeSlowDuration = 0.2f;
     /*[SerializeField]*/ private float maxSpeedDuringMelee = 2f;
     [SerializeField] private Animator _animatorController;
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
     private int animatorAttackRight = Animator.StringToHash("IsAttackingRight");
     private int animatorAttackLeft = Animator.StringToHash("IsAttackingLeft");
     private int animatorFacingRight = Animator.StringToHash("IsFacingRight");
+    private int animatorJumpStart = Animator.StringToHash("JumpStarted");
 
 
     private CapsuleCollider2D col;
@@ -123,11 +125,13 @@ public class PlayerController : MonoBehaviour
         {
             onGround = true;
             airDashCount = 0;
+            //check for jump buffering
             if (jumpPressTime != -1f && Time.fixedTime - jumpPressTime < jumpBufferTime)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
                 jumpTime = jumpPressTime;
                 jumpPressTime = -1f;
+                _animatorController.SetTrigger(animatorJumpStart);
             }
         }
         else
@@ -169,7 +173,6 @@ public class PlayerController : MonoBehaviour
     private bool IsOnLeftWall()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(col.bounds.center, col.bounds.size * 0.9f, 0f, Vector2.left, 0.1f, groundLayer);
-        Debug.Log(raycastHit.collider);
         return raycastHit.collider != null;
     }
 
@@ -189,7 +192,7 @@ public class PlayerController : MonoBehaviour
         {
             Interact();
         }
-        if (lookValueChanged && lookValue != Vector2.zero)
+        if (lookValueChanged && lookValue != Vector2.zero && Time.time > attackTime + meleeCooldown)
         {
             if (meleeReleased)
             {
@@ -222,12 +225,6 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = defaultGravity;
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         Vector2 lookValue = lookAction.ReadValue<Vector2>();
-        _animatorController.SetFloat(animatorHorizontal, moveValue.x);
-        _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
-        _animatorController.SetBool(animatorJump, onGround);
-        _animatorController.SetBool(animatorFacingRight, playerDirectionIsRight);
-
-        //_animatorController.SetFloat("Horizontal", moveAction.ReadValue<Vector2>().x);
 
         processMovement(moveValue);
         processDirection(moveValue);
@@ -301,12 +298,15 @@ public class PlayerController : MonoBehaviour
             {
                 rb.linearVelocityY = maxSpeedDuringMelee;
             }
-            else if (rb.linearVelocity.y < -maxSpeedDuringMelee)
+            if (rb.linearVelocity.y < -maxSpeedDuringMelee)
             {
                 rb.linearVelocityY = -maxSpeedDuringMelee;
-
             }
         }
+        _animatorController.SetFloat(animatorHorizontal, moveValue.x);
+        _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
+        _animatorController.SetBool(animatorJump, onGround);
+        _animatorController.SetBool(animatorFacingRight, playerDirectionIsRight);
     }
 
     void processMovement(Vector2 moveValue)
@@ -383,11 +383,14 @@ public class PlayerController : MonoBehaviour
 
     void tryToJump()
     {
+        //regular jump
         if (onGround && jumpReleased)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpTime = Time.fixedTime;
+            _animatorController.SetTrigger(animatorJumpStart);
         }
+        //wall jump
         else if (onLeftWall && jumpReleased)
         {
             rb.linearVelocity = jumpForceWall;
@@ -398,16 +401,20 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(-jumpForceWall.x, jumpForceWall.y);
             jumpTime = Time.fixedTime;
         }
+        //variable jump height
         else if (jumpTime != -1f && Time.fixedTime - jumpTime < maxJumpDuration)
         {
             rb.gravityScale = defaultGravity / gravityResistanceOnJump;
         }
+        //check for coyote time
         else if (dropTime != -1f && Time.fixedTime - dropTime < coyoteTime && jumpReleased)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpTime = Time.fixedTime;
             dropTime = -1f;
+            _animatorController.SetTrigger(animatorJumpStart);
         }
+        //store time for jump buffering
         else if (jumpReleased)
         {
             jumpPressTime = Time.fixedTime;
