@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     InputAction interactAction;
 
 
-    [SerializeField] private float groundSpeed = 10f;
+    [SerializeField] private float groundSpeed = 3.34f;
     [SerializeField] private float jumpForce = 20f;
     [SerializeField] private Vector2 jumpForceWall = new Vector2(12f, 5f);
     [SerializeField] private float defaultGravity = 5f;
@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int  meleeDamage = 1;
     [SerializeField] private float meleeKnockback = 10.0f;
     [SerializeField] private float meleeRange = 3.0f;
+    /*[SerializeField]*/ private float meleeSlowDuration = 0.2f;
+    /*[SerializeField]*/ private float maxSpeedDuringMelee = 2f;
     [SerializeField] private Animator _animatorController;
     private int animatorHorizontal = Animator.StringToHash("Horizontal");
     private int animatorVertical = Animator.StringToHash("Vertical");
@@ -65,6 +67,7 @@ public class PlayerController : MonoBehaviour
     private float dropTime = -1f;
     private float groundDashTime = -1f;
     private float dashTime = -1f;
+    private float attackTime = -1f;
     private int airDashCount = 0;
     private Vector2 meleeDirection;
     private Vector2 dashDirection;
@@ -281,6 +284,27 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = 0f;
         }
+
+        if (Time.fixedTime - attackTime < meleeSlowDuration)
+        {
+            if (rb.linearVelocity.x > maxSpeedDuringMelee)
+            {
+                rb.linearVelocityX = maxSpeedDuringMelee;
+            }
+            else if (rb.linearVelocity.x < -maxSpeedDuringMelee)
+            {
+                rb.linearVelocityX = -maxSpeedDuringMelee;
+            }
+            if (rb.linearVelocity.y > maxSpeedDuringMelee)
+            {
+                rb.linearVelocityY = maxSpeedDuringMelee;
+            }
+            else if (rb.linearVelocity.y < -maxSpeedDuringMelee)
+            {
+                rb.linearVelocityY = -maxSpeedDuringMelee;
+
+            }
+        }
     }
 
     void processMovement(Vector2 moveValue)
@@ -417,6 +441,7 @@ public class PlayerController : MonoBehaviour
                 enemyHealth.TakeDamage(gameObject, true, meleeDamage, meleeKnockback);
             }
         }
+        attackTime = Time.fixedTime;
         soundIndex = 0;
         //_onPlaySound.Invoke();
     }
