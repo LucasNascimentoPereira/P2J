@@ -42,9 +42,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int  meleeDamage = 1;
     [SerializeField] private float meleeKnockback = 10.0f;
     [SerializeField] private float meleeRange = 3.0f;
-    [SerializeField] private float meleeCooldown = 0.4f;
+    [SerializeField] private float meleeCooldown = 0.3f;
     /*[SerializeField]*/ private float meleeSlowDuration = 0.2f;
-    /*[SerializeField]*/ private float maxSpeedDuringMelee = 2f;
+    /*[SerializeField]*/ private Vector2 maxSpeedDuringMelee = new Vector2(2f, 3f);
     [SerializeField] private Animator _animatorController;
     private int animatorHorizontal = Animator.StringToHash("Horizontal");
     private int animatorVertical = Animator.StringToHash("Vertical");
@@ -218,6 +218,7 @@ public class PlayerController : MonoBehaviour
         {
             meleeReleased = true;
         }
+        _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
     }
 
     void FixedUpdate()
@@ -286,21 +287,21 @@ public class PlayerController : MonoBehaviour
 
         if (Time.fixedTime - attackTime < meleeSlowDuration)
         {
-            if (rb.linearVelocity.x > maxSpeedDuringMelee)
+            if (rb.linearVelocity.x > maxSpeedDuringMelee.x)
             {
-                rb.linearVelocityX = maxSpeedDuringMelee;
+                rb.linearVelocityX = maxSpeedDuringMelee.x;
             }
-            else if (rb.linearVelocity.x < -maxSpeedDuringMelee)
+            else if (rb.linearVelocity.x < -maxSpeedDuringMelee.x)
             {
-                rb.linearVelocityX = -maxSpeedDuringMelee;
+                rb.linearVelocityX = -maxSpeedDuringMelee.x;
             }
-            if (rb.linearVelocity.y > maxSpeedDuringMelee)
+            if (rb.linearVelocity.y > maxSpeedDuringMelee.y)
             {
-                rb.linearVelocityY = maxSpeedDuringMelee;
+                rb.linearVelocityY = maxSpeedDuringMelee.y;
             }
-            if (rb.linearVelocity.y < -maxSpeedDuringMelee)
+            else if (rb.linearVelocity.y < -maxSpeedDuringMelee.y)
             {
-                rb.linearVelocityY = -maxSpeedDuringMelee;
+                rb.linearVelocityY = -maxSpeedDuringMelee.y;
             }
         }
         _animatorController.SetFloat(animatorHorizontal, moveValue.x);
