@@ -168,25 +168,26 @@ public class NormalMapGeneratorWindow : EditorWindow
     {
         Texture2D normalTexture = new Texture2D(texture.width, texture.height, TextureFormat.RGB24, false);
 
-        Color[] pixelsColor = texture.GetPixels();
-        Color[] newPixelColor = new Color[pixelsColor.Length];
+        Color[] newPixelColor = new Color[texture.GetPixels().Length];
 
-        for (int i = 0; i < pixelsColor.Length; ++i) 
+        for (int y = 0; y < texture.height; ++y) 
         {
-            float grayScale = pixelsColor[i].grayscale;
-            newPixelColor[i] = new Color(grayScale * 0.5f + 0.5f, grayScale * 0.5f + 0.5f, 1.0f);
-        }
-        normalTexture.SetPixels(newPixelColor);
-        normalTexture.Apply();
-
-        for (int y = 0; y < texture.width; ++y)
-        {
-            for (int x = 0; x < texture.height; ++x)
+            for (int x = 0; x < texture.width; ++x)
             {
-                //float x
-                //texture.pix
+                float x1 = texture.GetPixel(Mathf.Clamp(x + 1, 0, texture.width - 1), y).grayscale;
+                float x2 = texture.GetPixel(Mathf.Clamp(x - 1, 0, texture.width - 1), y).grayscale;
+                float y1 = texture.GetPixel(x, Mathf.Clamp(y + 1, 0, texture.height - 1)).grayscale;
+                float y2 = texture.GetPixel(x, Mathf.Clamp(y - 1, 0, texture.height - 1)).grayscale;
+
+                Vector3 norVector = new Vector3((x1 - x2) * normalMapStrength, (y1 - y2) * normalMapStrength, 1.0f);
+                norVector.Normalize();
+
+                Color newPixel = new Color();
             }
         }
+
+        normalTexture.SetPixels(newPixelColor);
+        normalTexture.Apply();
         return normalTexture;
     }
 }
