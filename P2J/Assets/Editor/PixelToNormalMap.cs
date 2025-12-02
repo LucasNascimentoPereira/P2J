@@ -143,6 +143,10 @@ public class NormalMapGeneratorWindow : EditorWindow
         if (!textureImporter.isReadable)
         {
             textureImporter.isReadable = true;
+            textureImporter.anisoLevel = 0;
+            textureImporter.mipmapEnabled = false;
+            textureImporter.compressionQuality = 0;
+            textureImporter.filterMode = FilterMode.Point;
             textureImporter.SaveAndReimport();
         }
 
@@ -182,11 +186,13 @@ public class NormalMapGeneratorWindow : EditorWindow
                 Vector3 norVector = new Vector3((x1 - x2) * normalMapStrength, (y1 - y2) * normalMapStrength, 1.0f);
                 norVector.Normalize();
 
-                Color newPixel = new Color();
+                Color newPixel = new Color((norVector.x + 1f) / 2f, (norVector.y + 1f) / 2f, norVector.z);
+                newPixelColor[x + y * texture.width] = newPixel;
             }
         }
 
         normalTexture.SetPixels(newPixelColor);
+        
         normalTexture.Apply();
         return normalTexture;
     }
