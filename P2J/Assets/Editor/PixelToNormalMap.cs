@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 using System.IO;
-using UnityEngine.UIElements;
 
 public class NormalMapGeneratorWindow : EditorWindow
 {
@@ -110,11 +109,15 @@ public class NormalMapGeneratorWindow : EditorWindow
 
         foreach (string fileGUID in allFileGUIDs)
         {
-            Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(fileGUID);
+            Texture2D textureLoaded = AssetDatabase.LoadAssetAtPath<Texture2D>(fileGUID);
 
-            if (texture == null) continue;
+            if (textureLoaded == null)
+            {
+                Debug.LogError($"Normal Map Generator: Texture not found or not loaded");
+                continue;
+            }
 
-            TextureToNormal(texture, destinationPath);
+            TextureToNormal(textureLoaded, destinationPath);
         }
 
         AssetDatabase.SaveAssets();
@@ -138,19 +141,8 @@ public class NormalMapGeneratorWindow : EditorWindow
     private void TextureToNormal(Texture2D texture, string destinationPath)
     {
         if (texture == null) return;
-        TextureImporter textureImporter = AssetImporter.GetAtPath(destinationPath) as TextureImporter;
-        if (textureImporter == null) return;
-        if (!textureImporter.isReadable)
-        {
-            textureImporter.isReadable = true;
-            textureImporter.anisoLevel = 0;
-            textureImporter.mipmapEnabled = false;
-            textureImporter.compressionQuality = 0;
-            textureImporter.filterMode = FilterMode.Point;
-            textureImporter.SaveAndReimport();
-        }
+        
 
-        //generate normal map
         Texture2D normalTexture = GenerateNormalMap(texture);
         Debug.Log($"Normal Map Generator: Encoding...");
 
@@ -165,6 +157,21 @@ public class NormalMapGeneratorWindow : EditorWindow
         destinationPath = Path.Combine(destinationPath, normalTexture.name);
 
         File.WriteAllBytes(destinationPath, bytes);
+
+        AssetDatabase.Refresh();
+
+        TextureImporter textureImporter = AssetImporter.GetAtPath(destinationPath) as TextureImporter;
+        if (textureImporter == null)
+        {
+            Debug.LogError($"Normal Map Generator: Texture does not exist");
+            return;
+        }
+        textureImporter.isReadable = true;
+        textureImporter.textureCompression = TextureImporterCompression.Uncompressed;
+        textureImporter.filterMode = FilterMode.Point;
+        textureImporter.textureType = TextureImporterType.NormalMap;
+        textureImporter.mipmapEnabled = false;
+        textureImporter.SaveAndReimport();
 
     }
 
