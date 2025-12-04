@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 64bbc19a94f1c1f47bb57c467b37f465
+guid: 9333bf7800091b84eaf618b24fd768d9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8154491801761725691
-    second: Agua1_0
+      213: 2861538062016392379
+    second: Vesper walk animation_L_Normal_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
-    sRGBTexture: 1
+    sRGBTexture: 0
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -55,9 +55,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 8
+  textureType: 1
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Agua1_0
+      name: Vesper walk animation_L_Normal_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 49
-        width: 128
-        height: 50
+        y: 0
+        width: 64
+        height: 114
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 503482029ec65de80800000000000000
-      internalID: -8154491801761725691
+      spriteID: bbc2fb1d4b936b720800000000000000
+      internalID: 2861538062016392379
       vertices: []
       indices: 
       edges: []
@@ -125,19 +125,17 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 417883802d7d11a49adf55a3df848c09
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 126f45cf03bbedb4c9b4d824d058baab, type: 3}
-      name: _NormalMap
+    secondaryTextures: []
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Agua1_0: -8154491801761725691
+      Vesper walk animation_L_Normal_0: 2861538062016392379
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

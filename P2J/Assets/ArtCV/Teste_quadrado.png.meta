@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 64bbc19a94f1c1f47bb57c467b37f465
+guid: f84b36e6349ab3b48aa6d7f25787261c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8154491801761725691
-    second: Agua1_0
+      213: 4373824062582795533
+    second: Teste_quadrado_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Agua1_0
+      name: Teste_quadrado_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 49
-        width: 128
-        height: 50
+        x: 8
+        y: 7
+        width: 54
+        height: 55
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 503482029ec65de80800000000000000
-      internalID: -8154491801761725691
+      spriteID: d0dad48bfc1f2bc30800000000000000
+      internalID: 4373824062582795533
       vertices: []
       indices: 
       edges: []
@@ -125,19 +125,17 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 417883802d7d11a49adf55a3df848c09
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 126f45cf03bbedb4c9b4d824d058baab, type: 3}
-      name: _NormalMap
+    secondaryTextures: []
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Agua1_0: -8154491801761725691
+      Teste_quadrado_0: 4373824062582795533
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
