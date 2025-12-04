@@ -189,8 +189,6 @@ public class NormalMapGeneratorWindow : EditorWindow
     {
         Texture2D normalTexture = new Texture2D(texture.width, texture.height, TextureFormat.RGB24, false);
 
-        Color[] newPixelColor = new Color[texture.GetPixels().Length];
-
         for (int y = 0; y < texture.height; ++y)
         {
             for (int x = 0; x < texture.width; ++x)
@@ -198,10 +196,10 @@ public class NormalMapGeneratorWindow : EditorWindow
 
                 Color c = texture.GetPixel(x, y);
                 Vector3 norVector = new Vector3(c.r * normalMapStrength, c.g * normalMapStrength, 1.0f * normalMapStrength);
-                //norVector.Normalize();
+                norVector.Normalize();
                 Color newPixel = new Color((norVector.x + 1.0f) / 2.0f, (norVector.y + 1.0f) / 2.0f, (norVector.z + 1.0f) / 2.0f);
 
-                newPixelColor[x + y * texture.width] = newPixel;
+                normalTexture.SetPixel(x, y, newPixel);
             }
         }
 
@@ -219,12 +217,9 @@ public class NormalMapGeneratorWindow : EditorWindow
                 norVector.Normalize();
 
                 Color newPixel = new Color((norVector.x + 1f) / 2f, (norVector.y + 1f) / 2f, norVector.z);
-                newPixelColor[x + y * texture.width] = (newPixel * newPixelColor[x + y * texture.width]);
+                normalTexture.SetPixel(x, y, newPixel);
             }
         }
-
-        normalTexture.SetPixels(newPixelColor);
-
         normalTexture.Apply();
         return normalTexture;
     }
