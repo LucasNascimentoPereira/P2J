@@ -53,7 +53,7 @@ public class NormalMapGeneratorWindow : EditorWindow
             "Normal Strength",
             normalMapStrength,
             0.1f,
-            5.0f);
+            10.0f);
 
         EditorGUILayout.Space(20);
 
@@ -197,8 +197,8 @@ public class NormalMapGeneratorWindow : EditorWindow
                 Color c = texture.GetPixel(x, y);
                 Vector3 norVector = new Vector3(c.r * normalMapStrength, c.g * normalMapStrength, 1.0f * normalMapStrength);
                 norVector.Normalize();
-                Color newPixel = new Color((norVector.x + 1.0f) / 2.0f, (norVector.y + 1.0f) / 2.0f, (norVector.z + 1.0f) / 2.0f);
 
+                Color newPixel = new Color((norVector.x + 1.0f) / 2.0f, (norVector.y + 1.0f) / 2.0f, (norVector.z + 1.0f) / 2.0f);
                 normalTexture.SetPixel(x, y, newPixel);
             }
         }
@@ -207,12 +207,13 @@ public class NormalMapGeneratorWindow : EditorWindow
         {
             for (int x = 0; x < texture.width; ++x)
             {
+
                 float x1 = texture.GetPixel(Mathf.Clamp(x + 1, 0, texture.width - 1), y).grayscale;
                 float x2 = texture.GetPixel(Mathf.Clamp(x - 1, 0, texture.width - 1), y).grayscale;
                 float y1 = texture.GetPixel(x, Mathf.Clamp(y + 1, 0, texture.height - 1)).grayscale;
                 float y2 = texture.GetPixel(x, Mathf.Clamp(y - 1, 0, texture.height - 1)).grayscale;
 
-                Vector3 norVector = new Vector3((x1 - x2) * normalMapStrength * 10, (y1 - y2) * normalMapStrength * 10, 1.0f);
+                Vector3 norVector = new Vector3((x1 - x2) * normalMapStrength, (y1 - y2) * normalMapStrength, 1.0f);
                 
                 norVector.Normalize();
 
