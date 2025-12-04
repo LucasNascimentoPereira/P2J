@@ -2,23 +2,24 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 
-public class NormalMapGeneratorWindow : EditorWindow
+public class BumpMapGeneratorWindow : EditorWindow
 {
     private DefaultAsset sourceFolder;
     private DefaultAsset destinationFolder;
     private Texture2D texture;
     private float normalMapStrength = 2.0f;
+    private bool isSMode = false;
 
-    [MenuItem("Tools/Pixel Art Normal Map Generator")]
+    [MenuItem("Tools/Pixel Art Bump Map Generator")]
     public static void ShowWindow()
     {
-        GetWindow<NormalMapGeneratorWindow>("Normal Map Generator");
+        GetWindow<BumpMapGeneratorWindow>("Bump Map Generator");
     }
 
     private void OnGUI()
     {
 
-        GUILayout.Label("   Normal Map Generator Settings", EditorStyles.largeLabel);
+        GUILayout.Label("   Bump Map Generator Settings", EditorStyles.largeLabel);
 
         EditorGUILayout.Space(10);
 
@@ -56,7 +57,7 @@ public class NormalMapGeneratorWindow : EditorWindow
 
         EditorGUILayout.Space(20);
 
-        if (GUILayout.Button("Generate Normal Maps"))
+        if (GUILayout.Button("Generate Bump Maps"))
         {
             Validate();
         }
@@ -76,7 +77,7 @@ public class NormalMapGeneratorWindow : EditorWindow
     {
         if (sourceFolder == null && destinationFolder == null && texture == null)
         {
-            Debug.LogError("Normal Map Generator: You must select a Source Folder or a Texture2D.");
+            Debug.LogError("Bump Map Generator: You must select a Source Folder or a Texture2D.");
             return;
         }
         if (sourceFolder != null && destinationFolder == null)
@@ -87,10 +88,12 @@ public class NormalMapGeneratorWindow : EditorWindow
         if (texture != null)
         {
             RunGenerationProcessSingle();
+            isSMode = true;
         }
         else if (sourceFolder != null && destinationFolder != null)
         {
             RunGenerationProcessBatch();
+            isSMode = false;
         }
     } 
 
@@ -99,10 +102,10 @@ public class NormalMapGeneratorWindow : EditorWindow
         string sourcePath = AssetDatabase.GetAssetPath(sourceFolder);
         string destinationPath = AssetDatabase.GetAssetPath(destinationFolder);
 
-        Debug.Log($"Normal Map Generator: Starting Normal Map Generation...");
-        Debug.Log($"Normal Map Generator: Source Path: {sourcePath}");
-        Debug.Log($"Normal Map Generator: Destination Path: {destinationPath}");
-        Debug.Log($"Normal Map Generator: Strength: {normalMapStrength}");
+        Debug.Log($"Bump Map Generator: Starting Normal Map Generation...");
+        Debug.Log($"Bump Map Generator: Source Path: {sourcePath}");
+        Debug.Log($"Bump Map Generator: Destination Path: {destinationPath}");
+        Debug.Log($"Bump Map Generator: Strength: {normalMapStrength}");
 
         string[] allFileGUIDs = AssetDatabase.FindAssets("t:Texture2D", new[] { sourcePath });
         Debug.Log($"Found {allFileGUIDs.Length} textures in the source folder.");
@@ -113,7 +116,7 @@ public class NormalMapGeneratorWindow : EditorWindow
 
             if (textureLoaded == null)
             {
-                Debug.LogError($"Normal Map Generator: Texture not found or not loaded");
+                Debug.LogError($"Bump Map Generator: Texture not found or not loaded");
                 continue;
             }
 
@@ -128,9 +131,9 @@ public class NormalMapGeneratorWindow : EditorWindow
     {
         string destinationPath = AssetDatabase.GetAssetPath(texture);
 
-        Debug.Log($"Normal Map Generator: Starting Normal Map Generation...");
-        Debug.Log($"Normal Map Generator: Destination Path: {destinationPath}");
-        Debug.Log($"Normal Map Generator: Strength: {normalMapStrength}");
+        Debug.Log($"Bump Map Generator: Starting Normal Map Generation...");
+        Debug.Log($"Bump Map Generator: Destination Path: {destinationPath}");
+        Debug.Log($"Bump Map Generator: Strength: {normalMapStrength}");
 
         TextureToNormal(texture, destinationPath);
 
@@ -144,18 +147,22 @@ public class NormalMapGeneratorWindow : EditorWindow
         
 
         Texture2D normalTexture = GenerateNormalMap(texture);
-        Debug.Log($"Normal Map Generator: Encoding...");
+        Debug.Log($"Bump Map Generator: Encoding...");
 
         byte[] bytes = normalTexture.EncodeToPNG();
         if (bytes == null || bytes.Length == 0)
         {
-            Debug.LogError($"Normal Map Generator: Failed to read bytes...");
+            Debug.LogError($"Bump Map Generator: Failed to read bytes...");
             return;
         }
         normalTexture.name = texture.name + "_Normal.PNG";
-        destinationPath = Path.GetDirectoryName(destinationPath);
+        if (isSMode)
+        {
+            destinationPath = Path.GetDirectoryName(destinationPath);
+        }
         Debug.Log(destinationPath);
         destinationPath = Path.Combine(destinationPath, normalTexture.name);
+        Debug.Log(destinationPath);
 
         File.WriteAllBytes(destinationPath, bytes);
 
@@ -164,7 +171,7 @@ public class NormalMapGeneratorWindow : EditorWindow
         TextureImporter textureImporter = AssetImporter.GetAtPath(destinationPath) as TextureImporter;
         if (textureImporter == null)
         {
-            Debug.LogError($"Normal Map Generator: Texture does not exist");
+            Debug.LogError($"Bump Map Generator: Texture does not exist");
             return;
         }
         textureImporter.isReadable = true;
