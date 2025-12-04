@@ -109,7 +109,7 @@ public class NormalMapGeneratorWindow : EditorWindow
 
         foreach (string fileGUID in allFileGUIDs)
         {
-            Texture2D textureLoaded = AssetDatabase.LoadAssetAtPath<Texture2D>(fileGUID);
+            Texture2D textureLoaded = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(fileGUID));
 
             if (textureLoaded == null)
             {
@@ -154,6 +154,7 @@ public class NormalMapGeneratorWindow : EditorWindow
         }
         normalTexture.name = texture.name + "_Normal.PNG";
         destinationPath = Path.GetDirectoryName(destinationPath);
+        Debug.Log(destinationPath);
         destinationPath = Path.Combine(destinationPath, normalTexture.name);
 
         File.WriteAllBytes(destinationPath, bytes);
