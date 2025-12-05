@@ -101,7 +101,7 @@ public class NormalMapGeneratorWindow : EditorWindow
     {
         string sourcePath = AssetDatabase.GetAssetPath(sourceFolder);
         string destinationPath = AssetDatabase.GetAssetPath(destinationFolder);
-
+        Debug.Log($"Normal Map Generator: Make sure the original texture has (Alpha as Transparency) ticked off in the import settings");
         Debug.Log($"Normal Map Generator: Starting Normal Map Generation...");
         Debug.Log($"Normal Map Generator: Source Path: {sourcePath}");
         Debug.Log($"Bump Map Generator: Destination Path: {destinationPath}");
