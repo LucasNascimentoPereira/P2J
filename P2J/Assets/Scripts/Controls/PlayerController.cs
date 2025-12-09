@@ -17,10 +17,15 @@ public class PlayerController : MonoBehaviour
 
     InputAction interactAction;
 
+    private float JUMP_BASIC = 0;
+    private float JUMP_WALL = 1;
+    private float JUMP_WALL_L = 2;
+    private float JUMP_DOUBLE = 3;
 
     [SerializeField] private float groundSpeed = 3.34f;
     [SerializeField] private float jumpForce = 20f;
-    [SerializeField] private Vector2 jumpForceWall = new Vector2(12f, 5f);
+    [SerializeField] private Vector2 jumpForceWall = new Vector2(10f, 4f);
+    [SerializeField] private Vector2 doublejumpForce = new Vector2(5f, 2f);
     [SerializeField] private float defaultGravity = 5f;
     [SerializeField] private float maxFallingSpeed = 50f;
     /*[SerializeField]*/ private float accelerationFactorGround = 0.15f;
@@ -71,6 +76,8 @@ public class PlayerController : MonoBehaviour
     private float dashTime = -1f;
     private float attackTime = -1f;
     private int airDashCount = 0;
+    private int airJumpCount = 0;
+    private float jump_type;
     private Vector2 meleeDirection;
     private Vector2 dashDirection;
     private bool playerDirectionIsRight;
@@ -97,6 +104,7 @@ public class PlayerController : MonoBehaviour
         meleeReleased = true;
         playerDirectionIsRight = true;
         meleeDirection = Vector2.right * 0.5f;
+        jump_type = JUMP_BASIC;
 
         _onPlaySound.AddListener(PlaySound);
     }
@@ -124,11 +132,13 @@ public class PlayerController : MonoBehaviour
         {
             onGround = true;
             airDashCount = 0;
+            airJumpCount = 0;
             //check for jump buffering
             if (jumpPressTime != -1f && Time.fixedTime - jumpPressTime < jumpBufferTime)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
                 jumpTime = jumpPressTime;
+                jump_type = JUMP_BASIC;
                 jumpPressTime = -1f;
                 _animatorController.SetTrigger(animatorJumpStart);
             }
@@ -388,6 +398,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpTime = Time.fixedTime;
+            jump_type = JUMP_BASIC;
             _animatorController.SetTrigger(animatorJumpStart);
         }
         //wall jump
@@ -395,14 +406,16 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = jumpForceWall;
             jumpTime = Time.fixedTime;
+            jump_type = JUMP_WALL_L;
         }
         else if (onRightWall && jumpReleased)
         {
             rb.linearVelocity = new Vector2(-jumpForceWall.x, jumpForceWall.y);
             jumpTime = Time.fixedTime;
+            jump_type = JUMP_WALL;
         }
         //variable jump height
-        else if (jumpTime != -1f && Time.fixedTime - jumpTime < maxJumpDuration)
+        else if (jumpTime != -1f && Time.fixedTime - jumpTime < maxJumpDuration && jump_type == JUMP_BASIC)
         {
             rb.gravityScale = defaultGravity / gravityResistanceOnJump;
         }
@@ -411,7 +424,26 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpTime = Time.fixedTime;
+            jump_type = JUMP_BASIC;
             dropTime = -1f;
+            _animatorController.SetTrigger(animatorJumpStart);
+        }
+        //double jump
+        else if (jumpReleased && airJumpCount == 0)
+        {
+            if (rb.linearVelocity.x > 0.1) {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x + doublejumpForce.x, doublejumpForce.y);
+            }
+            else if (rb.linearVelocity.x < -0.1)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x - doublejumpForce.x, doublejumpForce.y);
+            } else
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, doublejumpForce.y);
+            }
+            jumpTime = Time.fixedTime;
+            jump_type = JUMP_DOUBLE;
+            airJumpCount++;
             _animatorController.SetTrigger(animatorJumpStart);
         }
         //store time for jump buffering

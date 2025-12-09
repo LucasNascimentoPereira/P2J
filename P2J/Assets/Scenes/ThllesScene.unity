@@ -10011,7 +10011,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundSpeed: 3.34
   jumpForce: 7
-  jumpForceWall: {x: 12, y: 5}
+  jumpForceWall: {x: 10, y: 4}
+  doublejumpForce: {x: 5, y: 5}
   defaultGravity: 1.67
   maxFallingSpeed: 16.67
   coyoteTime: 0.1
