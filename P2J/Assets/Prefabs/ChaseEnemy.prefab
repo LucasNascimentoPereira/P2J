@@ -83,6 +83,11 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
+  audioSource: {fileID: 0}
+  audioClips: []
   patrolPoints:
   - {fileID: 114119720631272616}
   - {fileID: 970843777064385976}
@@ -230,11 +235,31 @@ MonoBehaviour:
   minHealth: 0
   onDefeat:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2860949706682348978}
+        m_TargetAssemblyTypeName: ChasingEnemy, Assembly-CSharp
+        m_MethodName: SpawnCoins
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDamage:
     m_PersistentCalls:
       m_Calls: []
+  onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticle:
+    m_PersistentCalls:
+      m_Calls: []
   audioSource: {fileID: 7091083663324113431}
+  audioClips: []
+  particleSystemList: []
   rb: {fileID: 220890946787660880}
   spriteRenderer: {fileID: 337066540257417696}
 --- !u!82 &7091083663324113431

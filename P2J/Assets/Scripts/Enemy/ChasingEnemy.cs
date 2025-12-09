@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -223,6 +222,16 @@ public class ChasingEnemy : MonoBehaviour
     {
         audioSource.PlayOneShot(audioClips[soundIndex]);
     }
-   
+
+    public void SpawnCoins()
+    {
+        for (int i = 0; i < chasingEnemySata.CoinNumber; ++i)
+        {
+            GameObject coin = Instantiate(chasingEnemySata.Coin, transform.position, transform.rotation);
+            coin.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.value, Random.value) * chasingEnemySata.CoinKnockback, ForceMode2D.Impulse);
+        }
+    }
+
+
 
 }

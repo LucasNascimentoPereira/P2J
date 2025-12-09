@@ -347,7 +347,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8171546351048011011}
         m_TargetAssemblyTypeName: Goombuh, Assembly-CSharp
-        m_MethodName: KnockBack
+        m_MethodName: SpawnCoins
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

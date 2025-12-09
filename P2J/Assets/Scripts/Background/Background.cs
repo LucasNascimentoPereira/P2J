@@ -17,8 +17,8 @@ public class Background : MonoBehaviour
         //transform.position = playerTransform.position;
         for (int i = 0; i < layers.Count; ++i) 
         {
-            layers[i].transform.position = layers[i].transform.position + (backgroundDataAsset.MoveDelta * playerController.MoveValue.normalized);
-            layers[i].transform.position = Vector2.MoveTowards(layers[i].transform.position, layers[i].transform.position + (new Vector2(0, 0) * playerController.MoveValue.normalized), backgroundDataAsset.TimeInterval);
+            layers[i].transform.position = layers[i].transform.position + (new Vector3(backgroundDataAsset.LayerSpeeds[i], 0, 0) * -playerController.MoveValue.normalized.x);
+            //layers[i].transform.position = Vector2.MoveTowards(layers[i].transform.position, layers[i].transform.position + (new Vector2(0, 0) * playerController.MoveValue.normalized), backgroundDataAsset.TimeInterval);
 
         }
     }
