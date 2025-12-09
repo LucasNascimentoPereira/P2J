@@ -17,9 +17,15 @@ public class PlayerController : MonoBehaviour
 
     InputAction interactAction;
 
+    private float JUMP_BASIC = 0;
+    private float JUMP_WALL = 1;
+    private float JUMP_WALL_L = 2;
+    private float JUMP_DOUBLE = 3;
 
-    [SerializeField] private float groundSpeed = 10f;
+    [SerializeField] private float groundSpeed = 3.34f;
     [SerializeField] private float jumpForce = 20f;
+    [SerializeField] private Vector2 jumpForceWall = new Vector2(10f, 4f);
+    [SerializeField] private Vector2 doublejumpForce = new Vector2(5f, 2f);
     [SerializeField] private float defaultGravity = 5f;
     [SerializeField] private float maxFallingSpeed = 50f;
     /*[SerializeField]*/ private float accelerationFactorGround = 0.15f;
@@ -40,15 +46,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int  meleeDamage = 1;
     [SerializeField] private float meleeKnockback = 5.0f;
     [SerializeField] private float meleeRange = 3.0f;
+    [SerializeField] private float meleeCooldown = 0.3f;
+    /*[SerializeField]*/ private float meleeSlowDuration = 0.2f;
+    /*[SerializeField]*/ private Vector2 maxSpeedDuringMelee = new Vector2(2f, 3f);
     [SerializeField] private Animator _animatorController;
     private int animatorHorizontal = Animator.StringToHash("Horizontal");
     private int animatorVertical = Animator.StringToHash("Vertical");
     private int animatorJump = Animator.StringToHash("IsOnGround");
+
     private int animatorPlayerDirection = Animator.StringToHash("IsRight");
+    private int animatorAttackRight = Animator.StringToHash("IsAttackingRight");
+    private int animatorAttackLeft = Animator.StringToHash("IsAttackingLeft");
+    private int animatorFacingRight = Animator.StringToHash("IsFacingRight");
+    private int animatorJumpStart = Animator.StringToHash("JumpStarted");
+
 
     private CapsuleCollider2D col;
     private Rigidbody2D rb;
     private bool onGround;
+    private bool onLeftWall;
+    private bool onRightWall;
     private bool jumpReleased;
     private bool dashReleased;
     private bool meleeReleased;
@@ -59,7 +76,10 @@ public class PlayerController : MonoBehaviour
     private float dropTime = -1f;
     private float groundDashTime = -1f;
     private float dashTime = -1f;
+    private float attackTime = -1f;
     private int airDashCount = 0;
+    private int airJumpCount = 0;
+    private float jump_type;
     private Vector2 meleeDirection;
     private Vector2 dashDirection;
     private bool playerDirectionIsRight;
@@ -89,8 +109,11 @@ public class PlayerController : MonoBehaviour
         meleeReleased = true;
         playerDirectionIsRight = true;
         meleeDirection = Vector2.right * 0.5f;
+
         //playerDirection = true;
         GameManager.Instance.PlayerController = this;
+
+        jump_type = JUMP_BASIC;
 
         _onPlaySound.AddListener(PlaySound);
         _onPlayParticle.AddListener(PlayParticle);
@@ -99,29 +122,37 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsOnGround())
-        {
-            onGround = true;
-            airDashCount = 0;
-            if (jumpPressTime != -1f && Time.fixedTime - jumpPressTime < jumpBufferTime)
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-                jumpTime = jumpPressTime;
-                jumpPressTime = -1f;
-            }
-        }
-        else
-        {
-            onGround = false;
-        }
+        checkForGround();
+        checkForWalls();
     }
 
     private void OnCollisionExit2D(Collision2D collision)
+    {
+        checkForGround();
+        checkForWalls();
+    }
+
+    private static bool InBetween(float value, float min, float max)
+    {
+        return value > min && value < max;
+    }
+
+    private void checkForGround()
     {
         if (IsOnGround())
         {
             onGround = true;
             airDashCount = 0;
+            airJumpCount = 0;
+            //check for jump buffering
+            if (jumpPressTime != -1f && Time.fixedTime - jumpPressTime < jumpBufferTime)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                jumpTime = jumpPressTime;
+                jump_type = JUMP_BASIC;
+                jumpPressTime = -1f;
+                _animatorController.SetTrigger(animatorJumpStart);
+            }
         }
         else
         {
@@ -133,22 +164,81 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private static bool InBetween(float value, float min, float max)
+    private void checkForWalls()
     {
-        return value > min && value < max;
+        if (IsOnLeftWall())
+        {
+            onLeftWall = true;
+        }
+        else
+        {
+            onLeftWall = false;
+        }
+        if (IsOnRightWall())
+        {
+            onRightWall = true;
+        }
+        else
+        {
+            onRightWall = false;
+        }
     }
 
     private bool IsOnGround()
     {
-        return col.IsTouchingLayers(groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(col.bounds.center, col.bounds.size * 0.9f, 0f, Vector2.down, 0.1f, groundLayer);
+        return raycastHit.collider != null;
+    }
+
+    private bool IsOnLeftWall()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(col.bounds.center, col.bounds.size * 0.9f, 0f, Vector2.left, 0.1f, groundLayer);
+        return raycastHit.collider != null;
+    }
+
+    private bool IsOnRightWall()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(col.bounds.center, col.bounds.size * 0.9f, 0f, Vector2.right, 0.1f, groundLayer);
+        return raycastHit.collider != null;
     }
 
     private void Update()
     {
+        Vector2 lookValue = lookAction.ReadValue<Vector2>();
+        bool lookValueChanged = lookAction.triggered;
+        checkForGround();
+        checkForWalls();
         if (interactAction.WasPressedThisFrame())
         {
             Interact();
         }
+        if (lookValueChanged && lookValue != Vector2.zero && Time.time > attackTime + meleeCooldown)
+        {
+            if (meleeReleased)
+            {
+                attackWithMelee(playerDirectionIsRight, lookValue);
+                if(lookValue.x > 0.1f)
+                {
+                    _animatorController.SetTrigger(animatorAttackRight);
+                }
+                if(lookValue.x < -0.1f)
+                {
+                    _animatorController.SetTrigger(animatorAttackLeft);
+                }
+                if(lookValue.y > 0.1f)
+                {
+                }
+                if(lookValue.y < -0.1f)
+                {
+                }
+            }
+            meleeReleased = false;
+        }
+        else
+        {
+            meleeReleased = true;
+        }
+        _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
     }
 
     void FixedUpdate()
@@ -190,13 +280,13 @@ public class PlayerController : MonoBehaviour
         {
             if (meleeReleased)
             {
-                attackWithMelee(playerDirectionIsRight, lookValue);
+                //attackWithMelee(playerDirectionIsRight, lookValue);
             }
-            meleeReleased = false;
+            //meleeReleased = false;
         }
         else
         {
-            meleeReleased = true;
+            //meleeReleased = true;
         }
 
         if (dashUnlocked && dashAction.IsPressed())
@@ -218,6 +308,30 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = 0f;
         }
+
+        if (Time.fixedTime - attackTime < meleeSlowDuration)
+        {
+            if (rb.linearVelocity.x > maxSpeedDuringMelee.x)
+            {
+                rb.linearVelocityX = maxSpeedDuringMelee.x;
+            }
+            else if (rb.linearVelocity.x < -maxSpeedDuringMelee.x)
+            {
+                rb.linearVelocityX = -maxSpeedDuringMelee.x;
+            }
+            if (rb.linearVelocity.y > maxSpeedDuringMelee.y)
+            {
+                rb.linearVelocityY = maxSpeedDuringMelee.y;
+            }
+            else if (rb.linearVelocity.y < -maxSpeedDuringMelee.y)
+            {
+                rb.linearVelocityY = -maxSpeedDuringMelee.y;
+            }
+        }
+        _animatorController.SetFloat(animatorHorizontal, moveValue.x);
+        _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
+        _animatorController.SetBool(animatorJump, onGround);
+        _animatorController.SetBool(animatorFacingRight, playerDirectionIsRight);
     }
 
     void processMovement(Vector2 moveValue)
@@ -294,6 +408,7 @@ public class PlayerController : MonoBehaviour
 
     void tryToJump()
     {
+        //regular jump
         if (onGround && jumpReleased)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -302,21 +417,59 @@ public class PlayerController : MonoBehaviour
             _onPlaySound.Invoke();
             particleIndex = 0;
             _onPlayParticle.Invoke();
+            jump_type = JUMP_BASIC;
+            _animatorController.SetTrigger(animatorJumpStart);
         }
-        else if (jumpTime != -1f && Time.fixedTime - jumpTime < maxJumpDuration)
+        //wall jump
+        else if (onLeftWall && jumpReleased)
+        {
+            rb.linearVelocity = jumpForceWall;
+            jumpTime = Time.fixedTime;
+            jump_type = JUMP_WALL_L;
+        }
+        else if (onRightWall && jumpReleased)
+        {
+            rb.linearVelocity = new Vector2(-jumpForceWall.x, jumpForceWall.y);
+            jumpTime = Time.fixedTime;
+            jump_type = JUMP_WALL;
+        }
+        //variable jump height
+        else if (jumpTime != -1f && Time.fixedTime - jumpTime < maxJumpDuration && jump_type == JUMP_BASIC)
         {
             rb.gravityScale = defaultGravity / gravityResistanceOnJump;
         }
+        //check for coyote time
         else if (dropTime != -1f && Time.fixedTime - dropTime < coyoteTime && jumpReleased)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpTime = Time.fixedTime;
+            jump_type = JUMP_BASIC;
             dropTime = -1f;
             soundIndex = 0;
             _onPlaySound.Invoke();
             particleIndex = 0;
             _onPlayParticle.Invoke();
+            _animatorController.SetTrigger(animatorJumpStart);
         }
+        //double jump
+        else if (jumpReleased && airJumpCount == 0)
+        {
+            if (rb.linearVelocity.x > 0.1) {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x + doublejumpForce.x, doublejumpForce.y);
+            }
+            else if (rb.linearVelocity.x < -0.1)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x - doublejumpForce.x, doublejumpForce.y);
+            } else
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, doublejumpForce.y);
+            }
+            jumpTime = Time.fixedTime;
+            jump_type = JUMP_DOUBLE;
+            airJumpCount++;
+            _animatorController.SetTrigger(animatorJumpStart);
+        }
+        //store time for jump buffering
         else if (jumpReleased)
         {
             jumpPressTime = Time.fixedTime;
@@ -327,6 +480,7 @@ public class PlayerController : MonoBehaviour
     {
         soundIndex = 1;
         _onPlaySound.Invoke();
+        
         if (lookValue == Vector2.zero)
         {
             if (playerDirection)
@@ -357,6 +511,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        attackTime = Time.fixedTime;
+        soundIndex = 0;
+        //_onPlaySound.Invoke();
     }
 
     void processDirection(Vector2 moveValue) {

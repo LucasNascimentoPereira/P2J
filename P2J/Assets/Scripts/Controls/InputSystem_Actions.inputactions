@@ -190,17 +190,6 @@
                 },
                 {
                     "name": "",
-                    "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
-                    "path": "<Pointer>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Touch",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "3e5f5442-8668-4b27-a940-df99bad7e831",
                     "path": "<Joystick>/{Hatswitch}",
                     "interactions": "",
@@ -211,19 +200,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "1b3aa07c-a114-494f-a27c-a7486639efa4",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "Arrow Keys",
-                    "id": "a24e5fb7-dbc9-468a-b199-b0d6cd23166f",
+                    "id": "19d10ab0-4874-44dc-96b1-3b03d7b96f36",
                     "path": "Dpad",
                     "interactions": "",
                     "processors": "",
@@ -234,7 +212,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "105d3ea3-aa80-4516-8f1b-632175cf4d49",
+                    "id": "af52ed70-fce2-4c68-8cde-c8320d0dad72",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
@@ -245,7 +223,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "6173cf09-29a0-49fd-8989-d677c14dbd3e",
+                    "id": "3f5dda47-551e-4d81-b670-1ef8efa3844d",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
@@ -256,7 +234,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "1888a27a-9938-4b4c-8e2d-10e932b6775c",
+                    "id": "ec9378d9-8d84-4398-a163-4f621742c031",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
@@ -267,7 +245,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "8db2f0c2-525b-47cb-b2f9-e170663bcfe7",
+                    "id": "3a16b563-7884-4376-82b8-328675a61312",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
