@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<UpgradeData> upgradeData;
 
     private GameObject currentSpawnPoint;
+    private Background background;
 
     public static GameManager Instance { get; private set; }
     public bool IsPaused { get; private set; } = false;
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
     public GameObject Interactable => interactable;
     public Dictionary<string, UpgradeData> Prices => prices;
     public List<UpgradeData> UpgradeData => upgradeData;
+    public Background Background => background;
 
 
 
@@ -160,6 +162,7 @@ public class GameManager : MonoBehaviour
         healthPlayer.transform.position = currentSpawnPoint.transform.position;
         healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
         _onLevelReset.Invoke();
+        background.ResetPos();
     }
 
     public void AddCoins()

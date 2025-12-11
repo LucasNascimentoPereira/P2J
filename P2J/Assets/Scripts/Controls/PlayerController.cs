@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
     private int particleIndex;
 
     private Vector2 moveValue = Vector2.zero;
-    public Vector2 MoveValue => moveValue;
+    public Rigidbody2D Rb => rb;
 
     private void Start()
     {
