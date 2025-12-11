@@ -93,6 +93,9 @@ public class PlayerController : MonoBehaviour
     private UnityEvent _onPlayParticle = new();
     private int particleIndex;
 
+    private Vector2 moveValue = Vector2.zero;
+    public Vector2 MoveValue => moveValue;
+
     private void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
@@ -244,7 +247,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.gravityScale = defaultGravity;
-        Vector2 moveValue = moveAction.ReadValue<Vector2>();
+        moveValue = moveAction.ReadValue<Vector2>();
         Vector2 lookValue = lookAction.ReadValue<Vector2>();
         _animatorController.SetFloat(animatorHorizontal, moveValue.x);
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
