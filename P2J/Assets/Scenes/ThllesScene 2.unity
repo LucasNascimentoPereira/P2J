@@ -72423,12 +72423,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundDataAsset: {fileID: 11400000, guid: 71bdf2f7aa901b94aba4c2d866ba7f31, type: 2}
   layers:
-  - {fileID: 851854604}
-  - {fileID: 1826055537}
-  - {fileID: 43732474}
-  - {fileID: 386183438}
-  - {fileID: 344620011}
   - {fileID: 562182731}
+  - {fileID: 344620011}
+  - {fileID: 386183438}
+  - {fileID: 43732474}
+  - {fileID: 1826055537}
+  - {fileID: 851854604}
 --- !u!1 &1343675844
 GameObject:
   m_ObjectHideFlags: 0
