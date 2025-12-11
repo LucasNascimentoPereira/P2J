@@ -5,11 +5,16 @@ public class Background : MonoBehaviour
 {
     [SerializeField] private BackgroundDataAsset backgroundDataAsset;
     [SerializeField] private List<GameObject> layers;
+    private List<Vector3> iniPos = new();
     private PlayerController playerController;
 
     private void Start()
     {
         playerController = GameManager.Instance.PlayerController;
+        for (int i = 0; i < layers.Count; i++)
+        {
+            iniPos[i] = layers[i].transform.position;
+        }
     }
 
     private void FixedUpdate()
@@ -17,9 +22,17 @@ public class Background : MonoBehaviour
         //transform.position = playerTransform.position;
         for (int i = 0; i < layers.Count; ++i) 
         {
-            layers[i].transform.position = layers[i].transform.position + (new Vector3(backgroundDataAsset.LayerSpeeds[i], 0, 0) * -playerController.MoveValue.normalized.x);
+            layers[i].transform.position = layers[i].transform.position + (new Vector3(backgroundDataAsset.LayerSpeeds[i], 0, 0) * -playerController.Rb.linearVelocity.normalized.x);
             //layers[i].transform.position = Vector2.MoveTowards(layers[i].transform.position, layers[i].transform.position + (new Vector2(0, 0) * playerController.MoveValue.normalized), backgroundDataAsset.TimeInterval);
 
+        }
+    }
+
+    public void ResetPos()
+    {
+        for (int i = 0;i < layers.Count; ++i)
+        {
+            layers[i].transform.position = iniPos[i];
         }
     }
 
