@@ -213,8 +213,9 @@ public class NormalMapGeneratorWindow : EditorWindow
                 float y1 = texture.GetPixel(x, Mathf.Clamp(y + 1, 0, texture.height - 1)).grayscale;
                 float y2 = texture.GetPixel(x, Mathf.Clamp(y - 1, 0, texture.height - 1)).grayscale;
 
-                Vector3 norVector = new Vector3((x1 - x2) * normalMapStrength, (y1 - y2) * normalMapStrength, 1.0f);
-                
+                Vector3 norVector = new Vector3((x2 - x1) * normalMapStrength, (y2 - y1) * normalMapStrength, 1.0f);
+
+
                 norVector.Normalize();
 
                 Color newPixel = new Color((norVector.x + 1f) / 2f, (norVector.y + 1f) / 2f, norVector.z);
