@@ -502,6 +502,7 @@ public class PlayerController : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, meleeRange / 2f, enemyLayer);
         Debug.Log(hitEnemies.Length + " enemies hit");
         Debug.DrawLine(rb.position, rb.position + meleeDirection * 2f);
+        attackTime = Time.fixedTime;
         if (hitEnemies.Length == 0) return;
         soundIndex = 2;
         _onPlaySound.Invoke();
@@ -513,10 +514,6 @@ public class PlayerController : MonoBehaviour
                 enemyHealth.TakeDamage(gameObject, true, meleeDamage, meleeKnockback, meleeDirection);
             }
         }
-
-        attackTime = Time.fixedTime;
-        soundIndex = 0;
-        //_onPlaySound.Invoke();
     }
 
     void processDirection(Vector2 moveValue) {
