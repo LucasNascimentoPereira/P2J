@@ -417,9 +417,9 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpTime = Time.fixedTime;
             soundIndex = 0;
-            _onPlaySound.Invoke();
+            //_onPlaySound.Invoke();
             particleIndex = 0;
-            _onPlayParticle.Invoke();
+            //_onPlayParticle.Invoke();
             jump_type = JUMP_BASIC;
             _animatorController.SetTrigger(animatorJumpStart);
         }
@@ -482,7 +482,7 @@ public class PlayerController : MonoBehaviour
     void attackWithMelee(bool playerDirection, Vector2 lookValue)
     {
         soundIndex = 1;
-        _onPlaySound.Invoke();
+        //_onPlaySound.Invoke();
         
         if (lookValue == Vector2.zero)
         {

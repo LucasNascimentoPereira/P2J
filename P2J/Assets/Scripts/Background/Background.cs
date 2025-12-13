@@ -11,10 +11,12 @@ public class Background : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.Background = this;
         playerController = GameManager.Instance.PlayerController;
+
         for (int i = 0; i < layers.Count; i++)
         {
-            iniPos[i] = layers[i].transform.position;
+            iniPos.Add(layers[i].transform.position);
         }
     }
 
