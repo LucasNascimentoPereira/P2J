@@ -70,7 +70,7 @@ public class HealthBase : MonoBehaviour
 
     protected virtual void PlayParticle()
     {
-        particleSystemList[particleIndex].Play();
+        //particleSystemList[particleIndex].Play();
     }
 
 

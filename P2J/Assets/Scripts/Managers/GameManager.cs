@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     public GameObject Interactable => interactable;
     public Dictionary<string, UpgradeData> Prices => prices;
     public List<UpgradeData> UpgradeData => upgradeData;
-    public Background Background => background;
+    public Background Background { get => background; set => background = value; }
 
 
 
