@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: 17f46607c1998d642a202e739059922f
+guid: 22a801bdf7e09024db2d6e66eb9971af
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7665219227796151893
-    second: Vesper walk animation_r_0
+      213: -767862507419178802
+    second: Vesper walk animation_r_v.1_0
   - first:
-      213: -3403574473663959661
-    second: Vesper walk animation_r_1
+      213: -5571246318175400796
+    second: Vesper walk animation_r_v.1_1
   - first:
-      213: -3572688306842945003
-    second: Vesper walk animation_r_2
+      213: 8833899339807312492
+    second: Vesper walk animation_r_v.1_2
   - first:
-      213: 7713184508740197812
-    second: Vesper walk animation_r_3
+      213: -1997629460449694927
+    second: Vesper walk animation_r_v.1_3
   - first:
-      213: 7215019975718604659
-    second: Vesper walk animation_r_4
+      213: 2611368926046151875
+    second: Vesper walk animation_r_v.1_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -112,7 +112,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Vesper walk animation_r_0
+      name: Vesper walk animation_r_v.1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -120,21 +120,21 @@ TextureImporter:
         width: 32
         height: 38
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 55e984e8644506a60800000000000000
-      internalID: 7665219227796151893
+      spriteID: ec860f82e110855f0800000000000000
+      internalID: -767862507419178802
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper walk animation_r_1
+      name: Vesper walk animation_r_v.1_1
       rect:
         serializedVersion: 2
         x: 32
@@ -142,21 +142,21 @@ TextureImporter:
         width: 32
         height: 38
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 39d2ca29c0314c0d0800000000000000
-      internalID: -3403574473663959661
+      spriteID: 4acc3f8cdf4fea2b0800000000000000
+      internalID: -5571246318175400796
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper walk animation_r_2
+      name: Vesper walk animation_r_v.1_2
       rect:
         serializedVersion: 2
         x: 0
@@ -164,21 +164,21 @@ TextureImporter:
         width: 32
         height: 38
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 51a3f61f9e24b6ec0800000000000000
-      internalID: -3572688306842945003
+      spriteID: c6ac5c245a0589a70800000000000000
+      internalID: 8833899339807312492
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper walk animation_r_3
+      name: Vesper walk animation_r_v.1_3
       rect:
         serializedVersion: 2
         x: 32
@@ -186,21 +186,21 @@ TextureImporter:
         width: 32
         height: 38
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4bd518ac17cba0b60800000000000000
-      internalID: 7713184508740197812
+      spriteID: 13b6a01f69ef644e0800000000000000
+      internalID: -1997629460449694927
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vesper walk animation_r_4
+      name: Vesper walk animation_r_v.1_4
       rect:
         serializedVersion: 2
         x: 0
@@ -208,15 +208,15 @@ TextureImporter:
         width: 32
         height: 38
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 37f0e0ce076e02460800000000000000
-      internalID: 7215019975718604659
+      spriteID: 3c4697ed3327d3420800000000000000
+      internalID: 2611368926046151875
       vertices: []
       indices: 
       edges: []
@@ -225,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4b5aff7e804b0fd4fbf333f6b4b9799f
+    spriteID: 06b72eeff0c02db4f85654077674c16b
     internalID: 0
     vertices: []
     indices: 
@@ -235,11 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Vesper walk animation_r_0: 7665219227796151893
-      Vesper walk animation_r_1: -3403574473663959661
-      Vesper walk animation_r_2: -3572688306842945003
-      Vesper walk animation_r_3: 7713184508740197812
-      Vesper walk animation_r_4: 7215019975718604659
+      Vesper walk animation_r_v.1_0: -767862507419178802
+      Vesper walk animation_r_v.1_1: -5571246318175400796
+      Vesper walk animation_r_v.1_2: 8833899339807312492
+      Vesper walk animation_r_v.1_3: -1997629460449694927
+      Vesper walk animation_r_v.1_4: 2611368926046151875
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

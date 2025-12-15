@@ -235,7 +235,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6917064287103164268, guid: e8f75e797f7869044a872ab99d5cd1c1, type: 3}
+  m_Sprite: {fileID: 937131379653755085, guid: cfc9e302733af5f4da047b12c510cab1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -280,8 +280,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.03911853, y: -0.8771895}
-  m_Size: {x: 1.2432771, y: 1.2432771}
+  m_Offset: {x: -0.09624174, y: -0.046495445}
+  m_Size: {x: 0.40194786, y: 0.5566385}
   m_Direction: 0
 --- !u!114 &8171546351048011011
 MonoBehaviour:
@@ -821,7 +821,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b34ccc52991b9de66abfaea07681bf37, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -841,12 +841,12 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.03911853, y: -0.9272648}
-  m_Size: {x: 1.35, y: 1.35}
+  m_Offset: {x: 0.0722438, y: -0.044870257}
+  m_Size: {x: 0.51049995, y: 0.6915208}
   m_Direction: 0
 --- !u!1001 &6089403183255718398
 PrefabInstance:
