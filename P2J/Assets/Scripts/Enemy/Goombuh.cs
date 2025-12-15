@@ -16,6 +16,9 @@ public class Goombuh : MonoBehaviour
     private bool knockBack = false;
     private Coroutine coroutine;
 
+    private int animatorHorizontal = Animator.StringToHash("Horizontal");
+    [SerializeField] private Animator AnimatorGoombuh;
+
     private void OnBecameVisible()
     {
         Move();
@@ -38,6 +41,7 @@ public class Goombuh : MonoBehaviour
         if (knockBack) return;
         rb.linearVelocity = new Vector2(dir.x * goombuhData.GoombuhSpeed, rb.linearVelocityY);
         //animator.SetFloat(animatorHorizontal, rb.linearVelocityX);
+        
     }
 
     private void Rotate()
