@@ -112,7 +112,7 @@ MonoBehaviour:
       - m_Target: {fileID: 8048812067115226618}
         m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
         m_MethodName: PlaySound
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -316,7 +316,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1001 &2581248427165168118
 PrefabInstance:
   m_ObjectHideFlags: 0
