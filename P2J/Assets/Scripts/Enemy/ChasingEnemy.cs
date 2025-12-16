@@ -51,6 +51,10 @@ public class ChasingEnemy : MonoBehaviour
     public bool IsJumping { get => _isJumping; set => _isJumping = value; }
     public bool DetectedPlayerCharacter { get => _detectedPlayer; set => _detectedPlayer = value; }
 
+    private int animatorHorizontal = Animator.StringToHash("ChasingHorizontal");
+    [SerializeField] private Animator animatorChasing;
+
+
     public enum EnemyStates
     {
         IDLE,

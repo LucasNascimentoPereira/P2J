@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4153491069124529490}
   - component: {fileID: 4405264531729823857}
   - component: {fileID: 7091083663324113431}
+  - component: {fileID: 3918369651832273692}
   m_Layer: 6
   m_Name: ChaseEnemy
   m_TagString: Enemy
@@ -135,8 +136,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6185693914898664944, guid: c7609173d5585de43a3829dc589f433a, type: 3}
-  m_Color: {r: 0.21509439, g: 0.095372036, b: 0.095372036, a: 1}
+  m_Sprite: {fileID: 7859942921525138464, guid: 5033924bb2aa1fc4e9f3b31b44c2ffc2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -207,17 +208,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.048060417, y: 0.031105578}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5, y: 5}
+    oldSize: {x: 1.25, y: 1.25}
     newSize: {x: 5, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 0.8678646, y: 1.2594241}
   m_EdgeRadius: 0
 --- !u!114 &4405264531729823857
 MonoBehaviour:
@@ -359,6 +360,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &3918369651832273692
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292923232092486761}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6cef26a02caad794197da44d11767358, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &464459169472913869
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +613,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_Radius
-      value: 40
+      value: 4.0661755
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.058119774
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.054763794
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1359,7 +1390,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.05343747, y: 0.027131438}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1369,7 +1400,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 6, y: 6}
+  m_Size: {x: 0.9788184, y: 1.4531586}
   m_EdgeRadius: 0
 --- !u!1001 &7789882460567463125
 PrefabInstance:
@@ -1381,7 +1412,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_Radius
-      value: 100
+      value: 9.975633
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0565176
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.008943558
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
