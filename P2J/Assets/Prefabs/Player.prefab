@@ -181,6 +181,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundSpeed: 3.34
   jumpForce: 7
+  jumpForceWall: {x: 10, y: 4}
+  doublejumpForce: {x: 5, y: 2}
   defaultGravity: 1.67
   maxFallingSpeed: 16.67
   coyoteTime: 0.1
@@ -198,9 +200,11 @@ MonoBehaviour:
   meleeDamage: 1
   meleeKnockback: 10
   meleeRange: 2
+  meleeCooldown: 0.3
   _animatorController: {fileID: 4214824091728793426}
   _audioSource: {fileID: 0}
   _audioClips: []
+  particleSystemList: []
 --- !u!114 &6362663196624350708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,14 +228,15 @@ MonoBehaviour:
   onPlaySound:
     m_PersistentCalls:
       m_Calls: []
+  onParticle:
+    m_PersistentCalls:
+      m_Calls: []
   audioSource: {fileID: 0}
   audioClips: []
+  particleSystemList: []
   rb: {fileID: 1958665707910333385}
   playerData: {fileID: 11400000, guid: a15bb403db4bc0de794776bc1399a5bb, type: 2}
   spriteRenderer: {fileID: 7811901552952099803}
-  _audioSource: {fileID: 891543431986884923}
-  _audioClips:
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
 --- !u!95 &4214824091728793426
 Animator:
   serializedVersion: 7
@@ -288,8 +293,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0000019073486, y: 0}
-  m_Size: {x: 0.2935524, y: 1.1875}
+  m_Offset: {x: -0.0022659302, y: 0.04082489}
+  m_Size: {x: 0.2935524, y: 0.92440414}
   m_Direction: 0
 --- !u!82 &891543431986884923
 AudioSource:

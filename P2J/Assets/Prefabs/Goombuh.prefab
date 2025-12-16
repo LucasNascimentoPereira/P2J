@@ -877,8 +877,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.09890315, y: -0.044870257}
-  m_Size: {x: 0.5315234, y: 0.78730816}
+  m_Offset: {x: -0.08826567, y: -0.034232795}
+  m_Size: {x: 0.39678195, y: 0.66674995}
   m_Direction: 0
 --- !u!1001 &6089403183255718398
 PrefabInstance:
