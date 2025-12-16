@@ -35,17 +35,17 @@ public class AudioManager : MonoBehaviour
 
     public void ChangeMasterVolume(float volumeValue)
     {
-        defaultAudioMixer.SetFloat("MasterVolume", volumeValue);
+        defaultAudioMixer.SetFloat("MasterVolume", (volumeValue * 80) - 80);
     }
 
     public void ChangeSFXVolume(float volumeValue)
     {
-        defaultAudioMixer.SetFloat("SfxVolume", volumeValue);
+        defaultAudioMixer.SetFloat("SfxVolume", (volumeValue * 80) - 80);
     }
 
     public void ChangeMusicVolume(float volumeValue)
     {
-        defaultAudioMixer.SetFloat("MusicVolume", volumeValue);
+        defaultAudioMixer.SetFloat("MusicVolume", (volumeValue * 80) - 80);
     }
 
     public void PlayMusic(int music)

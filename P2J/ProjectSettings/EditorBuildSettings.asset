@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: 6a925ce743868c743bd6e56b9d0aeeea
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DenisScene-copy.unity
     guid: a72e556b2637081219752d485b4e5abc
   - enabled: 0
