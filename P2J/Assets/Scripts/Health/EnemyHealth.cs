@@ -34,7 +34,7 @@ public class EnemyHealth : HealthBase
         soundIndex = 0;
         onPlaySound.Invoke();
         particleIndex = 0;
-        onParticle.Invoke();
+        //onParticle.Invoke();
         return true;
     }
 
@@ -46,7 +46,7 @@ public class EnemyHealth : HealthBase
         soundIndex = Random.Range(1, 5);
         onPlaySound.Invoke();
         particleIndex = 0;
-        onParticle.Invoke();
+        //onParticle.Invoke();
         return true;
     }
 
@@ -54,6 +54,8 @@ public class EnemyHealth : HealthBase
     {
         soundIndex = 1;
         onPlaySound.Invoke();
-        Destroy(gameObject);
+        onDefeat.Invoke();
+
+        Destroy(gameObject, 0.1f);
     }
 }

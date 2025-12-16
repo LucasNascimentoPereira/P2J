@@ -305,7 +305,7 @@ MonoBehaviour:
   - {fileID: 915344071662301758}
   rb: {fileID: 6353725496803889946}
   detector: {fileID: 1087027815655431809}
-  AnimatorGoombuh: {fileID: 4733723338263849041}
+  animatorGoombuh: {fileID: 4733723338263849041}
 --- !u!50 &6353725496803889946
 Rigidbody2D:
   serializedVersion: 5
