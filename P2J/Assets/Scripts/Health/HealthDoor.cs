@@ -9,8 +9,6 @@ public class HealthDoor : HealthBase
 
     [SerializeField] private ParticleSystem doorParticleSystem;
     [SerializeField] private GameObject door;
-    [SerializeField] private List<GameObject> doorBits;
-    [SerializeField] private int index = 0;
 
     [Header("Variables to use noise")]
     [Tooltip("Interval between noise")]
@@ -18,7 +16,7 @@ public class HealthDoor : HealthBase
     [SerializeField] private float noiseTime = 1.0f;
     [Tooltip("Magnitude of noise")]
     [Range(0.0f, 1.0f)]
-    [SerializeField] private Vector2 noise = Vector2.one;
+    [SerializeField] private float noise = 0.0f;
     private Coroutine _timerCoroutine;
 
     protected override void Awake()
@@ -31,7 +29,7 @@ public class HealthDoor : HealthBase
         currentHealth = maxHealth;
     }
 
-    public override bool TakeDamage(GameObject damageDealer, bool isDamage, float damage)
+    public override bool TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force, Vector2 dir)
     {
         if (damageDealer == null) return false;
         CalculateHealth(damage);
@@ -49,29 +47,6 @@ public class HealthDoor : HealthBase
 
     protected override void PlaySound()
     {
-        base.PlaySound();
         doorParticleSystem.Play();
-        if (_timerCoroutine != null)
-        {
-            StopCoroutine(_timerCoroutine);
-            _timerCoroutine = null;
-        }
-        else
-        {
-            _timerCoroutine = StartCoroutine(Noise());
-        }
-        ++index;
-        if (!doorBits[index].TryGetComponent(out SpriteRenderer spriteRenderer)) return;
-        spriteRenderer.enabled = false;
-    }
-
-    private IEnumerator Noise()
-    {
-        float enlapedTime = 0.0f;
-        while (enlapedTime < noiseTime) {
-            door.transform.position = new Vector2(Random.value, Random.value) * noise;
-            enlapedTime += interval;
-            yield return interval;
-        }
     }
 }
