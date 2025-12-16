@@ -9070,10 +9070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultAudioMixer: {fileID: 24100000, guid: 795735d9d2ac7d543ab1a4ea0d5800df, type: 2}
-  click: {fileID: 0}
-  _audioDictionary:
-    keys: []
-    values: []
+  musics: []
 --- !u!4 &1017587350
 Transform:
   m_ObjectHideFlags: 0
@@ -9100,7 +9097,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 6636022766298442377, guid: 795735d9d2ac7d543ab1a4ea0d5800df, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: af7df86b45296a44aba4a6325da69589, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -19482,7 +19479,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: NoMenu
+          m_StringArgument: HUD
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2047338449

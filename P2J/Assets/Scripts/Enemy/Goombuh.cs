@@ -19,14 +19,9 @@ public class Goombuh : MonoBehaviour
     private int animatorHorizontal = Animator.StringToHash("Horizontal");
     [SerializeField] private Animator AnimatorGoombuh;
 
-    private void OnBecameVisible()
+    private void Start()
     {
         Move();
-    }
-
-    private void OnBecameInvisible()
-    {
-        dir = Vector2.zero;
     }
 
     private void Move()

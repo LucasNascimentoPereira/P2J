@@ -10,8 +10,8 @@ public class HealthBase : MonoBehaviour
     protected float currentHealth;
     private bool _isDefeated = false;
 
-    [SerializeField] private UnityEvent onDefeat;
-    [SerializeField] private UnityEvent onDamage;
+    [SerializeField] protected UnityEvent onDefeat;
+    [SerializeField] protected UnityEvent onDamage;
     [SerializeField] protected UnityEvent onPlaySound = new();
     [SerializeField] protected UnityEvent onParticle = new();
 

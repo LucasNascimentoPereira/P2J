@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Accessibility;
 using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
@@ -9,12 +11,13 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixer defaultAudioMixer = null;
     private AudioSource _myAudioSource = null;
 
-    [SerializeField] private AudioClip click;
 
-    [SerializeField] private StringAudioDictionary _audioDictionary;
+    [SerializeField] private List<AudioClip> musics;
 
     public AudioSource MyAudioSource => _myAudioSource;
     public AudioMixer DefaultAudioMixer => defaultAudioMixer;
+
+    private Coroutine _coroutine;
 
     private void Awake()
     {
@@ -45,8 +48,25 @@ public class AudioManager : MonoBehaviour
         defaultAudioMixer.SetFloat("MusicVolume", volumeValue);
     }
 
-    public void PlaySoundClick()
+    public void PlayMusic(int music)
     {
-        _myAudioSource.PlayOneShot(click);
+        if(_coroutine != null)
+        {
+
+        }
+
+        MyAudioSource.Stop();
+        _myAudioSource.resource = musics[music];
+        _myAudioSource.Play();
+    }
+
+    private IEnumerator FadeOut()
+    {
+        yield return null;
+    }
+
+    private IEnumerator FadeIn() 
+    {
+        yield return null;
     }
 }
