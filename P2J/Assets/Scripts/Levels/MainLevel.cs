@@ -9,5 +9,6 @@ public class MainLevel : MonoBehaviour
     {
         UIManager.Instance.CameraReference(_camera);
         UIManager.Instance.ShowPanel("HUD");
+        AudioManager.Instance.PlayMusic(1);
     }
 }

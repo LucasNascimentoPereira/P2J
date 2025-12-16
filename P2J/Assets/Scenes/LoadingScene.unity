@@ -9070,7 +9070,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultAudioMixer: {fileID: 24100000, guid: 795735d9d2ac7d543ab1a4ea0d5800df, type: 2}
-  musics: []
+  musics:
+  - {fileID: 8300000, guid: af7df86b45296a44aba4a6325da69589, type: 3}
+  - {fileID: 8300000, guid: 0e93e1774d467584ca0736fc1f6e1bfb, type: 3}
 --- !u!4 &1017587350
 Transform:
   m_ObjectHideFlags: 0
@@ -9097,7 +9099,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 6636022766298442377, guid: 795735d9d2ac7d543ab1a4ea0d5800df, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: af7df86b45296a44aba4a6325da69589, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
