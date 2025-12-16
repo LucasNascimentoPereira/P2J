@@ -169,7 +169,6 @@ public class GameManager : MonoBehaviour
     {
         _coins += 1;
         _onCoins.Invoke();
-        //UIManager.Instance.Coins.text = _coins.ToString();
     }
 
     public Vector3 GetPlayerPosition()

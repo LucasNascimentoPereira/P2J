@@ -65,12 +65,14 @@ public class HealthBase : MonoBehaviour
 
     protected virtual void PlaySound()
     {
+        if (!audioClips[soundIndex]) return;
         audioSource.PlayOneShot(audioClips[soundIndex]);
     }
 
     protected virtual void PlayParticle()
     {
-        //particleSystemList[particleIndex].Play();
+        if (!particleSystemList[particleIndex]) return;
+        particleSystemList[particleIndex].Play();
     }
 
 

@@ -17,13 +17,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/LucasScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/ThllesScene.unity
     guid: 24873609fc8839e0aac828192f06937c
   - enabled: 0
     path: Assets/Scenes/ThllesScene 1.unity
     guid: a70e2d96c822d5549aabacd3d4e1995b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ThllesScene 2.unity
     guid: a45ff5a80c3035e46ab96171dcd3bf3c
   m_configObjects:

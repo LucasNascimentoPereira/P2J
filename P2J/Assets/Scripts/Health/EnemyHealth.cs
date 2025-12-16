@@ -23,7 +23,6 @@ public class EnemyHealth : HealthBase
         CalculateHealth(damage);
         soundIndex = 0;
         onPlaySound.Invoke();
-        //audioSource.PlayOneShot();
         return true;
     }
 
@@ -34,7 +33,6 @@ public class EnemyHealth : HealthBase
         rb.AddForce(-rb.linearVelocity.normalized * force, ForceMode2D.Force);
         soundIndex = 0;
         onPlaySound.Invoke();
-        //audioSource.PlayOneShot();
         particleIndex = 0;
         onParticle.Invoke();
         return true;
@@ -45,9 +43,8 @@ public class EnemyHealth : HealthBase
         if (damageDealer == null) return false;
         CalculateHealth(damage);
         rb.AddForce(dir.normalized * force, ForceMode2D.Impulse);
-        soundIndex = 0;
+        soundIndex = Random.Range(1, 5);
         onPlaySound.Invoke();
-        //audioSource.PlayOneShot();
         particleIndex = 0;
         onParticle.Invoke();
         return true;
