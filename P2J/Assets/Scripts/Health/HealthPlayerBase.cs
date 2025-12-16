@@ -51,7 +51,7 @@ public class HealthPlayerBase : HealthBase
         rb.AddForce(-rb.transform.right * force, ForceMode2D.Force);
         _onChangeHealth.Invoke();
         StartCoroutine(Invencibility());
-        soundIndex = 0;
+        soundIndex = Random.Range(0, 9);
         _onPlaySound.Invoke();
         particleIndex = 0;
         onParticle.Invoke();
@@ -62,7 +62,7 @@ public class HealthPlayerBase : HealthBase
     {
         Debug.Log(gameObject);
         rb.linearVelocity = Vector2.zero;
-        soundIndex = 1;
+        soundIndex = 10;
         _onPlaySound.Invoke();
         GameManager.Instance.LevelReset();
     }
