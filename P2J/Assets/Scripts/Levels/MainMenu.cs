@@ -9,5 +9,6 @@ public class MainMenu : MonoBehaviour
         UIManager.Instance.CameraReference(_camera);
         UIManager.Instance.PreviousMenu = null;
       UIManager.Instance.ShowPanel("MainMenu");
+        AudioManager.Instance.PlayMusic(0);
    }
 }

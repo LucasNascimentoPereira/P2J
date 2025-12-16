@@ -24,13 +24,6 @@ public class ChasingEnemy : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private ContactFilter2D contactFilter;
 
-    [SerializeField] protected UnityEvent onPlaySound;
-
-    [SerializeField] protected AudioSource audioSource;
-    [SerializeField] protected List<AudioClip> audioClips;
-    protected int soundIndex;
-
-
     [Header("Positions of the limis")]
     [SerializeField] private List<Transform> patrolPoints;
 
@@ -70,7 +63,6 @@ public class ChasingEnemy : MonoBehaviour
     {
         _player = GameManager.Instance.HealthPlayer.gameObject;
         ChangeState(EnemyStates.IDLE);
-        onPlaySound.AddListener(PlaySound);
     }
     private void OnBecameVisible()
     {
@@ -185,7 +177,6 @@ public class ChasingEnemy : MonoBehaviour
         {
             healthPlayer.TakeDamage(gameObject, true, chasingEnemySata.Damage, chasingEnemySata.KnockBack);
         }
-        onPlaySound.Invoke();
     }
 
     public void Move()
@@ -231,11 +222,6 @@ public class ChasingEnemy : MonoBehaviour
             StopCoroutine(_timerCoroutine);
             _timerCoroutine = null;
         }
-    }
-
-    private void PlaySound()
-    {
-        audioSource.PlayOneShot(audioClips[soundIndex]);
     }
 
     public void SpawnCoins()
