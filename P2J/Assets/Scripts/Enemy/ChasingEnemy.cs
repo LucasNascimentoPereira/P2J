@@ -17,6 +17,8 @@ public class ChasingEnemy : MonoBehaviour
     [Header("RayCasts")]
     [SerializeField] private Transform castRight;
     [SerializeField] private Transform castRightLimit;
+    [SerializeField] private Transform castLeft;
+    [SerializeField] private Transform castLeftLimit;
     [SerializeField] private Transform castGround;
     [SerializeField] private Transform castGroundLimit;
     [SerializeField] private LayerMask groundLayer;
@@ -131,9 +133,17 @@ public class ChasingEnemy : MonoBehaviour
     {
         if (chasingEnemyBaseState == null) return;
         chasingEnemyBaseState.UpdateState();
-        Rotate();
+        animatorChasing.SetBool(animatorHorizontal, rb.linearVelocityX > 0);
+        //Rotate();
 
-        Physics2D.Linecast(castRight.position, castRightLimit.position, contactFilter, hitRight);
+        if (rb.linearVelocityX > 0)
+        {
+            Physics2D.Linecast(castRight.position, castRightLimit.position, contactFilter, hitRight);
+        }
+        else if (rb.linearVelocityX < 0)
+        {
+            Physics2D.Linecast(castLeft.position, castLeftLimit.position, contactFilter, hitRight);
+        }
         _isGrounded = Physics2D.Linecast(castGround.position, castGroundLimit.position, groundLayer);
         Debug.DrawLine(castGround.position, castGroundLimit.position, Color.red);
         Debug.DrawLine(castRight.position, castRightLimit.position, Color.green);
@@ -142,6 +152,7 @@ public class ChasingEnemy : MonoBehaviour
         {
             chasingEnemyBaseState.ExitState();
         }
+        Debug.Log(enemyState);
 
         //if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.IDLE && enemyState != EnemyStates.JUMPING)
         //{
@@ -152,7 +163,6 @@ public class ChasingEnemy : MonoBehaviour
         {
             ChangeState(EnemyStates.JUMPING);
         }
-
     }
 
     private void Rotate()
@@ -181,6 +191,7 @@ public class ChasingEnemy : MonoBehaviour
     public void Move()
     {
         if (enemyState != EnemyStates.IDLE) return;
+        Debug.Log("patrl");
         _dir = patrolPoints[patrolIndex].transform.position - gameObject.transform.position;
         _dir = _dir.normalized;
     }

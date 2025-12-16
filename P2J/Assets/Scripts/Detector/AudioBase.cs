@@ -20,7 +20,7 @@ public class AudioBase : MonoBehaviour
     public void PlaySound()
     {
         //audioSource.PlayOneShot(audioClips[index]);
-        audioSource.PlayOneShot(audioDictionary.GetValueOrDefault("eee"));
+        //audioSource.PlayOneShot(audioDictionary.GetValueOrDefault("eee"));
     }
 
     public void StopSound()
