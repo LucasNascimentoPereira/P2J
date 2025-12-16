@@ -72,7 +72,7 @@ public class HealthBase : MonoBehaviour
     protected virtual void PlayParticle()
     {
         if (!particleSystemList[particleIndex]) return;
-        particleSystemList[particleIndex].Play();
+      //  particleSystemList[particleIndex].Play();
     }
 
 

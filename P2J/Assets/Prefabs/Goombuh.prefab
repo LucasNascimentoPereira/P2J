@@ -27,7 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8710838459228184581}
   - {fileID: 915344071662301758}
@@ -44,15 +44,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -141,6 +141,10 @@ PrefabInstance:
     - target: {fileID: 8132665845607441342, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_Name
       value: GoombuhMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 8132665845607441342, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8132665845607441342, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_IsActive
@@ -234,7 +238,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 937131379653755085, guid: cfc9e302733af5f4da047b12c510cab1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -280,8 +284,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.09624174, y: -0.046495445}
-  m_Size: {x: 0.40194786, y: 0.5566385}
+  m_Offset: {x: -0.09624174, y: -0.025472037}
+  m_Size: {x: 0.40194786, y: 0.5145917}
   m_Direction: 0
 --- !u!114 &8171546351048011011
 MonoBehaviour:
@@ -546,7 +550,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -5.08
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -594,7 +598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4271357919684867044, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: OnEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4271357919684867044, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: OnEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -869,12 +873,12 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0722438, y: -0.044870257}
-  m_Size: {x: 0.51049995, y: 0.6915208}
+  m_Offset: {x: -0.09890315, y: -0.044870257}
+  m_Size: {x: 0.5315234, y: 0.78730816}
   m_Direction: 0
 --- !u!1001 &6089403183255718398
 PrefabInstance:
@@ -886,7 +890,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.03
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -934,7 +938,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4271357919684867044, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: OnEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4271357919684867044, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: OnEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -951,6 +955,10 @@ PrefabInstance:
     - target: {fileID: 4271357919684867044, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: OnEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Goombuh, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271357919684867044, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
+      propertyPath: OnEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4271357919684867044, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: OnEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
