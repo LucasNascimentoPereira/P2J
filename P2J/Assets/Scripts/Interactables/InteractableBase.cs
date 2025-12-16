@@ -9,6 +9,10 @@ public class InteractableBase : MonoBehaviour, IInteractable
     [SerializeField] protected UnityEvent _onInteract = new();
     
 
+    protected virtual void Start()
+    {
+    }
+
     protected virtual void OnEnable()
     {
     }

@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
     {
         if(!interactable) return;
         UIManager.Instance.ShowPanel("Skilles");
-        StartCoroutine(UIManager.Instance.DisappearImage(interactable.name));
+        UIManager.Instance.ActivateDisappearImage(interactable.name);
         Destroy(interactable);
         interactable = null;
     }

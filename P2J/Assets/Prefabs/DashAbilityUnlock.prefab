@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 494084432596137387, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+      propertyPath: _onInteract.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1788441182416115017, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
       propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -116,7 +120,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DashAbilityUnlock
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 899767045745865643, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+    - {fileID: 8319424698634253952, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+    - {fileID: 2398505241151823916, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
