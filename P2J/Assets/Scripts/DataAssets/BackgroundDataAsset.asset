@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: BackgroundDataAsset
   m_EditorClassIdentifier: 
   layerSpeeds:
+  - 0.0003
+  - 0.0003
+  - 0.0003
+  - 0.0003
   - 0.0005
   - 0.0007
   - 0.0009
+  - 0.001
   - 0.003
-  - 0.005
-  - 0.008
   moveDelta: {x: 0, y: 0, z: 0}
