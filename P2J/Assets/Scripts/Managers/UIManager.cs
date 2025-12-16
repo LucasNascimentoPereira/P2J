@@ -57,6 +57,7 @@ public class UIManager : MonoBehaviour
     public UIManagerData UIManagerData => uiManagerData;
     public GameObject CurrentMenu => _currentMenu;
     public GameObject PreviousMenu { get => _previousMenu; set => _previousMenu = value; }
+    public Coroutine AbilityImageUnlock { get => _abilityImageCoroutine; set => _abilityImageCoroutine = value; }
     
     private void Awake()
     {
@@ -102,9 +103,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void ShowPanel(string menuName)
-    {
-        Debug.Log(menuName);
-        
+    {        
         if (menuName == "NoMenu") _currentMenu.SetActive(false);
         if (menuName == "ShowPrevious")
         {
@@ -137,8 +136,6 @@ public class UIManager : MonoBehaviour
             else
             {
                 _currentMenu = _panelDictionary.GetValueOrDefault(menuName);
-                Debug.Log(_currentMenu);
-                Debug.Log(_currentMenu);
                 if (_currentMenu)
                 {
                     _currentMenu.SetActive(true);
@@ -267,9 +264,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public IEnumerator DisappearImage(string image)
+    private IEnumerator DisappearImage(string image)
     {
-        if (!abilityImages.TryGetValue(image, out var result)) StopCoroutine(DisappearImage(image));
+        if (!abilityImages.TryGetValue(image, out var result)) StopCoroutine(_abilityImageCoroutine);
         while(result.color.a > 0)
         {
             result.color = new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(result.color.a - uiManagerData.DisappearImageInterval, 0.0f, 1.0f));
@@ -343,6 +340,12 @@ public class UIManager : MonoBehaviour
         canvas.worldCamera.gameObject.SetActive(false);
         canvas.worldCamera = camera;
         canvas.worldCamera.gameObject.SetActive(true);
+    }
+
+    public void ActivateDisappearImage(string image)
+    {
+        Debug.Log(image);
+        _abilityImageCoroutine = StartCoroutine(DisappearImage(image));
     }
     
 }

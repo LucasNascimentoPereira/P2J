@@ -7,7 +7,6 @@ public class MainMenu : MonoBehaviour
    private void Start()
    {
         UIManager.Instance.CameraReference(_camera);
-      Debug.Log("uimanagerchange menu");
         UIManager.Instance.PreviousMenu = null;
       UIManager.Instance.ShowPanel("MainMenu");
    }
