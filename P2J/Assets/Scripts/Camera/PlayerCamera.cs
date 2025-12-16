@@ -25,8 +25,8 @@ public class PlayerCamera : MonoBehaviour
         // But I don't care man...
         if (_playerRb.linearVelocityY < 0 && playerViewportPos.y < 0.27f)
         {
-            _posComp.Damping.y = 0;
-        } else
+            _posComp.Damping.y = 0f;
+        } else if (_playerRb.linearVelocityY >= 0)
         {
             _posComp.Damping.y = 2;
         }
