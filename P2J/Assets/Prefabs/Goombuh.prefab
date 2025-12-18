@@ -284,8 +284,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.09624174, y: -0.025472037}
-  m_Size: {x: 0.40194786, y: 0.5145917}
+  m_Offset: {x: -0.05, y: -0.1}
+  m_Size: {x: 0.25, y: 0.4}
   m_Direction: 0
 --- !u!114 &8171546351048011011
 MonoBehaviour:
@@ -877,8 +877,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.08826567, y: -0.034232795}
-  m_Size: {x: 0.39678195, y: 0.66674995}
+  m_Offset: {x: -0.05, y: -0.1}
+  m_Size: {x: 0.25, y: 0.4}
   m_Direction: 0
 --- !u!1001 &6089403183255718398
 PrefabInstance:
