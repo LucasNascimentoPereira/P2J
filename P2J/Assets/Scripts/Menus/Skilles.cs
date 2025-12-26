@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Skilles : MonoBehaviour
+public class Skilles : MenusBaseState
 {
     [SerializeField] private TMP_Text coins;
     [SerializeField] private GameObject textsGameObject;

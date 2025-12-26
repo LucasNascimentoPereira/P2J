@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public class AudioBase : MonoBehaviour
 {
-    [SerializeField] protected StringAudioDictionary audioDictionary = new();
     [SerializeField] protected List<AudioClip> audioClips;
     protected AudioSource audioSource;
     private float sometime = 0.0f;

@@ -51,6 +51,24 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private UnityEvent onPlaySound = new();
 
+    private MenusBaseState _menusBaseState;
+
+    public enum menusState
+    {
+        NONE,
+        MAINMENU,
+        PAUSEMENU,
+        HUD,
+        OPTIONS,
+        SKILLES,
+        AREYOUSUREPAUSE,
+        AREYOUSUREEXIT,
+        CREDITSMENU,
+        LEVELRESET,
+        FADEMENU
+    }
+
+    private menusState menuState;
 
 
     public bool DeviceVibration => deviceVibration;
@@ -58,6 +76,7 @@ public class UIManager : MonoBehaviour
     public GameObject CurrentMenu => _currentMenu;
     public GameObject PreviousMenu { get => _previousMenu; set => _previousMenu = value; }
     public Coroutine AbilityImageUnlock { get => _abilityImageCoroutine; set => _abilityImageCoroutine = value; }
+    public Dictionary<string, GameObject> PanelDictionary => _panelDictionary;
     
     private void Awake()
     {
@@ -90,6 +109,7 @@ public class UIManager : MonoBehaviour
     {
         ChangeVersionNumber();
         esc = InputSystem.actions.FindAction("Pause");
+        ShowPanelEnum(menusState.MAINMENU);
     }
 
     private void Update()
@@ -97,99 +117,48 @@ public class UIManager : MonoBehaviour
         fpsCounter.text = (1 / Time.deltaTime).ToString("F1");
         if (esc.WasPressedThisFrame())
         {
-            ShowPanel("ShowPrevious");
+            //ShowPanel("ShowPrevious");
             onPlaySound.Invoke();
         }
     }
 
-    public void ShowPanel(string menuName)
-    {        
-        if (menuName == "NoMenu") _currentMenu.SetActive(false);
-        if (menuName == "ShowPrevious")
-        {
-            if (_previousMenu && _previousMenu != _currentMenu)
-            {
-                _currentMenu.SetActive(false);
-                GameObject menu = _currentMenu;
-                _currentMenu = _previousMenu;
-                _previousMenu = menu;
-                _currentMenu.SetActive(true);
-            }
-            if (_currentMenu.name == "PauseMenu" && !GameManager.Instance.IsPaused)
-            {
-                GameManager.Instance.PauseGame(true);
-            }
-        }
-
-        else
-        {
-            if (_currentMenu)
-            {
-                _previousMenu = _currentMenu;
-                _currentMenu.SetActive(false);
-                _currentMenu = _panelDictionary.GetValueOrDefault(menuName);
-                if (_currentMenu)
-                {
-                    _currentMenu.SetActive(true);
-                }
-            }
-            else
-            {
-                _currentMenu = _panelDictionary.GetValueOrDefault(menuName);
-                if (_currentMenu)
-                {
-                    _currentMenu.SetActive(true);
-                }
-            }
-        }
-        if (_currentMenu != null) 
-        {
-            _eventSystem.SetSelectedGameObject(_currentMenu.transform.GetChild(0).gameObject);
-        }
-        if (menuName == "Skilles")
-        {
-            if(_currentMenu.TryGetComponent(out Skilles skilles))
-            {
-                skilles.UpdateMenu();
-            }
-        }
-        Debug.Log("Changed to menu: " + _panelDictionary.GetValueOrDefault(menuName));
-    }
-
-    public void HandleAmbiguousButtons(bool isBack)
+    public void ShowPanelEnum(menusState menusState)
     {
-        if (isBack)
+        switch (menusState) 
         {
-            switch (GameManager.Instance.GetCurrentLevelByIndex())
-            {
-                case 0:
-                    ShowPanel("MainMenu");
-                    break;
-                case 1:
-                    ShowPanel("Pause");
-                    break;
-                default:
-                    Debug.Log("Index out of bounds or ShowPanel() error");
-                    break;
-            }
+            case menusState.NONE:
+                _menusBaseState = new MenuNone();
+                break;
+            case menusState.MAINMENU:
+                _menusBaseState = new MainMenu();
+                break;
+            case menusState.PAUSEMENU:
+                _menusBaseState = new PauseMenu();
+                break;
+            case menusState.HUD:
+                _menusBaseState = new MainLevel();
+                break;
+            case menusState.OPTIONS:
+                _menusBaseState = new Options();
+                break;
+            case menusState.SKILLES:
+                _menusBaseState = new Skilles();
+                break;
+            case menusState.AREYOUSUREPAUSE:
+                _menusBaseState = new AreYouSurePause();
+                break;
+            case menusState.AREYOUSUREEXIT:
+                _menusBaseState = new AreYouSureExit();
+                break;
+            case menusState.CREDITSMENU:
+                _menusBaseState = new CreditsMenu();
+                break;
+            case menusState.FADEMENU:
+                _menusBaseState = new FadeMenu();
+                break;
         }
-        else
-        {
-            switch (GameManager.Instance.GetCurrentLevelByIndex())
-            {
-                case 0:
-                    QuitGame();
-                    break;
-                case 1:
-                    GameManager.Instance.LoadLevel(0);
-                    break;
-                default:
-                    Debug.Log("Index out of bounds or GameManager LoadLevel() error");
-                    break;
-            }
-        }
-
-        Debug.Log("Ambiguous Button Handled");
+        menuState = menusState;
+        _menusBaseState.BeginState(panelsList[((int)menuState)], _currentMenu, _previousMenu);
     }
     
     public void QuitGame()

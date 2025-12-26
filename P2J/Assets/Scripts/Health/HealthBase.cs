@@ -59,7 +59,7 @@ public class HealthBase : MonoBehaviour
     protected virtual void Death()
     {
         _isDefeated = true;
-        UIManager.Instance.ShowPanel("LevelReset");
+        //UIManager.Instance.ShowPanel("LevelReset");
         onDefeat.Invoke();
     }
 

@@ -1,11 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
  
 
@@ -86,11 +82,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        //LoadLevel(1);
-    }
-
 
     public void LoadLevel(int levelIndex)
     {
@@ -108,7 +99,7 @@ public class GameManager : MonoBehaviour
     {
         IsPaused = paused;
         Time.timeScale = paused ? 0.0f : 1.0f;
-        UIManager.Instance.ShowPanel(IsPaused ? "PauseMenu" : "NoMenu");
+        //UIManager.Instance.ShowPanel(IsPaused ? "PauseMenu" : "NoMenu");
     }
 
     private IEnumerator LoadNextLevelAsyc(int level)
@@ -123,8 +114,6 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        //RaceConditionAvoider();
-        //yield return new WaitForSeconds(0.2f);
     }
    
     public void SaveGame()
@@ -139,20 +128,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game started");
         
     }
-
-    public void RaceConditionAvoider()
-    {
-        var raceAvoidanceList = FindObjectsByType<Component>(FindObjectsSortMode.None).OfType<IInitializable>().ToList();
-
-        if(raceAvoidanceList == null) return;
-
-        foreach (var item in raceAvoidanceList)
-         {
-                item.Init();
-         }
-
-    }
-
    
 
     public void LevelReset()
@@ -179,7 +154,7 @@ public class GameManager : MonoBehaviour
     public void UnlockAbility()
     {
         if(!interactable) return;
-        UIManager.Instance.ShowPanel("Skilles");
+        //UIManager.Instance.ShowPanel("Skilles");
         UIManager.Instance.ActivateDisappearImage(interactable.name);
         Destroy(interactable);
         interactable = null;
