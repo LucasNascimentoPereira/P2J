@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
+        UIManager.Instance.CameraReference();
     }
 
     public void SaveGame()
@@ -152,6 +153,7 @@ public class GameManager : MonoBehaviour
     {
         if(!interactable) return;
         //UIManager.Instance.ShowPanel("Skilles");
+        UIManager.Instance.ShowPanelEnum(UIManager.menusState.SKILLES);
         UIManager.Instance.ActivateDisappearImage(interactable.name);
         Destroy(interactable);
         interactable = null;

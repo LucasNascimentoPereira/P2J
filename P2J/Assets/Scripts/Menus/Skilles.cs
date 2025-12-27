@@ -4,21 +4,46 @@ using UnityEngine;
 
 public class Skilles : MenusBaseState
 {
-    [SerializeField] private TMP_Text coins;
-    [SerializeField] private GameObject textsGameObject;
+    private TMP_Text coins;
+    private GameObject textsGameObject;
     private Dictionary<string, TMP_Text> pricesTexts = new();
-    [SerializeField] private Color buyColor = Color.green;
-    [SerializeField] private Color notBuyColor = Color.red;
+    private Color buyColor = Color.green;
+    private Color notBuyColor = Color.red;
 
 
     public override void BeginState(UIManager uiManager)
     {
         base.BeginState(uiManager);
+        coins = uiManager.CurrentMenu.transform.Find("Coins").GetComponent<TMP_Text>();
+        textsGameObject = uiManager.CurrentMenu.transform.Find("Buttons").gameObject;
+        for (int i = 0; i < textsGameObject.transform.childCount; ++i)
+        {
+            pricesTexts.Add(textsGameObject.transform.GetChild(i).name, textsGameObject.transform.GetChild(i).GetComponentInChildren<TMP_Text>());
+            Debug.Log(pricesTexts.GetValueOrDefault(textsGameObject.transform.GetChild(i).name));
+        }
+        foreach (var price in pricesTexts)
+        {
+            price.Value.text = GameManager.Instance.Prices.GetValueOrDefault(price.Key).UpgradeValue.ToString();
+        }
+        UpdateState();
     }
 
     public override void UpdateState()
     {
         base.UpdateState();
+        coins.text = GameManager.Instance.Coins.ToString();
+        foreach (var price in pricesTexts)
+        {
+            if (int.Parse(price.Value.text.Trim()) <= GameManager.Instance.Coins)
+            {
+                Debug.Log(int.Parse(price.Value.text.Trim()));
+                price.Value.color = buyColor;
+            }
+            else
+            {
+                price.Value.color = notBuyColor;
+            }
+        }
     }
 
     public override void ExitState()
@@ -27,34 +52,4 @@ public class Skilles : MenusBaseState
         uiManager.ShowPanelEnum(UIManager.menusState.HUD);
     }
 
-    private void OnEnable()
-    {
-        for (int i = 0; i < textsGameObject.transform.childCount; ++i) 
-        {
-            pricesTexts.Add(textsGameObject.transform.GetChild(i).name, textsGameObject.transform.GetChild (i).GetComponentInChildren<TMP_Text>());
-        }
-        foreach (var price in pricesTexts)
-        {
-            price.Value.text = GameManager.Instance.Prices.GetValueOrDefault(price.Key).UpgradeValue.ToString();
-        }
-    }
-    
-    
-
-    public void UpdateMenu()
-    {
-        coins.text = GameManager.Instance.Coins.ToString();
-        foreach(var price in pricesTexts)
-        {
-            if (int.Parse(price.Value.text.Trim()) <= GameManager.Instance.Coins)
-            {
-                Debug.Log(int.Parse(price.Value.text.Trim()));
-                price.Value.color = buyColor;
-            }
-            else 
-            {
-                price.Value.color = notBuyColor;
-            }
-        }
-    }
 }

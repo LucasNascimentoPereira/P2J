@@ -4729,7 +4729,7 @@ GameObject:
   - component: {fileID: 369676322}
   - component: {fileID: 369676321}
   m_Layer: 5
-  m_Name: Coins
+  m_Name: CoinsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16338,9 +16338,9 @@ MonoBehaviour:
           m_StringArgument: DbJump
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Skilles, Assembly-CSharp
-        m_MethodName: UpdateMenu
+      - m_Target: {fileID: 2129571022}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: UpdateState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21360,9 +21360,9 @@ MonoBehaviour:
           m_StringArgument: TpJump
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Skilles, Assembly-CSharp
-        m_MethodName: UpdateMenu
+      - m_Target: {fileID: 2129571022}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: UpdateState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23205,9 +23205,9 @@ MonoBehaviour:
           m_StringArgument: Dash
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Skilles, Assembly-CSharp
-        m_MethodName: UpdateMenu
+      - m_Target: {fileID: 2129571022}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: UpdateState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25340,7 +25340,7 @@ GameObject:
   - component: {fileID: 1984490005}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: CameraMainMenu
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26597,8 +26597,7 @@ MonoBehaviour:
   - {fileID: 820549432}
   - {fileID: 359595300}
   - {fileID: 599274821}
-  canvas: {fileID: 1902594898}
-  startLevelButton: {fileID: 0}
+  _currentCanvas: {fileID: 1902594898}
   _eventSystem: {fileID: 2026558892}
   notificationsText: {fileID: 0}
   notificationsType: {fileID: 0}

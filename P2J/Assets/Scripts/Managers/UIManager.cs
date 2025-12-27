@@ -16,18 +16,14 @@ public class UIManager : MonoBehaviour
     [Header("Data Assets")]
     [SerializeField] private UIManagerData uiManagerData;
 
-
     [Header("Menu Panels")]
     [SerializeField] private GameObject panelsGameObject;
     [SerializeField] private List<GameObject> panelsList = new();
-    [SerializeField] private Canvas canvas;
-
-    [Header("Necessary Buttons")]
-    [SerializeField] private Button startLevelButton;
     
     private GameObject _currentMenu = null;
     private GameObject _previousMenu = null;
 
+    [SerializeField] private Canvas _currentCanvas;
     [SerializeField] EventSystem _eventSystem;
 
     [Header("Notification Texts")]
@@ -166,6 +162,11 @@ public class UIManager : MonoBehaviour
         }
         menuState = menusState;
         _menusBaseState.BeginState(this);
+    }
+
+    public void UpdateState()
+    {
+        _menusBaseState.UpdateState();
     }
     
     public void QuitGame()
@@ -315,6 +316,11 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log(image);
         _abilityImageCoroutine = StartCoroutine(DisappearImage(image));
+    }
+
+    public void CameraReference()
+    {
+        _currentCanvas.worldCamera = Camera.main;
     }
     
 }
