@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour
         _animatorController.SetFloat(animatorHorizontal, moveValue.x);
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
         _animatorController.SetBool(animatorJump, onGround);
-        _animatorController.SetBool(animatorPlayerDirection, playerDirectionIsRight);
+        //_animatorController.SetBool(animatorPlayerDirection, playerDirectionIsRight);
 
         processMovement(moveValue);
         processDirection(moveValue);

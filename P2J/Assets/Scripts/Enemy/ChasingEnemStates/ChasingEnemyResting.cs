@@ -9,7 +9,6 @@ public class ChasingEnemyResting : ChasingEnemyBaseState
         chasingEnemy.Dir = Vector2.zero;
         chasingEnemy.Rb.linearVelocity = Vector2.zero;
         chasingEnemy.BeginIdleTime(chasingEnemy.ChasingEnemySata.RestTime);
-        Debug.Log("enemy resting");
     }
 
     public override void UpdateState()

@@ -131,12 +131,6 @@ public class ChasingEnemy : MonoBehaviour
         {
             chasingEnemyBaseState.ExitState();
         }
-        Debug.Log(enemyState);
-
-        //if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.IDLE && enemyState != EnemyStates.JUMPING)
-        //{
-            //ChangeState(EnemyStates.JUMPING);
-        //}
 
         if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.JUMPING)
         {
@@ -169,7 +163,6 @@ public class ChasingEnemy : MonoBehaviour
     public void Move()
     {
         if (enemyState != EnemyStates.IDLE) return;
-        Debug.Log("patrl");
         _dir = patrolPoints[patrolIndex].transform.position - gameObject.transform.position;
         _dir = _dir.normalized;
     }

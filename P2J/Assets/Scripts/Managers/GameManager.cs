@@ -111,7 +111,6 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        Debug.Log("Level changed to level: " + level);
     }
 
     public void SaveGame()

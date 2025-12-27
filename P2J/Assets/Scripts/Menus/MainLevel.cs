@@ -8,7 +8,6 @@ public class MainLevel : MenusBaseState
     {
         base.BeginState(uiManager);
         GameManager.Instance.PauseGame(false);
-        uiManager.CameraReference(1);
     }
 
     public override void UpdateState()

@@ -311,24 +311,6 @@ public class UIManager : MonoBehaviour
         coins.text = GameManager.Instance.Coins.ToString();
     }
 
-    public void CameraReference(int index)
-    {
-        Camera levelCamera = null;
-        switch (index)
-        {
-            case 0:
-                levelCamera = GameObject.FindGameObjectWithTag("CameraMainMenu").GetComponent<Camera>();
-                break;
-            case 1:
-                Debug.Log(GameObject.FindWithTag("MainCamera"));
-                levelCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-                break;
-        }
-        if (levelCamera == null) return;
-        if (levelCamera == canvas.worldCamera) return;
-        canvas.worldCamera = levelCamera;
-    }
-
     public void ActivateDisappearImage(string image)
     {
         Debug.Log(image);
