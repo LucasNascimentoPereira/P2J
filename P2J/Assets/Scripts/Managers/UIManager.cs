@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,6 @@ public class UIManager : MonoBehaviour
     [Header("Menu Panels")]
     [SerializeField] private GameObject panelsGameObject;
     [SerializeField] private List<GameObject> panelsList = new();
-    private Dictionary<string, GameObject> _panelDictionary = new();
     [SerializeField] private Canvas canvas;
 
     [Header("Necessary Buttons")]
@@ -51,21 +51,22 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private UnityEvent onPlaySound = new();
 
-    private MenusBaseState _menusBaseState;
+    private MenusBaseState _menusBaseState = null;
 
     public enum menusState
     {
-        NONE,
         MAINMENU,
         PAUSEMENU,
         HUD,
-        OPTIONS,
+        OPTIONSPAUSE,
+        OPTIONSMAINMENU,
         SKILLES,
         AREYOUSUREPAUSE,
         AREYOUSUREEXIT,
         CREDITSMENU,
         LEVELRESET,
-        FADEMENU
+        FADEMENU,
+        NONE,
     }
 
     private menusState menuState;
@@ -73,10 +74,11 @@ public class UIManager : MonoBehaviour
 
     public bool DeviceVibration => deviceVibration;
     public UIManagerData UIManagerData => uiManagerData;
-    public GameObject CurrentMenu => _currentMenu;
+    public GameObject CurrentMenu { get => _currentMenu ;set => _currentMenu = value;}
     public GameObject PreviousMenu { get => _previousMenu; set => _previousMenu = value; }
     public Coroutine AbilityImageUnlock { get => _abilityImageCoroutine; set => _abilityImageCoroutine = value; }
-    public Dictionary<string, GameObject> PanelDictionary => _panelDictionary;
+    public menusState MenuState => menuState;
+    public List<GameObject> PanelsList => panelsList;
     
     private void Awake()
     {
@@ -88,10 +90,6 @@ public class UIManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-        for (int i = 0; i < panelsGameObject.transform.childCount; ++i)
-        {
-            _panelDictionary.Add(panelsGameObject.transform.GetChild(i).name, panelsGameObject.transform.GetChild(i).gameObject);
         }
         foreach (var image in abilityImagesContainer.GetComponentsInChildren<Image>(true))
         {
@@ -115,15 +113,21 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         fpsCounter.text = (1 / Time.deltaTime).ToString("F1");
-        if (esc.WasPressedThisFrame())
+        if (esc.WasPressedThisFrame() && _menusBaseState != null)
         {
-            //ShowPanel("ShowPrevious");
+            _menusBaseState.ExitState();
             onPlaySound.Invoke();
         }
     }
 
+    public void ShowPanelString(string name)
+    {
+        ShowPanelEnum(Enum.Parse<menusState>(name));
+    }
+
     public void ShowPanelEnum(menusState menusState)
     {
+        _menusBaseState = null;
         switch (menusState) 
         {
             case menusState.NONE:
@@ -138,7 +142,10 @@ public class UIManager : MonoBehaviour
             case menusState.HUD:
                 _menusBaseState = new MainLevel();
                 break;
-            case menusState.OPTIONS:
+            case menusState.OPTIONSPAUSE:
+                _menusBaseState = new Options();
+                break;
+            case menusState.OPTIONSMAINMENU:
                 _menusBaseState = new Options();
                 break;
             case menusState.SKILLES:
@@ -158,7 +165,7 @@ public class UIManager : MonoBehaviour
                 break;
         }
         menuState = menusState;
-        _menusBaseState.BeginState(panelsList[((int)menuState)], _currentMenu, _previousMenu);
+        _menusBaseState.BeginState(this);
     }
     
     public void QuitGame()
@@ -168,8 +175,8 @@ public class UIManager : MonoBehaviour
 
     public void OpenLink(int index)
     {
-        if (uiManagerData.Links == null) Debug.Log("List does not exist or has not been initialized");
-        if (uiManagerData.Links[index] == null) Debug.Log("Link does not exist in current context");
+        if (uiManagerData.Links == null) return;
+        if (uiManagerData.Links[index] == null) return;
         Application.OpenURL(uiManagerData.Links[index]);
     }
 

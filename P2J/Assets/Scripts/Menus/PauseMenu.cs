@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PauseMenu : MenusBaseState
 {
-    public override void BeginState(GameObject menu, GameObject currentMenu, GameObject previousMenu)
+    public override void BeginState(UIManager uiManager)
     {
-        base.BeginState(menu, currentMenu, previousMenu);
+        base.BeginState(uiManager);
     }
 
     public override void UpdateState()

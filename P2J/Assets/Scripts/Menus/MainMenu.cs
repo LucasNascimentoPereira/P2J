@@ -1,13 +1,9 @@
-using UnityEngine;
 
 public class MainMenu : MenusBaseState
 {
-    //private Camera _camera;
-
-    public override void BeginState(GameObject menu, GameObject currentMenu, GameObject previousMenu)
+    public override void BeginState(UIManager uiManager)
     {
-        base.BeginState(menu, currentMenu, previousMenu);
-        Debug.Log(menu);
+        base.BeginState(uiManager);
     }
 
     public override void UpdateState()
@@ -18,5 +14,6 @@ public class MainMenu : MenusBaseState
     public override void ExitState()
     {
         base.ExitState();
+        uiManager.ShowPanelString("AREYOUSUREEXIT");
     }
 }

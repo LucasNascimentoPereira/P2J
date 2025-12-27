@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AreYouSureExit : MenusBaseState
+public class OptionsMainMenu : MenusBaseState
 {
     public override void BeginState(UIManager uiManager)
     {

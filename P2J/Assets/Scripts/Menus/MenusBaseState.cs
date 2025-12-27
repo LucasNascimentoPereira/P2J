@@ -1,16 +1,19 @@
-using UnityEngine;
 
 public class MenusBaseState
 {
-    protected GameObject _currentMenu;
-    protected GameObject _previousMenu;
-    protected GameObject _menu;
+    protected UIManager uiManager;
 
-    public virtual void BeginState(GameObject menu, GameObject currentMenu, GameObject previousMenu)
+    public virtual void BeginState(UIManager uiManager)
     {
-        _currentMenu = currentMenu;
-        _previousMenu = previousMenu;
-        _menu = menu;
+        this.uiManager = uiManager;
+        if (uiManager == null) return;
+        if (uiManager.CurrentMenu != null)
+        {
+            uiManager.CurrentMenu.SetActive(false);
+        }
+        uiManager.PreviousMenu = uiManager.CurrentMenu;
+        uiManager.CurrentMenu = uiManager.PanelsList[(int)uiManager.MenuState];
+        uiManager.CurrentMenu.SetActive(true);
     }
 
     public virtual void UpdateState()
@@ -20,8 +23,5 @@ public class MenusBaseState
 
     public virtual void ExitState() 
     {
-        _currentMenu = null;
-        _previousMenu = null;
-        _menu = null;
     }
 }
