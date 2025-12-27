@@ -15,5 +15,6 @@ public class Options : MenusBaseState
     public override void ExitState()
     {
         base.ExitState();
+        uiManager.ShowPanelEnum(UIManager.menusState.PAUSEMENU);
     }
 }

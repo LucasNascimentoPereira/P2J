@@ -4,6 +4,7 @@ public class MainMenu : MenusBaseState
     public override void BeginState(UIManager uiManager)
     {
         base.BeginState(uiManager);
+        uiManager.CameraReference(0);
     }
 
     public override void UpdateState()
@@ -14,6 +15,6 @@ public class MainMenu : MenusBaseState
     public override void ExitState()
     {
         base.ExitState();
-        uiManager.ShowPanelString("AREYOUSUREEXIT");
+        uiManager.ShowPanelEnum(UIManager.menusState.AREYOUSUREEXIT);
     }
 }

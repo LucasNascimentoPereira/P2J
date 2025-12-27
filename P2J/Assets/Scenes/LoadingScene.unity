@@ -2266,7 +2266,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: OPTIONS
+          m_StringArgument: OPTIONSPAUSE
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &217489039
@@ -17842,7 +17842,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: OPTIONS
+          m_StringArgument: OPTIONSMAINMENU
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1429201318
@@ -25340,7 +25340,7 @@ GameObject:
   - component: {fileID: 1984490005}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: CameraMainMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25358,7 +25358,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2129571021}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &1984490005
 AudioListener:
@@ -26570,7 +26570,6 @@ Transform:
   m_Children:
   - {fileID: 1902594895}
   - {fileID: 2026558890}
-  - {fileID: 1984490004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2129571022
@@ -26750,3 +26749,4 @@ SceneRoots:
   - {fileID: 671745848}
   - {fileID: 1658253644}
   - {fileID: 1178361291}
+  - {fileID: 1984490004}

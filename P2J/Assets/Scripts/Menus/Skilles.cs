@@ -10,6 +10,23 @@ public class Skilles : MenusBaseState
     [SerializeField] private Color buyColor = Color.green;
     [SerializeField] private Color notBuyColor = Color.red;
 
+
+    public override void BeginState(UIManager uiManager)
+    {
+        base.BeginState(uiManager);
+    }
+
+    public override void UpdateState()
+    {
+        base.UpdateState();
+    }
+
+    public override void ExitState()
+    {
+        base.ExitState();
+        uiManager.ShowPanelEnum(UIManager.menusState.HUD);
+    }
+
     private void OnEnable()
     {
         for (int i = 0; i < textsGameObject.transform.childCount; ++i) 

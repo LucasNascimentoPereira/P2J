@@ -7,6 +7,8 @@ public class MainLevel : MenusBaseState
     public override void BeginState(UIManager uiManager)
     {
         base.BeginState(uiManager);
+        GameManager.Instance.PauseGame(false);
+        uiManager.CameraReference(1);
     }
 
     public override void UpdateState()
@@ -17,5 +19,6 @@ public class MainLevel : MenusBaseState
     public override void ExitState()
     {
         base.ExitState();
+        uiManager.ShowPanelEnum(UIManager.menusState.PAUSEMENU);
     }
 }

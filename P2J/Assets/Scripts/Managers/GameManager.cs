@@ -85,7 +85,6 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel(int levelIndex)
     {
-        Debug.Log("Level changed to level: " + levelIndex);
         _currentLevel = levelIndex;
         StartCoroutine(LoadNextLevelAsyc(levelIndex));
     }
@@ -99,7 +98,6 @@ public class GameManager : MonoBehaviour
     {
         IsPaused = paused;
         Time.timeScale = paused ? 0.0f : 1.0f;
-        //UIManager.Instance.ShowPanel(IsPaused ? "PauseMenu" : "NoMenu");
     }
 
     private IEnumerator LoadNextLevelAsyc(int level)
@@ -108,14 +106,14 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1.0f;
         }
-        //UIManager.Instance.ShowPanel("LevelTransition");
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(level);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
+        Debug.Log("Level changed to level: " + level);
     }
-   
+
     public void SaveGame()
     {
         
