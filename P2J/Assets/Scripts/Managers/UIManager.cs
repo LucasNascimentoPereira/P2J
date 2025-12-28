@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UnityEvent onPlaySound = new();
 
     private MenusBaseState _menusBaseState = null;
+    private string binding;
 
     public enum menusState
     {
@@ -77,6 +78,7 @@ public class UIManager : MonoBehaviour
     public Coroutine AbilityImageUnlock { get => _abilityImageCoroutine; set => _abilityImageCoroutine = value; }
     public menusState MenuState => menuState;
     public List<GameObject> PanelsList => panelsList;
+    public string Binding => binding;
     
     private void Awake()
     {
@@ -328,9 +330,10 @@ public class UIManager : MonoBehaviour
         _currentCanvas.worldCamera = Camera.main;
     }
 
-    public void Binding(string inputAction)
+    public void KeyBinding(string inputAction)
     {
-
+        binding = inputAction;
+        _menusBaseState.UpdateState();
     }
     
 }
