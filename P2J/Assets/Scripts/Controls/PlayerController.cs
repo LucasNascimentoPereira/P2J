@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Vector2 lookValue = lookAction.ReadValue<Vector2>();
-        bool lookValueChanged = lookAction.triggered;
+        bool lookValueChanged = lookAction.WasPressedThisFrame();
         checkForGround();
         checkForWalls();
         if (interactAction.WasPressedThisFrame())
@@ -500,6 +500,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             meleeDirection = lookValue * meleeRange / 2f;
+            if (Math.Abs(meleeDirection.x) + Math.Abs(meleeDirection.y) > 1.1)
+            {
+                meleeDirection = new Vector2(0f, meleeDirection.y);
+            }
         }
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rb.position + meleeDirection, meleeRange / 2f, enemyLayer);
         Debug.Log(hitEnemies.Length + " enemies hit");
