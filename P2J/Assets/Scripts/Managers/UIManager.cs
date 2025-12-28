@@ -17,7 +17,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIManagerData uiManagerData;
 
     [Header("Menu Panels")]
-    [SerializeField] private GameObject panelsGameObject;
     [SerializeField] private List<GameObject> panelsList = new();
     
     private GameObject _currentMenu = null;
@@ -36,10 +35,12 @@ public class UIManager : MonoBehaviour
     [Header("Game Information")]
     [SerializeField] private TMP_Text versionNumber;
     [SerializeField] private TMP_Text fpsCounter;
+
     [SerializeField] private TMP_Text coins;
     [SerializeField] private GameObject heartsContainer;
     [SerializeField] private GameObject abilityImagesContainer;
     private List<Image> heartImages = new();
+
     private Dictionary<string, Image> abilityImages = new();
     private Coroutine _abilityImageCoroutine;
 
@@ -97,7 +98,6 @@ public class UIManager : MonoBehaviour
         {
             image.sprite = UIManagerData.HealthImages[0];
         }
-
     }
 
     private void Start()
@@ -326,6 +326,11 @@ public class UIManager : MonoBehaviour
     public void CameraReference()
     {
         _currentCanvas.worldCamera = Camera.main;
+    }
+
+    public void Binding(string inputAction)
+    {
+
     }
     
 }
