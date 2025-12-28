@@ -36,7 +36,6 @@ public class Skilles : MenusBaseState
         {
             if (int.Parse(price.Value.text.Trim()) <= GameManager.Instance.Coins)
             {
-                Debug.Log(int.Parse(price.Value.text.Trim()));
                 price.Value.color = buyColor;
             }
             else

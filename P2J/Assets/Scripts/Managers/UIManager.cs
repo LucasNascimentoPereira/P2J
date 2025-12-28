@@ -62,6 +62,7 @@ public class UIManager : MonoBehaviour
         CREDITSMENU,
         LEVELRESET,
         FADEMENU,
+        INPUTMENU,
         NONE,
     }
 
@@ -158,6 +159,11 @@ public class UIManager : MonoBehaviour
                 break;
             case menusState.FADEMENU:
                 _menusBaseState = new FadeMenu();
+                break;
+            case menusState.INPUTMENU:
+                _menusBaseState = new InputMenu();
+                break;
+            default: Debug.LogError("No menu by that ID"); 
                 break;
         }
         menuState = menusState;
@@ -314,7 +320,6 @@ public class UIManager : MonoBehaviour
 
     public void ActivateDisappearImage(string image)
     {
-        Debug.Log(image);
         _abilityImageCoroutine = StartCoroutine(DisappearImage(image));
     }
 

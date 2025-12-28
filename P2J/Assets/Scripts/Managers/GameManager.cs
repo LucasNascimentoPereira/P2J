@@ -118,14 +118,6 @@ public class GameManager : MonoBehaviour
     {
         
     }
-  
-   
-
-    public void StartGame()
-    {
-        Debug.Log("Game started");
-        
-    }
    
 
     public void LevelReset()
@@ -142,11 +134,6 @@ public class GameManager : MonoBehaviour
     {
         _coins += 1;
         _onCoins.Invoke();
-    }
-
-    public Vector3 GetPlayerPosition()
-    {
-        return Vector3.zero;
     }
 
     public void UnlockAbility()

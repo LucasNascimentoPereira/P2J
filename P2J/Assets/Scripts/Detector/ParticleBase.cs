@@ -9,9 +9,4 @@ public class ParticleBase : MonoBehaviour
     {
         _particleSystems[index].Play();
     }
-
-    public void StopParticle()
-    {
-
-    }
 }
