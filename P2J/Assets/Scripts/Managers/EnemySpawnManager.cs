@@ -6,7 +6,10 @@ public class EnemySpawnManager : MonoBehaviour
 {
 
     [SerializeField] private List<GameObject> enemyPrefabs = new();
-    [SerializeField] private List<GameObject> spawnAreas = new();
+    [SerializeField] private List<SpawnArea> spawnAreas = new();
+
+    public List<GameObject> EnemyPrefabs => enemyPrefabs;
+
     public enum enemyTypes
     {
         GOOMBUH,
@@ -15,14 +18,16 @@ public class EnemySpawnManager : MonoBehaviour
         BOSS
     }
 
-
-    public void ResetEnemies()
+    public void ResetEnemies(int index)
     {
 
     }
 
     public void ResetEnemiesAll()
     {
-
+        foreach (var spawnArea in spawnAreas) 
+        {
+            spawnArea.ResetEnemies();
+        }
     }
 }
