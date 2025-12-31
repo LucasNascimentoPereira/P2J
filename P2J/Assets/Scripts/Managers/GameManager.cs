@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
         healthPlayer.transform.position = currentSpawnPoint.transform.position;
         healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
         _onLevelReset.Invoke();
-        background.ResetPos();
+        background.ResetPos();        
     }
 
     public void AddCoins()
