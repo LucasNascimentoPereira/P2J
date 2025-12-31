@@ -62,10 +62,9 @@ public class UIManager : MonoBehaviour
         AREYOUSUREPAUSE,
         AREYOUSUREEXIT,
         CREDITSMENU,
-        LEVELRESET,
         FADEMENU,
         INPUTMENU,
-        NONE,
+        NONE
     }
 
     private menusState menuState;
@@ -145,7 +144,7 @@ public class UIManager : MonoBehaviour
                 _menusBaseState = new Options();
                 break;
             case menusState.OPTIONSMAINMENU:
-                _menusBaseState = new Options();
+                _menusBaseState = new OptionsMainMenu();
                 break;
             case menusState.SKILLES:
                 _menusBaseState = new Skilles();

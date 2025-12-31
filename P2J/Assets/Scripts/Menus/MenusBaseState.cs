@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 public class MenusBaseState
 {
     protected UIManager uiManager;
@@ -12,6 +14,7 @@ public class MenusBaseState
             uiManager.CurrentMenu.SetActive(false);
         }
         uiManager.PreviousMenu = uiManager.CurrentMenu;
+        Debug.Log((int)uiManager.MenuState);
         uiManager.CurrentMenu = uiManager.PanelsList[(int)uiManager.MenuState];
         uiManager.CurrentMenu.SetActive(true);
     }
