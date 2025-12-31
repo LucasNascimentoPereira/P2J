@@ -206,31 +206,30 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Vector2 lookValue = lookAction.ReadValue<Vector2>();
-        bool lookValueChanged = lookAction.WasPressedThisFrame();
+        moveValue = moveAction.ReadValue<Vector2>();
         checkForGround();
         checkForWalls();
         if (interactAction.WasPressedThisFrame())
         {
             Interact();
         }
-        if (lookValueChanged && lookValue != Vector2.zero && Time.time > attackTime + meleeCooldown)
+        if (meleeAction.WasPressedThisFrame() && Time.time > attackTime + meleeCooldown)
         {
             if (meleeReleased)
             {
-                attackWithMelee(playerDirectionIsRight, lookValue);
-                if(lookValue.x > 0.1f)
+                attackWithMelee(playerDirectionIsRight, moveValue);
+                if(moveValue.x > 0.1f || playerDirectionIsRight)
                 {
                     _animatorController.SetTrigger(animatorAttackRight);
                 }
-                if(lookValue.x < -0.1f)
+                if(moveValue.x < -0.1f || !playerDirectionIsRight)
                 {
                     _animatorController.SetTrigger(animatorAttackLeft);
                 }
-                if(lookValue.y > 0.1f)
+                if(moveValue.y > 0.1f)
                 {
                 }
-                if(lookValue.y < -0.1f)
+                if(moveValue.y < -0.1f)
                 {
                 }
             }
@@ -247,7 +246,6 @@ public class PlayerController : MonoBehaviour
     {
         rb.gravityScale = defaultGravity;
         moveValue = moveAction.ReadValue<Vector2>();
-        Vector2 lookValue = lookAction.ReadValue<Vector2>();
         _animatorController.SetFloat(animatorHorizontal, moveValue.x);
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
         _animatorController.SetBool(animatorJump, onGround);
@@ -608,4 +606,5 @@ public class PlayerController : MonoBehaviour
         if (!particleSystemList[particleIndex]) return;
         particleSystemList[particleIndex].Play();
     }
+
 }
