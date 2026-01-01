@@ -41,7 +41,8 @@ public class SpawnArea : MonoBehaviour
 
     private IEnumerator SpawnCoroutine()
     {
-        yield return null;
+        yield return new WaitForSeconds(resetTime);
+        ResetEnemies();
         coroutine = null;
     }
 }

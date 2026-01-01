@@ -18,9 +18,9 @@ public class EnemySpawnManager : MonoBehaviour
         BOSS
     }
 
-    public void ResetEnemies(int index)
+    private void Start()
     {
-
+        ResetEnemiesAll();
     }
 
     public void ResetEnemiesAll()
