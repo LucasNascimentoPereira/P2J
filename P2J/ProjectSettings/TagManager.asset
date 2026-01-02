@@ -12,6 +12,9 @@ TagManager:
   - Enemy
   - Bullet
   - CameraMainMenu
+  - GOOBUH
+  - CHASER
+  - FLYING
   layers:
   - Default
   - TransparentFX
