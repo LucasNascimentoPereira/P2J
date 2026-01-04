@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using System.IO;
@@ -9,6 +10,10 @@ public class NormalMapGeneratorWindow : EditorWindow
     private Texture2D texture;
     private float normalMapStrength = 2.0f;
     private bool isSMode = false;
+    
+    private List<Texture2D> _textureList = new();
+    private List<string> _textureNames = new();
+    private Dictionary<string, Texture2D> _textureDict = new();
 
     [MenuItem("Tools/Pixel Art Normal Map Generator")]
     public static void ShowWindow()
@@ -110,6 +115,7 @@ public class NormalMapGeneratorWindow : EditorWindow
         string[] allFileGUIDs = AssetDatabase.FindAssets("t:Texture2D", new[] { sourcePath });
         Debug.Log($"Found {allFileGUIDs.Length} textures in the source folder.");
 
+
         foreach (string fileGUID in allFileGUIDs)
         {
             Texture2D textureLoaded = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(fileGUID));
@@ -120,8 +126,35 @@ public class NormalMapGeneratorWindow : EditorWindow
                 continue;
             }
 
-            TextureToNormal(textureLoaded, destinationPath);
+            TextureToNormalBatch(textureLoaded, destinationPath);
         }
+
+        TextureToNormalBatchSave(destinationPath);
+
+        AssetDatabase.Refresh();
+
+
+        string[] destFileGUIs = AssetDatabase.FindAssets("t:Texture2D", new [] { destinationPath });
+
+        foreach (string fileGUID in destFileGUIs)
+        {
+            TextureImporter textureImporter = AssetImporter.GetAtPath(AssetDatabase.GUIDToAssetPath(fileGUID)) as TextureImporter;
+            if (textureImporter == null)
+            {
+                Debug.LogError($"Bump Map Generator: Texture does not exist");
+                return;
+            }
+            textureImporter.isReadable = true;
+            textureImporter.textureCompression = TextureImporterCompression.Uncompressed;
+            textureImporter.filterMode = FilterMode.Point;
+            textureImporter.textureType = TextureImporterType.NormalMap;
+            textureImporter.mipmapEnabled = false;
+            textureImporter.SaveAndReimport();
+        }
+        
+
+
+
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
@@ -168,21 +201,55 @@ public class NormalMapGeneratorWindow : EditorWindow
 
         File.WriteAllBytes(destinationPath, bytes);
 
-        AssetDatabase.Refresh();
+    }
+    
+    private void TextureToNormalBatch(Texture2D texture, string destinationPath)
+    {
+        if (texture == null) return;
+        
+        _textureDict.Add(texture.name, GenerateNormalMap(texture));
+        Debug.Log($"Bump Map Generator: Encoding...");
+    }
 
-        TextureImporter textureImporter = AssetImporter.GetAtPath(destinationPath) as TextureImporter;
-        if (textureImporter == null)
+    private void TextureToNormalBatchSave(string destinationPath)
+    {
+        foreach (var normalTexture in _textureDict)
         {
-            Debug.LogError($"Bump Map Generator: Texture does not exist");
-            return;
-        }
-        textureImporter.isReadable = true;
-        textureImporter.textureCompression = TextureImporterCompression.Uncompressed;
-        textureImporter.filterMode = FilterMode.Point;
-        textureImporter.textureType = TextureImporterType.NormalMap;
-        textureImporter.mipmapEnabled = false;
-        textureImporter.SaveAndReimport();
+            string destinationPathC = null;
+            byte[] bytes = normalTexture.Value.EncodeToPNG();
+            if (bytes == null || bytes.Length == 0)
+            {
+                Debug.LogError($"Bump Map Generator: Failed to read bytes...");
+                return;
+            }
+            string oldName = normalTexture.Key;
+            normalTexture.Value.name = oldName + "_Normal.PNG";
+            if (isSMode)
+            {
+                destinationPath = Path.GetDirectoryName(destinationPath);
+                Debug.Log(destinationPath);
+            }
+            Debug.Log(destinationPathC);
+            destinationPathC = Path.Combine(destinationPath, normalTexture.Value.name);
+            Debug.Log(destinationPathC);
 
+            File.WriteAllBytes(destinationPathC, bytes);
+
+            AssetDatabase.Refresh();
+
+            TextureImporter textureImporter = AssetImporter.GetAtPath(destinationPathC) as TextureImporter;
+            if (textureImporter == null)
+            {
+                Debug.LogError($"Bump Map Generator: Texture does not exist");
+                return;
+            }
+            textureImporter.isReadable = true;
+            textureImporter.textureCompression = TextureImporterCompression.Uncompressed;
+            textureImporter.filterMode = FilterMode.Point;
+            textureImporter.textureType = TextureImporterType.NormalMap;
+            textureImporter.mipmapEnabled = false;
+            textureImporter.SaveAndReimport();
+        }
     }
 
     private Texture2D GenerateNormalMap(Texture2D texture)
