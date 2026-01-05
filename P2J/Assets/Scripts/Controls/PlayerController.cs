@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 {
     InputAction moveAction;
     InputAction jumpAction;
+    InputAction doubleJumpAction;
     InputAction meleeAction;
     InputAction dashAction;
     InputAction lookAction;
@@ -99,6 +100,7 @@ public class PlayerController : MonoBehaviour
     {
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
+        doubleJumpAction = InputSystem.actions.FindAction("Double Jump");
         meleeAction = InputSystem.actions.FindAction("Attack");
         dashAction = InputSystem.actions.FindAction("Dash");
         lookAction = InputSystem.actions.FindAction("Look");
@@ -238,6 +240,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             meleeReleased = true;
+        }
+        if (doubleJumpAction.WasPressedThisFrame())
+        {
+            tryToDoubleJump();
         }
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
     }
@@ -453,16 +459,26 @@ public class PlayerController : MonoBehaviour
             //_onPlayParticle.Invoke();
             _animatorController.SetTrigger(animatorJumpStart);
         }
-        //double jump
-        else if (jumpReleased && airJumpCount == 0)
+        //store time for jump buffering
+        else if (jumpReleased)
         {
-            if (rb.linearVelocity.x > 0.1) {
+            jumpPressTime = Time.fixedTime;
+        }
+    }
+
+    void tryToDoubleJump()
+    {
+        if (!onGround && airJumpCount == 0)
+        {
+            if (rb.linearVelocity.x > 0.1)
+            {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x + doublejumpForce.x, doublejumpForce.y);
             }
             else if (rb.linearVelocity.x < -0.1)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x - doublejumpForce.x, doublejumpForce.y);
-            } else
+            }
+            else
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, doublejumpForce.y);
             }
@@ -470,11 +486,6 @@ public class PlayerController : MonoBehaviour
             jump_type = JUMP_DOUBLE;
             airJumpCount++;
             _animatorController.SetTrigger(animatorJumpStart);
-        }
-        //store time for jump buffering
-        else if (jumpReleased)
-        {
-            jumpPressTime = Time.fixedTime;
         }
     }
 
