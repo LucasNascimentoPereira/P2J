@@ -1,11 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DisappearingPlatform : MonoBehaviour
 {
 
     [SerializeField] private BoxCollider2D boxCollider2D;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private UnityEvent onPlatform;
 
     [Header("Timer values")]
     [Tooltip("This variable changes the amount the spriterenderer alpha value that increases over time")]
@@ -27,6 +30,7 @@ public class DisappearingPlatform : MonoBehaviour
     {
         if (isdisappearing) return;
         StartCoroutine(ChangeTransparency());
+        onPlatform.Invoke();
     }
 
     private IEnumerator ChangeTransparency()
