@@ -16,12 +16,16 @@ public class AudioBase : MonoBehaviour
 
     public void PlaySound(int index)
     {
-        if (index >= audioClips.Count) return;
+        if (index >= audioClips.Count || index < 0) return;
         audioSource.PlayOneShot(audioClips[index]);
     }
 
-    public void FadeSound()
+    public void PlaySoundRange(string range)
     {
-
+        int rangeStart = range[0];
+        int rangeEnd = range[1];
+        if (rangeStart >= audioClips.Count || rangeStart < 0) return;
+        if (rangeEnd >= audioClips.Count || rangeEnd < rangeStart) return;
+        audioSource.PlayOneShot(audioClips[Random.Range(rangeStart, rangeEnd)]);
     }
 }

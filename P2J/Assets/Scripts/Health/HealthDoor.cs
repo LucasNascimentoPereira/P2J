@@ -33,20 +33,13 @@ public class HealthDoor : HealthBase
     {
         if (damageDealer == null) return false;
         CalculateHealth(damage);
-        soundIndex = 0;
-        onPlaySound.Invoke();
+        onPlaySoundDamage.Invoke();
         return true;
     }
 
     protected override void Death()
     {
-        soundIndex = 1;
-        onPlaySound.Invoke();
+        onPlaySoundDefeatRange.Invoke();
         Destroy(gameObject);
-    }
-
-    protected override void PlaySound()
-    {
-        doorParticleSystem.Play();
     }
 }

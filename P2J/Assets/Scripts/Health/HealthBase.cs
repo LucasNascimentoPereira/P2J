@@ -12,12 +12,11 @@ public class HealthBase : MonoBehaviour
 
     [SerializeField] protected UnityEvent onDefeat;
     [SerializeField] protected UnityEvent onDamage;
-    [SerializeField] protected UnityEvent onPlaySound = new();
+    [SerializeField] protected UnityEvent onPlaySoundDamage = new();
+    [SerializeField] protected UnityEvent onPlaySoundDamageRange = new();
+    [SerializeField] protected UnityEvent onPlaySoundDefeat = new();
+    [SerializeField] protected UnityEvent onPlaySoundDefeatRange = new();
     [SerializeField] protected UnityEvent onParticle = new();
-
-    [SerializeField] protected AudioSource audioSource;
-    [SerializeField] protected List<AudioClip> audioClips;
-    protected int soundIndex;
 
     [SerializeField] protected List<ParticleSystem> particleSystemList;
     protected int particleIndex;
@@ -29,7 +28,6 @@ public class HealthBase : MonoBehaviour
     protected virtual void Awake()
     {
         currentHealth = MaxHealth;
-        onPlaySound.AddListener(PlaySound);
         onParticle.AddListener(PlayParticle);
     }
     
@@ -61,12 +59,6 @@ public class HealthBase : MonoBehaviour
         _isDefeated = true;
         //UIManager.Instance.ShowPanel("LevelReset");
         onDefeat.Invoke();
-    }
-
-    protected virtual void PlaySound()
-    {
-        if (!audioClips[soundIndex]) return;
-        audioSource.PlayOneShot(audioClips[soundIndex]);
     }
 
     protected virtual void PlayParticle()
