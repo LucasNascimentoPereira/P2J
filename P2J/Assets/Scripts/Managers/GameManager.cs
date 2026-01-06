@@ -146,6 +146,14 @@ public class GameManager : MonoBehaviour
         interactable = null;
     }
 
+    public void RestingArea()
+    {
+        if (!interactable) return;
+        healthPlayer.TakeDamage(gameObject, false, healthPlayer.MaxHealth);
+        //animation
+        //save
+    }
+
     public void PurchaseAbilityUpgrade(string upgrade)
     {
         if(prices.TryGetValue(upgrade, out var price))
