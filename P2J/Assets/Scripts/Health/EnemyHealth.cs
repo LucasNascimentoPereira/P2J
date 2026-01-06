@@ -31,7 +31,6 @@ public class EnemyHealth : HealthBase
         CalculateHealth(damage);
         rb.AddForce(-rb.linearVelocity.normalized * force, ForceMode2D.Force);
         onPlaySoundDamageRange.Invoke();
-        particleIndex = 0;
         //onParticle.Invoke();
         return true;
     }
@@ -42,7 +41,6 @@ public class EnemyHealth : HealthBase
         CalculateHealth(damage);
         rb.AddForce(dir.normalized * force, ForceMode2D.Impulse);
         onPlaySoundDamageRange.Invoke();
-        particleIndex = 0;
         //onParticle.Invoke();
         return true;
     }

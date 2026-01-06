@@ -34,8 +34,7 @@ public class HealthPlayerBase : HealthBase
         _onChangeHealth.Invoke();
         StartCoroutine(Invencibility());
         onPlaySoundDamage.Invoke();
-        particleIndex = 0;
-        onParticle.Invoke();
+        //onParticle.Invoke();
         return true;
     }
 
@@ -49,8 +48,7 @@ public class HealthPlayerBase : HealthBase
         _onChangeHealth.Invoke();
         StartCoroutine(Invencibility());
         onPlaySoundDamage.Invoke();
-        particleIndex = 0;
-        onParticle.Invoke();
+        //onParticle.Invoke();
         return true;
     }
 
