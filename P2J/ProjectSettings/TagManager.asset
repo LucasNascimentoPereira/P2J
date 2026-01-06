@@ -15,6 +15,7 @@ TagManager:
   - GOOBUH
   - CHASER
   - FLYING
+  - RestingArea
   layers:
   - Default
   - TransparentFX
