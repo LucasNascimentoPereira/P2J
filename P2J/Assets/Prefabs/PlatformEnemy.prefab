@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7927303123755875445}
   - component: {fileID: 2723243251120824820}
   - component: {fileID: 3234560338618382892}
+  - component: {fileID: 6125054887359345152}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -174,6 +175,52 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6125054887359345152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2328854828715374138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baeb7b74c9bdd5942997507bdd664750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
+  minHealth: 0
+  onDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlaySoundDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlaySoundDamageRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlaySoundDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlaySoundDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDamageRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
+  rb: {fileID: 3234560338618382892}
+  spriteRenderer: {fileID: 7927303123755875445}
 --- !u!1 &6667596745836058236
 GameObject:
   m_ObjectHideFlags: 0
