@@ -17,6 +17,9 @@ public class FlyingEnemyData : ScriptableObject
     [SerializeField] private float evadeSpeed = 5.0f;
     [SerializeField] private float evadeTime = 1.0f;
     [SerializeField] private float shootTime = 1.0f;
+    [SerializeField] private GameObject coin;
+    [SerializeField] private float coinKnockback;
+    [SerializeField] private int coinNumber;
 
     public float IdleSpeed => idleSpeed;
     public float LungeSpeed => lungeSpeed;
@@ -30,4 +33,7 @@ public class FlyingEnemyData : ScriptableObject
     public float EvadeSpeed => evadeSpeed;
     public float EvadeTime => evadeTime;
     public float ShootTime => shootTime;
+    public GameObject Coin => coin;
+    public float CoinKnockback => coinKnockback;
+    public int CoinNumber => coinNumber;
 }
