@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveValue = Vector2.zero;
     public Rigidbody2D Rb => rb;
+    public bool DashUnlocked { get => dashUnlocked; set => dashUnlocked = value; }
 
     private void Start()
     {

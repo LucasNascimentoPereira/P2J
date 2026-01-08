@@ -39,10 +39,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public bool IsPaused { get; private set; } = false;
     private int _currentLevel = 0;
-
-    private GameData _gameData;
-
-    public GameData GameData => _gameData;
     public int CurrentGameLevel { get => _currentGameLevel; set => _currentGameLevel = value; }
 
     public int Coins => _coins;
@@ -171,4 +167,25 @@ public class GameManager : MonoBehaviour
         interactable = envInteractable;
     }
 
+
+    public void Save(ref GameData gameData)
+    {
+        gameData.characterPos = PlayerController.gameObject.transform.position;
+        gameData.unlockedDash = PlayerController.DashUnlocked;
+
+    }
+
+    public void Load(GameData gameData)
+    {
+        PlayerController.gameObject.transform.position = gameData.characterPos;
+        PlayerController.DashUnlocked = gameData.unlockedDash;
+    }
+}
+
+[System.Serializable]
+public struct GameData
+{
+    public Vector2 characterPos;
+    public bool unlockedDash;
+    //public int[] unlockedMapReg;
 }
