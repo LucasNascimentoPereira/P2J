@@ -44,6 +44,8 @@ public class UIManager : MonoBehaviour
     private Dictionary<string, Image> abilityImages = new();
     private Coroutine _abilityImageCoroutine;
 
+    [SerializeField] private GameObject mapUnlock;
+
     InputAction esc;
 
     [SerializeField] private UnityEvent onPlaySound = new();
@@ -64,6 +66,7 @@ public class UIManager : MonoBehaviour
         CREDITSMENU,
         FADEMENU,
         INPUTMENU,
+        MAPMENU,
         NONE
     }
 
@@ -163,6 +166,9 @@ public class UIManager : MonoBehaviour
                 break;
             case menusState.INPUTMENU:
                 _menusBaseState = new InputMenu();
+                break;
+            case menusState.MAPMENU:
+                _menusBaseState = new MapMenu();
                 break;
             default: Debug.LogError("No menu by that ID"); 
                 break;
@@ -333,6 +339,11 @@ public class UIManager : MonoBehaviour
     {
         binding = inputAction;
         _menusBaseState.UpdateState();
+    }
+
+    public void UnlockMap(int index)
+    {
+        mapUnlock.transform.GetChild(index).gameObject.SetActive(false);
     }
     
 }
