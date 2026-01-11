@@ -155,19 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onInteract:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 899767045745865643}
-        m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!212 &4416560283975769945
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -356,11 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClips:
   - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+  audioSource: {fileID: 2398505241151823916}
 --- !u!114 &8319424698634253952
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,20 +4,31 @@ using UnityEngine;
 using UnityEngine.Accessibility;
 using UnityEngine.Audio;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class AudioManager : MonoBehaviour
 {
       public static AudioManager Instance { get; private set; } = null;
     
     [SerializeField] private AudioMixer defaultAudioMixer = null;
-    private AudioSource _myAudioSource = null;
+    [SerializeField] private AudioSource _myAudioSource = null;
 
+    [Tooltip("Time it taes to fade in")]
+    [Range(0f, 10f)]
+    [SerializeField] private float fadeInTime;
+    [Tooltip("Time it takes to fade out")]
+    [Range(0f, 10f)]
+    [SerializeField] private float fadeOutTime;
+
+    private Coroutine _coroutine;
+
+    private int musicIndex;
 
     [SerializeField] private List<AudioClip> musics;
 
     public AudioSource MyAudioSource => _myAudioSource;
     public AudioMixer DefaultAudioMixer => defaultAudioMixer;
 
-    private Coroutine _coroutine;
 
     private void Awake()
     {
@@ -30,7 +41,6 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        _myAudioSource = GetComponent<AudioSource>();
     }
 
     public void ChangeMasterVolume(float volumeValue)
@@ -50,23 +60,39 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(int music)
     {
+        musicIndex = music;
         if(_coroutine != null)
         {
-
+            StopCoroutine(_coroutine);
         }
-
-        MyAudioSource.Stop();
-        _myAudioSource.resource = musics[music];
-        _myAudioSource.Play();
+        _coroutine = StartCoroutine(FadeOut());
     }
 
     private IEnumerator FadeOut()
     {
-        yield return null;
+        float enlapedTime = 0.0f;
+        float volumeInter = _myAudioSource.volume / fadeOutTime;
+        while (enlapedTime < fadeOutTime)
+        {
+            _myAudioSource.volume -= volumeInter; 
+            yield return null;
+        }
+        _coroutine = null;
+        _myAudioSource.Stop();
+        _myAudioSource.resource = musics[musicIndex];
+        _myAudioSource.Play();
+        _coroutine = StartCoroutine(FadeIn());
     }
 
     private IEnumerator FadeIn() 
     {
-        yield return null;
+        float enlapedTime = 0.0f;
+        float volumeInter = _myAudioSource.volume / fadeInTime;
+        while (enlapedTime < fadeInTime)
+        {
+            _myAudioSource.volume += volumeInter;
+            yield return null;
+        }
+        _coroutine = null;
     }
 }

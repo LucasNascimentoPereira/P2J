@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveValue = Vector2.zero;
     public Rigidbody2D Rb => rb;
+    public bool DashUnlocked { get => dashUnlocked; set => dashUnlocked = value; }
 
     private void Start()
     {
@@ -255,7 +256,7 @@ public class PlayerController : MonoBehaviour
         _animatorController.SetFloat(animatorHorizontal, moveValue.x);
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
         _animatorController.SetBool(animatorJump, onGround);
-        _animatorController.SetBool(animatorPlayerDirection, playerDirectionIsRight);
+        //_animatorController.SetBool(animatorPlayerDirection, playerDirectionIsRight);
 
         processMovement(moveValue);
         processDirection(moveValue);

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6067166367051515341}
   - component: {fileID: 8591985367830333347}
   - component: {fileID: 4272735922053999192}
+  - component: {fileID: 5344039983774331300}
+  - component: {fileID: 3604113930446568534}
   m_Layer: 6
   m_Name: DestructibleDoor
   m_TagString: Enemy
@@ -56,26 +58,67 @@ MonoBehaviour:
   onDamage:
     m_PersistentCalls:
       m_Calls: []
-  onPlaySound:
+  onPlaySoundDamage:
     m_PersistentCalls:
       m_Calls: []
-  onParticle:
+  onPlaySoundDamageRange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5344039983774331300}
+        m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
+        m_MethodName: PlaySoundRange
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 02
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPlaySoundDefeat:
     m_PersistentCalls:
       m_Calls: []
-  audioSource: {fileID: 4272735922053999192}
-  audioClips:
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  particleSystemList: []
-  doorParticleSystem: {fileID: 7747109543986542277}
+  onPlaySoundDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3604113930446568534}
+        m_TargetAssemblyTypeName: ParticleBase, Assembly-CSharp
+        m_MethodName: PlayParticle
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onParticleDamageRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeat:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3604113930446568534}
+        m_TargetAssemblyTypeName: ParticleBase, Assembly-CSharp
+        m_MethodName: PlayParticle
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onParticleDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
   door: {fileID: 2238614475719946847}
-  interval: 0.1
-  noiseTime: 1
-  noise: 0
 --- !u!61 &8591985367830333347
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -219,6 +262,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5344039983774331300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148229708501024198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b839faab462d7468ba34c6404c1d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: b2a8bc764a370a446a1b0f0d4d32f8fb, type: 3}
+  - {fileID: 8300000, guid: d86c38f1bf729c2449414c256a51aab9, type: 3}
+  - {fileID: 8300000, guid: 03f9d37cac9f04147afb26991c90f9a0, type: 3}
+  audioSource: {fileID: 4272735922053999192}
+--- !u!114 &3604113930446568534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148229708501024198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e430c52bcc9ccb3479e1079de661f699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystems:
+  - {fileID: 7747109543986542277}
 --- !u!1 &2238614475719946847
 GameObject:
   m_ObjectHideFlags: 0

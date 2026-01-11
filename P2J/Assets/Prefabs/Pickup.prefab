@@ -112,7 +112,7 @@ MonoBehaviour:
       - m_Target: {fileID: 8048812067115226618}
         m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
         m_MethodName: PlaySound
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -132,7 +132,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -6790064476609065435, guid: 795735d9d2ac7d543ab1a4ea0d5800df, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: fea7b10477c99534a8d2c3a97e41285f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -230,16 +230,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b839faab462d7468ba34c6404c1d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioDictionary:
-    keys: []
-    values: []
   audioClips:
   - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+  audioSource: {fileID: 2484313392902251657}
 --- !u!114 &2242049748774778456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +256,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 652decff1b5e58043bf196e7cb903571, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -306,7 +299,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 652decff1b5e58043bf196e7cb903571, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

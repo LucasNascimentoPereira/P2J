@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7091083663324113431}
   - component: {fileID: 3918369651832273692}
   - component: {fileID: 542129094104436465}
+  - component: {fileID: 3418513097570939021}
   m_Layer: 6
   m_Name: ChaseEnemy
   m_TagString: Enemy
@@ -251,20 +252,45 @@ MonoBehaviour:
   onDamage:
     m_PersistentCalls:
       m_Calls: []
-  onPlaySound:
+  onPlaySoundDamage:
     m_PersistentCalls:
       m_Calls: []
+  onPlaySoundDamageRange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3418513097570939021}
+        m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
+        m_MethodName: PlaySoundRange
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 01
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPlaySoundDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlaySoundDefeatRange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3418513097570939021}
+        m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
+        m_MethodName: PlaySoundRange
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 24
+          m_BoolArgument: 0
+        m_CallState: 2
   onParticle:
     m_PersistentCalls:
       m_Calls: []
-  audioSource: {fileID: 7091083663324113431}
-  audioClips:
-  - {fileID: 8300000, guid: 22813c9ca1dc6a1439f9a69c2ccd9fb3, type: 3}
-  - {fileID: 8300000, guid: ff828280fddc6ba4ab99e53d2e25bbaf, type: 3}
-  - {fileID: 8300000, guid: 3b56a43c7ed2d13439046aa6a993d088, type: 3}
-  - {fileID: 8300000, guid: b00ba3869574ce6468c424ab1ccea1fd, type: 3}
-  - {fileID: 8300000, guid: e153298ce90f8a04ea4c8693f66225b2, type: 3}
-  - {fileID: 8300000, guid: e153298ce90f8a04ea4c8693f66225b2, type: 3}
   particleSystemList: []
   rb: {fileID: 220890946787660880}
   spriteRenderer: {fileID: 337066540257417696}
@@ -424,6 +450,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.004658252, y: 0}
   m_Size: {x: 0.79349095, y: 1.25}
   m_Direction: 0
+--- !u!114 &3418513097570939021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292923232092486761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b839faab462d7468ba34c6404c1d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: 22813c9ca1dc6a1439f9a69c2ccd9fb3, type: 3}
+  - {fileID: 8300000, guid: ff828280fddc6ba4ab99e53d2e25bbaf, type: 3}
+  - {fileID: 8300000, guid: 3b56a43c7ed2d13439046aa6a993d088, type: 3}
+  - {fileID: 8300000, guid: b00ba3869574ce6468c424ab1ccea1fd, type: 3}
+  - {fileID: 8300000, guid: e153298ce90f8a04ea4c8693f66225b2, type: 3}
+  - {fileID: 8300000, guid: e153298ce90f8a04ea4c8693f66225b2, type: 3}
+  audioSource: {fileID: 7091083663324113431}
 --- !u!1 &464459169472913869
 GameObject:
   m_ObjectHideFlags: 0

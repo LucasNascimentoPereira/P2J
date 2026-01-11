@@ -1,11 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
  
 
@@ -43,10 +39,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public bool IsPaused { get; private set; } = false;
     private int _currentLevel = 0;
-
-    private GameData _gameData;
-
-    public GameData GameData => _gameData;
     public int CurrentGameLevel { get => _currentGameLevel; set => _currentGameLevel = value; }
 
     public int Coins => _coins;
@@ -86,15 +78,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        //LoadLevel(1);
-    }
-
 
     public void LoadLevel(int levelIndex)
     {
-        Debug.Log("Level changed to level: " + levelIndex);
         _currentLevel = levelIndex;
         StartCoroutine(LoadNextLevelAsyc(levelIndex));
     }
@@ -108,7 +94,6 @@ public class GameManager : MonoBehaviour
     {
         IsPaused = paused;
         Time.timeScale = paused ? 0.0f : 1.0f;
-        UIManager.Instance.ShowPanel(IsPaused ? "PauseMenu" : "NoMenu");
     }
 
     private IEnumerator LoadNextLevelAsyc(int level)
@@ -117,42 +102,18 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1.0f;
         }
-        //UIManager.Instance.ShowPanel("LevelTransition");
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(level);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
-        //RaceConditionAvoider();
-        //yield return new WaitForSeconds(0.2f);
+        UIManager.Instance.CameraReference();
     }
-   
+
     public void SaveGame()
     {
         
     }
-  
-   
-
-    public void StartGame()
-    {
-        Debug.Log("Game started");
-        
-    }
-
-    public void RaceConditionAvoider()
-    {
-        var raceAvoidanceList = FindObjectsByType<Component>(FindObjectsSortMode.None).OfType<IInitializable>().ToList();
-
-        if(raceAvoidanceList == null) return;
-
-        foreach (var item in raceAvoidanceList)
-         {
-                item.Init();
-         }
-
-    }
-
    
 
     public void LevelReset()
@@ -162,7 +123,7 @@ public class GameManager : MonoBehaviour
         healthPlayer.transform.position = currentSpawnPoint.transform.position;
         healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
         _onLevelReset.Invoke();
-        background.ResetPos();
+        background.ResetPos();        
     }
 
     public void AddCoins()
@@ -171,18 +132,22 @@ public class GameManager : MonoBehaviour
         _onCoins.Invoke();
     }
 
-    public Vector3 GetPlayerPosition()
-    {
-        return Vector3.zero;
-    }
-
     public void UnlockAbility()
     {
         if(!interactable) return;
-        UIManager.Instance.ShowPanel("Skilles");
+        //UIManager.Instance.ShowPanel("Skilles");
+        UIManager.Instance.ShowPanelEnum(UIManager.menusState.SKILLES);
         UIManager.Instance.ActivateDisappearImage(interactable.name);
         Destroy(interactable);
         interactable = null;
+    }
+
+    public void RestingArea()
+    {
+        if (!interactable) return;
+        healthPlayer.TakeDamage(gameObject, false, healthPlayer.MaxHealth);
+        //animation
+        //save
     }
 
     public void PurchaseAbilityUpgrade(string upgrade)
@@ -202,4 +167,25 @@ public class GameManager : MonoBehaviour
         interactable = envInteractable;
     }
 
+
+    public void Save(ref GameData gameData)
+    {
+        gameData.characterPos = PlayerController.gameObject.transform.position;
+        gameData.unlockedDash = PlayerController.DashUnlocked;
+
+    }
+
+    public void Load(GameData gameData)
+    {
+        PlayerController.gameObject.transform.position = gameData.characterPos;
+        PlayerController.DashUnlocked = gameData.unlockedDash;
+    }
+}
+
+[System.Serializable]
+public struct GameData
+{
+    public Vector2 characterPos;
+    public bool unlockedDash;
+    //public int[] unlockedMapReg;
 }

@@ -64,42 +64,29 @@ public class ChasingEnemy : MonoBehaviour
         _player = GameManager.Instance.HealthPlayer.gameObject;
         ChangeState(EnemyStates.IDLE);
     }
-    private void OnBecameVisible()
-    {
-        //ChangeState(EnemyStates.IDLE);
-    }
-    private void OnBecameInvisible()
-    {
-        //ChangeState(EnemyStates.INVISIBLE);
-    }
 
     public void ChangeState(EnemyStates state)
     {
         switch (state) {
             case EnemyStates.IDLE:
-                enemyState = EnemyStates.IDLE;
                 chasingEnemyBaseState = new ChasingEnemyIdle();
                 break;
             case EnemyStates.LUNGING:
-                enemyState = EnemyStates.LUNGING;
                 chasingEnemyBaseState = new ChasingEnemyLunging();
                 break;
             case EnemyStates.RESTING:
-                enemyState = EnemyStates.RESTING;
                 chasingEnemyBaseState = new ChasingEnemyResting();
-                Debug.Log(enemyState);
                 break;
             case EnemyStates.INVISIBLE:
-                enemyState = EnemyStates.INVISIBLE;
                 chasingEnemyBaseState = new ChasingEnemyInvisible();
                 break;
             case EnemyStates.JUMPING:
-                enemyState = EnemyStates.JUMPING;
                 chasingEnemyBaseState = new ChasingEnemyJump();
                 break;
             default:
                 break;
         }
+        enemyState = state;
         chasingEnemyBaseState.BeginState(this);
     }
 
@@ -144,12 +131,6 @@ public class ChasingEnemy : MonoBehaviour
         {
             chasingEnemyBaseState.ExitState();
         }
-        Debug.Log(enemyState);
-
-        //if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.IDLE && enemyState != EnemyStates.JUMPING)
-        //{
-            //ChangeState(EnemyStates.JUMPING);
-        //}
 
         if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.JUMPING)
         {
@@ -182,7 +163,6 @@ public class ChasingEnemy : MonoBehaviour
     public void Move()
     {
         if (enemyState != EnemyStates.IDLE) return;
-        Debug.Log("patrl");
         _dir = patrolPoints[patrolIndex].transform.position - gameObject.transform.position;
         _dir = _dir.normalized;
     }

@@ -13,8 +13,6 @@ public class HealthPlayerBase : HealthBase
     private UnityEvent _onChangeHealth = new();
     private UnityEvent _onChangeStatus = new();
 
-    private UnityEvent _onPlaySound = new();
-
     protected override void Awake()
     {
         base.Awake();
@@ -35,10 +33,8 @@ public class HealthPlayerBase : HealthBase
         CalculateHealth(damage);
         _onChangeHealth.Invoke();
         StartCoroutine(Invencibility());
-        soundIndex = 0;
-        _onPlaySound.Invoke();
-        particleIndex = 0;
-        onParticle.Invoke();
+        onPlaySoundDamage.Invoke();
+        //onParticle.Invoke();
         return true;
     }
 
@@ -47,14 +43,11 @@ public class HealthPlayerBase : HealthBase
         if (isInvencible) return false;
         if (damageDealer == null) return false;
         CalculateHealth(damage);
-        Debug.Log(-rb.transform.right);
         rb.AddForce(-rb.transform.right * force, ForceMode2D.Force);
         _onChangeHealth.Invoke();
         StartCoroutine(Invencibility());
-        soundIndex = Random.Range(0, 9);
-        _onPlaySound.Invoke();
-        particleIndex = 0;
-        onParticle.Invoke();
+        onPlaySoundDamage.Invoke();
+        //onParticle.Invoke();
         return true;
     }
 
@@ -62,8 +55,7 @@ public class HealthPlayerBase : HealthBase
     {
         Debug.Log(gameObject);
         rb.linearVelocity = Vector2.zero;
-        soundIndex = 10;
-        _onPlaySound.Invoke();
+        onPlaySoundDefeatRange.Invoke();
         GameManager.Instance.LevelReset();
     }
     

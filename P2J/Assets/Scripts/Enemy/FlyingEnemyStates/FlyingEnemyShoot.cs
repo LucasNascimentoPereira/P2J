@@ -20,10 +20,10 @@ public class FlyingEnemyShoot : FlyingEnemyBaseState
     public override void ExitState()
     {
         flyingEnemy.EndIdleTime();
-        if (flyingEnemy.DetectedPlayerCharacter)
+        if (flyingEnemy.DetectedPlayerEvade)
         {
-            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.RESTING);
+            flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.EVADE);
         }
-
+        flyingEnemy.ChangeState(FlyingEnemy.EnemyStates.RESTING);
     }
 }
