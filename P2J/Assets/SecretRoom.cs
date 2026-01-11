@@ -3,28 +3,20 @@ using UnityEngine;
 
 public class SecretRoom : MonoBehaviour
 {
-    private SpriteRenderer _spriteRend;
-    [SerializeField]
-    private float _fadeTime;
-    private bool _hasBeenEntered = false;
+    [SerializeField] private SpriteRenderer _spriteRend;
+    [SerializeField] private float _fadeTime;
+    private bool _isUnlocked = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Unlock()
     {
-        _spriteRend = GetComponent<SpriteRenderer>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player") && !_hasBeenEntered)
-        {
-            StartCoroutine(FadeOut());
-        }
+        if (_isUnlocked) return;
+        _isUnlocked = true;
+        StartCoroutine(FadeOut());
     }
 
     IEnumerator FadeOut()
     {
-        float alpha = 1;
+        float alpha = _spriteRend.color.a;
 
         while (alpha > 0)
         {
@@ -33,6 +25,5 @@ public class SecretRoom : MonoBehaviour
             yield return null;
         }
 
-        _hasBeenEntered = true;
     }
 }
