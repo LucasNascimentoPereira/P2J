@@ -5,40 +5,27 @@ using System.Collections.Generic;
 
 public class AudioBase : MonoBehaviour
 {
-    [SerializeField] protected StringAudioDictionary audioDictionary = new();
     [SerializeField] protected List<AudioClip> audioClips;
-    protected AudioSource audioSource;
-    private float sometime = 0.0f;
+    [SerializeField] protected AudioSource audioSource;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
-        //audioSource.outputAudioMixerGroup = AudioManager.Instance.DefaultAudioMixer.FindMatchingGroups("Sfx")[0];
+        audioSource.outputAudioMixerGroup = AudioManager.Instance.DefaultAudioMixer.FindMatchingGroups("Sfx")[0];
     }
 
-    public void PlaySound()
+    public void PlaySound(int index)
     {
-        //audioSource.PlayOneShot(audioClips[index]);
-        //audioSource.PlayOneShot(audioDictionary.GetValueOrDefault("eee"));
+        if (index >= audioClips.Count || index < 0) return;
+        audioSource.PlayOneShot(audioClips[index]);
     }
 
-    public void StopSound()
+    public void PlaySoundRange(string range)
     {
-
-    }
-
-    public void FadeSound()
-    {
-
-    }
-
-    private void Update()
-    {
-        sometime += Time.time;
-        if (sometime > 1000.0f) {
-            PlaySound();
-            sometime = 0.0f;
-        }
+        int rangeStart = range[0];
+        int rangeEnd = range[1];
+        if (rangeStart >= audioClips.Count || rangeStart < 0) return;
+        if (rangeEnd >= audioClips.Count || rangeEnd < rangeStart) return;
+        audioSource.PlayOneShot(audioClips[Random.Range(rangeStart, rangeEnd)]);
     }
 }

@@ -6,6 +6,7 @@ public class PlayerCamera : MonoBehaviour
     private Rigidbody2D _playerRb;
     private CinemachinePositionComposer _posComp;
     private GameObject player;
+    [SerializeField] private CompositeCollider2D cineConfi;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,7 +14,6 @@ public class PlayerCamera : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         _playerRb = player.GetComponent<Rigidbody2D>();
         _posComp = GetComponent<CinemachinePositionComposer>();
-        
     }
 
     // Update is called once per frame

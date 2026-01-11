@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,19 +16,13 @@ public class UIManager : MonoBehaviour
     [Header("Data Assets")]
     [SerializeField] private UIManagerData uiManagerData;
 
-
     [Header("Menu Panels")]
-    [SerializeField] private GameObject panelsGameObject;
     [SerializeField] private List<GameObject> panelsList = new();
-    private Dictionary<string, GameObject> _panelDictionary = new();
-    [SerializeField] private Canvas canvas;
-
-    [Header("Necessary Buttons")]
-    [SerializeField] private Button startLevelButton;
     
     private GameObject _currentMenu = null;
     private GameObject _previousMenu = null;
 
+    [SerializeField] private Canvas _currentCanvas;
     [SerializeField] EventSystem _eventSystem;
 
     [Header("Notification Texts")]
@@ -40,24 +35,52 @@ public class UIManager : MonoBehaviour
     [Header("Game Information")]
     [SerializeField] private TMP_Text versionNumber;
     [SerializeField] private TMP_Text fpsCounter;
+
     [SerializeField] private TMP_Text coins;
     [SerializeField] private GameObject heartsContainer;
     [SerializeField] private GameObject abilityImagesContainer;
     private List<Image> heartImages = new();
+
     private Dictionary<string, Image> abilityImages = new();
     private Coroutine _abilityImageCoroutine;
+
+    [SerializeField] private GameObject mapUnlock;
 
     InputAction esc;
 
     [SerializeField] private UnityEvent onPlaySound = new();
 
+    private MenusBaseState _menusBaseState = null;
+    private string binding;
+
+    public enum menusState
+    {
+        MAINMENU,
+        PAUSEMENU,
+        HUD,
+        OPTIONSPAUSE,
+        OPTIONSMAINMENU,
+        SKILLES,
+        AREYOUSUREPAUSE,
+        AREYOUSUREEXIT,
+        CREDITSMENU,
+        FADEMENU,
+        INPUTMENU,
+        MAPMENU,
+        NONE
+    }
+
+    private menusState menuState;
 
 
     public bool DeviceVibration => deviceVibration;
     public UIManagerData UIManagerData => uiManagerData;
-    public GameObject CurrentMenu => _currentMenu;
+    public GameObject CurrentMenu { get => _currentMenu ;set => _currentMenu = value;}
     public GameObject PreviousMenu { get => _previousMenu; set => _previousMenu = value; }
     public Coroutine AbilityImageUnlock { get => _abilityImageCoroutine; set => _abilityImageCoroutine = value; }
+    public menusState MenuState => menuState;
+    public List<GameObject> PanelsList => panelsList;
+    public string Binding => binding;
     
     private void Awake()
     {
@@ -70,10 +93,6 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        for (int i = 0; i < panelsGameObject.transform.childCount; ++i)
-        {
-            _panelDictionary.Add(panelsGameObject.transform.GetChild(i).name, panelsGameObject.transform.GetChild(i).gameObject);
-        }
         foreach (var image in abilityImagesContainer.GetComponentsInChildren<Image>(true))
         {
             abilityImages.Add(image.gameObject.name, image);
@@ -83,113 +102,84 @@ public class UIManager : MonoBehaviour
         {
             image.sprite = UIManagerData.HealthImages[0];
         }
-
     }
 
     private void Start()
     {
         ChangeVersionNumber();
         esc = InputSystem.actions.FindAction("Pause");
+        ShowPanelEnum(menusState.MAINMENU);
     }
 
     private void Update()
     {
         fpsCounter.text = (1 / Time.deltaTime).ToString("F1");
-        if (esc.WasPressedThisFrame())
+        if (esc.WasPressedThisFrame() && _menusBaseState != null)
         {
-            ShowPanel("ShowPrevious");
+            _menusBaseState.ExitState();
             onPlaySound.Invoke();
         }
     }
 
-    public void ShowPanel(string menuName)
-    {        
-        if (menuName == "NoMenu") _currentMenu.SetActive(false);
-        if (menuName == "ShowPrevious")
-        {
-            if (_previousMenu && _previousMenu != _currentMenu)
-            {
-                _currentMenu.SetActive(false);
-                GameObject menu = _currentMenu;
-                _currentMenu = _previousMenu;
-                _previousMenu = menu;
-                _currentMenu.SetActive(true);
-            }
-            if (_currentMenu.name == "PauseMenu" && !GameManager.Instance.IsPaused)
-            {
-                GameManager.Instance.PauseGame(true);
-            }
-        }
-
-        else
-        {
-            if (_currentMenu)
-            {
-                _previousMenu = _currentMenu;
-                _currentMenu.SetActive(false);
-                _currentMenu = _panelDictionary.GetValueOrDefault(menuName);
-                if (_currentMenu)
-                {
-                    _currentMenu.SetActive(true);
-                }
-            }
-            else
-            {
-                _currentMenu = _panelDictionary.GetValueOrDefault(menuName);
-                if (_currentMenu)
-                {
-                    _currentMenu.SetActive(true);
-                }
-            }
-        }
-        if (_currentMenu != null) 
-        {
-            _eventSystem.SetSelectedGameObject(_currentMenu.transform.GetChild(0).gameObject);
-        }
-        if (menuName == "Skilles")
-        {
-            if(_currentMenu.TryGetComponent(out Skilles skilles))
-            {
-                skilles.UpdateMenu();
-            }
-        }
-        Debug.Log("Changed to menu: " + _panelDictionary.GetValueOrDefault(menuName));
+    public void ShowPanelString(string name)
+    {
+        ShowPanelEnum(Enum.Parse<menusState>(name));
     }
 
-    public void HandleAmbiguousButtons(bool isBack)
+    public void ShowPanelEnum(menusState menusState)
     {
-        if (isBack)
+        _menusBaseState = null;
+        switch (menusState) 
         {
-            switch (GameManager.Instance.GetCurrentLevelByIndex())
-            {
-                case 0:
-                    ShowPanel("MainMenu");
-                    break;
-                case 1:
-                    ShowPanel("Pause");
-                    break;
-                default:
-                    Debug.Log("Index out of bounds or ShowPanel() error");
-                    break;
-            }
+            case menusState.NONE:
+                _menusBaseState = new MenuNone();
+                break;
+            case menusState.MAINMENU:
+                _menusBaseState = new MainMenu();
+                break;
+            case menusState.PAUSEMENU:
+                _menusBaseState = new PauseMenu();
+                break;
+            case menusState.HUD:
+                _menusBaseState = new MainLevel();
+                break;
+            case menusState.OPTIONSPAUSE:
+                _menusBaseState = new Options();
+                break;
+            case menusState.OPTIONSMAINMENU:
+                _menusBaseState = new OptionsMainMenu();
+                break;
+            case menusState.SKILLES:
+                _menusBaseState = new Skilles();
+                break;
+            case menusState.AREYOUSUREPAUSE:
+                _menusBaseState = new AreYouSurePause();
+                break;
+            case menusState.AREYOUSUREEXIT:
+                _menusBaseState = new AreYouSureExit();
+                break;
+            case menusState.CREDITSMENU:
+                _menusBaseState = new CreditsMenu();
+                break;
+            case menusState.FADEMENU:
+                _menusBaseState = new FadeMenu();
+                break;
+            case menusState.INPUTMENU:
+                _menusBaseState = new InputMenu();
+                break;
+            case menusState.MAPMENU:
+                _menusBaseState = new MapMenu();
+                break;
+            default: Debug.LogError("No menu by that ID"); 
+                break;
         }
-        else
-        {
-            switch (GameManager.Instance.GetCurrentLevelByIndex())
-            {
-                case 0:
-                    QuitGame();
-                    break;
-                case 1:
-                    GameManager.Instance.LoadLevel(0);
-                    break;
-                default:
-                    Debug.Log("Index out of bounds or GameManager LoadLevel() error");
-                    break;
-            }
-        }
+        menuState = menusState;
+        _menusBaseState.BeginState(this);
+    }
 
-        Debug.Log("Ambiguous Button Handled");
+    public void UpdateState()
+    {
+        _menusBaseState.UpdateState();
     }
     
     public void QuitGame()
@@ -199,8 +189,8 @@ public class UIManager : MonoBehaviour
 
     public void OpenLink(int index)
     {
-        if (uiManagerData.Links == null) Debug.Log("List does not exist or has not been initialized");
-        if (uiManagerData.Links[index] == null) Debug.Log("Link does not exist in current context");
+        if (uiManagerData.Links == null) return;
+        if (uiManagerData.Links[index] == null) return;
         Application.OpenURL(uiManagerData.Links[index]);
     }
 
@@ -335,17 +325,25 @@ public class UIManager : MonoBehaviour
         coins.text = GameManager.Instance.Coins.ToString();
     }
 
-    public void CameraReference(Camera camera)
-    {
-        canvas.worldCamera.gameObject.SetActive(false);
-        canvas.worldCamera = camera;
-        canvas.worldCamera.gameObject.SetActive(true);
-    }
-
     public void ActivateDisappearImage(string image)
     {
-        Debug.Log(image);
         _abilityImageCoroutine = StartCoroutine(DisappearImage(image));
+    }
+
+    public void CameraReference()
+    {
+        _currentCanvas.worldCamera = Camera.main;
+    }
+
+    public void KeyBinding(string inputAction)
+    {
+        binding = inputAction;
+        _menusBaseState.UpdateState();
+    }
+
+    public void UnlockMap(int index)
+    {
+        mapUnlock.transform.GetChild(index).gameObject.SetActive(false);
     }
     
 }

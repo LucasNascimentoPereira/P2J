@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Events;
 
 public class Goombuh : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class Goombuh : MonoBehaviour
 
     private int animatorHorizontal = Animator.StringToHash("GoombuhHorizontal");
     [SerializeField] private Animator animatorGoombuh;
+
+    [SerializeField] private UnityEvent playSound = new();
+
+
 
     private void Start()
     {

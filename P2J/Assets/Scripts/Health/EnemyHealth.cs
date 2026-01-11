@@ -21,8 +21,7 @@ public class EnemyHealth : HealthBase
     {
         if (damageDealer == null) return false;
         CalculateHealth(damage);
-        soundIndex = 0;
-        onPlaySound.Invoke();
+        onPlaySoundDamage.Invoke();
         return true;
     }
 
@@ -31,9 +30,7 @@ public class EnemyHealth : HealthBase
         if (damageDealer == null) return false;
         CalculateHealth(damage);
         rb.AddForce(-rb.linearVelocity.normalized * force, ForceMode2D.Force);
-        soundIndex = 0;
-        onPlaySound.Invoke();
-        particleIndex = 0;
+        onPlaySoundDamageRange.Invoke();
         //onParticle.Invoke();
         return true;
     }
@@ -43,19 +40,15 @@ public class EnemyHealth : HealthBase
         if (damageDealer == null) return false;
         CalculateHealth(damage);
         rb.AddForce(dir.normalized * force, ForceMode2D.Impulse);
-        soundIndex = Random.Range(1, 5);
-        onPlaySound.Invoke();
-        particleIndex = 0;
+        onPlaySoundDamageRange.Invoke();
         //onParticle.Invoke();
         return true;
     }
 
     protected override void Death()
     {
-        soundIndex = 1;
-        onPlaySound.Invoke();
+        onPlaySoundDefeatRange.Invoke();
         onDefeat.Invoke();
-
         Destroy(gameObject, 0.1f);
     }
 }

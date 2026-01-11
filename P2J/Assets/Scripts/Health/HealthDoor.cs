@@ -7,17 +7,16 @@ using System.Collections.Generic;
 public class HealthDoor : HealthBase
 {
 
-    [SerializeField] private ParticleSystem doorParticleSystem;
     [SerializeField] private GameObject door;
 
-    [Header("Variables to use noise")]
-    [Tooltip("Interval between noise")]
-    [SerializeField] private float interval = 0.1f;
-    [SerializeField] private float noiseTime = 1.0f;
-    [Tooltip("Magnitude of noise")]
-    [Range(0.0f, 1.0f)]
-    [SerializeField] private float noise = 0.0f;
-    private Coroutine _timerCoroutine;
+    //[Header("Variables to use noise")]
+    //[Tooltip("Interval between noise")]
+    //[SerializeField] private float interval = 0.1f;
+    //[SerializeField] private float noiseTime = 1.0f;
+    //[Tooltip("Magnitude of noise")]
+    //[Range(0.0f, 1.0f)]
+    //[SerializeField] private float noise = 0.0f;
+    //private Coroutine _timerCoroutine;
 
     protected override void Awake()
     {
@@ -33,20 +32,15 @@ public class HealthDoor : HealthBase
     {
         if (damageDealer == null) return false;
         CalculateHealth(damage);
-        soundIndex = 0;
-        onPlaySound.Invoke();
+        onPlaySoundDamageRange.Invoke();
+        onParticleDamage.Invoke();
         return true;
     }
 
     protected override void Death()
     {
-        soundIndex = 1;
-        onPlaySound.Invoke();
+        onPlaySoundDefeatRange.Invoke();
+        onParticleDamage.Invoke();
         Destroy(gameObject);
-    }
-
-    protected override void PlaySound()
-    {
-        doorParticleSystem.Play();
     }
 }

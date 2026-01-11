@@ -21,6 +21,9 @@ MonoBehaviour:
   knockBack: 1000
   bulletPrefab: {fileID: 5486732278961444128, guid: fa0e836c0d6607b44a4927416b2bd06e, type: 3}
   bulletSpeed: 10
-  evadeSpeed: 5
+  evadeSpeed: 0.01
   evadeTime: 1
   shootTime: 1
+  coin: {fileID: 2008556313403672318, guid: ea79af9f1e98f2b4abc0e020e01eafba, type: 3}
+  coinKnockback: 1
+  coinNumber: 1
