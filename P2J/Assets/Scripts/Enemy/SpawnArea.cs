@@ -24,7 +24,7 @@ public class SpawnArea : MonoBehaviour
     {
         foreach (var item in spawn) 
         {
-            GameObject enemy = Instantiate(spawnManager.EnemyPrefabs[(int)Enum.Parse<EnemySpawnManager.enemyTypes>(gameObject.tag)], item.transform.position, item.transform.rotation);
+            GameObject enemy = Instantiate(spawnManager.EnemyPrefabs[(int)Enum.Parse<EnemySpawnManager.enemyTypes>(item.tag)], item.transform.position, item.transform.rotation);
             enemies.Add(enemy);
         }
     }

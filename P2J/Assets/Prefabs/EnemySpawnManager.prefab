@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnArea
       objectReference: {fileID: 0}
+    - target: {fileID: 317432740212511385, guid: 3a875e10879de7e48b6bd23c4a8e1a2e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 2715729277047139555, guid: 3a875e10879de7e48b6bd23c4a8e1a2e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
