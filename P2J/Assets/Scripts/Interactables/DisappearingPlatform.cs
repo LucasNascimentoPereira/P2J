@@ -9,6 +9,9 @@ public class DisappearingPlatform : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private UnityEvent onPlatform;
+    [SerializeField] private Animator _myAnimator;
+    //private int animatorPlatformIdle = Animator.StringToHash("PlatformIdle");
+    //private int animatorPlatformDisaappear = Animator.StringToHash("PlatformDissappear");
 
     [Header("Timer values")]
     [Tooltip("This variable changes the amount the spriterenderer alpha value that increases over time")]
@@ -31,6 +34,7 @@ public class DisappearingPlatform : MonoBehaviour
         if (isdisappearing) return;
         StartCoroutine(ChangeTransparency());
         onPlatform.Invoke();
+
     }
 
     private IEnumerator ChangeTransparency()

@@ -154,9 +154,12 @@ public class GameManager : MonoBehaviour
     public void RestingArea()
     {
         if (!interactable) return;
-        healthPlayer.TakeDamage(gameObject, false, healthPlayer.MaxHealth);
-        //animation
-        //save
+	if (!playerController.IsResting)
+	{
+		healthPlayer.TakeDamage(gameObject, false, healthPlayer.MaxHealth);
+        	SaveManager.Save();
+	}
+	playerController.RestingArea();
     }
 
     public void PurchaseAbilityUpgrade(string upgrade)

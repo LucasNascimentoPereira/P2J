@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 meleeDirection;
     private Vector2 dashDirection;
     private bool playerDirectionIsRight;
+    private bool isResting = false;
 
     private UnityEvent _onPlaySound = new();
     [SerializeField] private AudioSource _audioSource;
@@ -97,6 +98,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D Rb => rb;
     public bool DashUnlocked { get => dashUnlocked; set => dashUnlocked = value; }
     public bool DbJumpUnlocked { get => dbJumpUnlocked; set => dbJumpUnlocked = value; }
+    public bool IsResting => isResting;
 
     private void Start()
     {
@@ -613,5 +615,26 @@ public class PlayerController : MonoBehaviour
     {
         if (!particleSystemList[particleIndex]) return;
         particleSystemList[particleIndex].Play();
+    }
+
+    public void RestingArea()
+    {
+	isResting = !isResting;
+	if (isResting)
+	{
+		moveAction.Disable();
+		lookAction.Disable();
+		jumpAction.Disable();
+		dashAction.Disable();
+		meleeAction.Disable();
+	}
+	else
+	{
+		moveAction.Enable();
+		lookAction.Enable();
+		jumpAction.Enable();
+		dashAction.Enable();
+		meleeAction.Enable();
+	}
     }
 }
