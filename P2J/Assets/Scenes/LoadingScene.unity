@@ -14253,9 +14253,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultAudioMixer: {fileID: 24100000, guid: 795735d9d2ac7d543ab1a4ea0d5800df, type: 2}
-  _myAudioSource: {fileID: 0}
-  fadeInTime: 0
-  fadeOutTime: 0
+  _myAudioSource: {fileID: 1017587351}
+  fadeInTime: 1
+  fadeOutTime: 1
   musics:
   - {fileID: 8300000, guid: af7df86b45296a44aba4a6325da69589, type: 3}
   - {fileID: 8300000, guid: 0e93e1774d467584ca0736fc1f6e1bfb, type: 3}

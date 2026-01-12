@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
         _onPlaySound.AddListener(PlaySound);
         _onPlayParticle.AddListener(PlayParticle);
-
+	SaveManager.Load();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
         {
             prices.Add(upgradeData[i].UpgradeName, upgradeData[i]);
         }
+	AudioManager.Instance.PlayMusic(0);
     }
 
 
@@ -108,6 +109,14 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         UIManager.Instance.CameraReference();
+	if(_currentLevel == 0)
+	{
+		AudioManager.Instance.PlayMusic(0);
+	}
+	else
+	{
+		AudioManager.Instance.PlayMusic(1);
+	}
     }
 
     public void SaveGame()
@@ -172,13 +181,14 @@ public class GameManager : MonoBehaviour
     {
         gameData.characterPos = PlayerController.gameObject.transform.position;
         gameData.unlockedDash = PlayerController.DashUnlocked;
-
+	gameData.unlockedDbJump = PlayerController.DbJumpUnlocked;
     }
 
     public void Load(GameData gameData)
     {
         PlayerController.gameObject.transform.position = gameData.characterPos;
         PlayerController.DashUnlocked = gameData.unlockedDash;
+	PlayerController.DbJumpUnlocked = gameData.unlockedDbJump;
     }
 }
 
@@ -187,5 +197,6 @@ public struct GameData
 {
     public Vector2 characterPos;
     public bool unlockedDash;
+    public bool unlockedDbJump;
     //public int[] unlockedMapReg;
 }

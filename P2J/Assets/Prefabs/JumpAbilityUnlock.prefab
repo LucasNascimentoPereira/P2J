@@ -155,6 +155,10 @@ PrefabInstance:
       propertyPath: OnEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: DashAbilityUnlock, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 2398505241151823916, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2817937416463878219, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -245,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 8486448901468827434}
     - target: {fileID: 8373491326728114974, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
       propertyPath: m_Name
-      value: DashAbilityUnlock
+      value: JumpAbilityUnlock
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

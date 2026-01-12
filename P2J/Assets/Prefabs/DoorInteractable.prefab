@@ -336,7 +336,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -6790064476609065435, guid: 795735d9d2ac7d543ab1a4ea0d5800df, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -440,6 +440,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
   - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
   - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+  audioSource: {fileID: 0}
 --- !u!4 &4629752159233009232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2817937416463878219, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
