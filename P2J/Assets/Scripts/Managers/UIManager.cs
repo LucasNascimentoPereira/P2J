@@ -81,6 +81,7 @@ public class UIManager : MonoBehaviour
     public menusState MenuState => menuState;
     public List<GameObject> PanelsList => panelsList;
     public string Binding => binding;
+    public int MapImages => mapUnlock.transform.childCount;
     
     private void Awake()
     {
@@ -343,7 +344,11 @@ public class UIManager : MonoBehaviour
 
     public void UnlockMap(int index)
     {
-        mapUnlock.transform.GetChild(index).gameObject.SetActive(false);
+	for (int i = 0; i == index; ++i)
+	{
+		if (!mapUnlock.transform.GetChild(index).gameObject.activeSelf) continue;
+		mapUnlock.transform.GetChild(index).gameObject.SetActive(false);
+	}
     }
     
 }
