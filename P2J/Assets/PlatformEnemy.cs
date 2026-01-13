@@ -9,6 +9,8 @@ public class PlatformEnemy : MonoBehaviour
     [SerializeField] private float ray = 1.5f;
     [SerializeField] private float rotation = 10.0f;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Detector detector;
+    [SerializeField] private int damage = 1;
 
     private Vector2 dir;
 
@@ -28,5 +30,13 @@ public class PlatformEnemy : MonoBehaviour
 
         }
         rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, transform.right * speed, 0.1f);
+    }
+
+    public void Damage()
+    {
+	    if (detector.Collider.TryGetComponent(out HealthPlayerBase healthPlayer))
+	    {
+		    healthPlayer.TakeDamage(gameObject, true, damage);
+	    }
     }
 }

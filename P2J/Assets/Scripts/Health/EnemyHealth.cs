@@ -51,7 +51,10 @@ public class EnemyHealth : HealthBase
     {
         onPlaySoundDefeatRange.Invoke();
         onDefeat.Invoke();
-	_mySpawnArea.RemoveEnemy(gameObject);
+	if (_mySpawnArea != null)
+	{
+		_mySpawnArea.RemoveEnemy(gameObject);
+	}
         Destroy(gameObject, 0.1f);
     }
 }
