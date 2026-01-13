@@ -169,6 +169,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _myAnimator: {fileID: 2828759442469949040}
   appearInterval: 0.1
   appearTimeInterval: 0.1
   disappearInterval: 0.1
