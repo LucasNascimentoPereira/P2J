@@ -52,6 +52,7 @@ public class UIManager : MonoBehaviour
 
     private MenusBaseState _menusBaseState = null;
     private string binding;
+    private Coroutine _timerCoroutine;
 
     public enum menusState
     {
@@ -67,6 +68,7 @@ public class UIManager : MonoBehaviour
         FADEMENU,
         INPUTMENU,
         MAPMENU,
+	LEVELTMENU,
         NONE
     }
 
@@ -115,7 +117,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         fpsCounter.text = (1 / Time.deltaTime).ToString("F1");
-        if (esc.WasPressedThisFrame() && _menusBaseState != null)
+        if (esc.WasPressedThisFrame() && _menusBaseState != null && menuState != menusState.LEVELTMENU)
         {
             _menusBaseState.ExitState();
             onPlaySound.Invoke();
@@ -171,6 +173,9 @@ public class UIManager : MonoBehaviour
             case menusState.MAPMENU:
                 _menusBaseState = new MapMenu();
                 break;
+	    case menusState.LEVELTMENU:
+		_menusBaseState = new LevelTMenu();
+		break;
             default: Debug.LogError("No menu by that ID"); 
                 break;
         }
@@ -349,6 +354,29 @@ public class UIManager : MonoBehaviour
 		if (!mapUnlock.transform.GetChild(index).gameObject.activeSelf) continue;
 		mapUnlock.transform.GetChild(index).gameObject.SetActive(false);
 	}
+    }
+    private IEnumerator IdleTime(float time)
+    {
+	    yield return new WaitForSeconds(time);
+	    _timerCoroutine = null;
+	    if (_menusBaseState != null)
+	    {
+		    _menusBaseState.ExitState();
+	    }
+    }
+
+    public void BeginIdleTime(float time)
+    {
+	    EndIdleTime();
+	    _timerCoroutine = StartCoroutine(IdleTime(time));
+    }
+    public void EndIdleTime()
+    {
+	    if (_timerCoroutine != null)
+	    {
+		    StopCoroutine(_timerCoroutine);
+		    _timerCoroutine = null;
+	    }
     }
     
 }
