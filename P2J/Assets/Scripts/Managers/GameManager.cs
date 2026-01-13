@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject currentSpawnPoint;
     private Background background;
+    private string abilitiess;
 
     public static GameManager Instance { get; private set; }
     public bool IsPaused { get; private set; } = false;
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
         {
             prices.Add(upgradeData[i].UpgradeName, upgradeData[i]);
         }
+	AudioManager.Instance.PlayMusic(0);
     }
 
 
@@ -108,6 +110,14 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         UIManager.Instance.CameraReference();
+	if(_currentLevel == 0)
+	{
+		AudioManager.Instance.PlayMusic(0);
+	}
+	else
+	{
+		AudioManager.Instance.PlayMusic(1);
+	}
     }
 
     public void SaveGame()
@@ -145,9 +155,12 @@ public class GameManager : MonoBehaviour
     public void RestingArea()
     {
         if (!interactable) return;
-        healthPlayer.TakeDamage(gameObject, false, healthPlayer.MaxHealth);
-        //animation
-        //save
+	if (!playerController.IsResting)
+	{
+		healthPlayer.TakeDamage(gameObject, false, healthPlayer.MaxHealth);
+        	SaveManager.Save();
+	}
+	playerController.RestingArea();
     }
 
     public void PurchaseAbilityUpgrade(string upgrade)
@@ -172,13 +185,26 @@ public class GameManager : MonoBehaviour
     {
         gameData.characterPos = PlayerController.gameObject.transform.position;
         gameData.unlockedDash = PlayerController.DashUnlocked;
-
+	gameData.unlockedDbJump = PlayerController.DbJumpUnlocked;
+	gameData.unlockedMapReg = UIManager.Instance.MapImages;
+	gameData.abilities = abilitiess;
     }
 
     public void Load(GameData gameData)
     {
         PlayerController.gameObject.transform.position = gameData.characterPos;
         PlayerController.DashUnlocked = gameData.unlockedDash;
+	PlayerController.DbJumpUnlocked = gameData.unlockedDbJump;
+	UIManager.Instance.UnlockMap(gameData.unlockedMapReg);
+	if (gameData.unlockedDash)
+	{
+		UIManager.Instance.ActivateDisappearImage("DashAbilityUnlock");
+	}
+	if (gameData.unlockedDbJump)
+	{
+		UIManager.Instance.ActivateDisappearImage("JumpAbilityUnlock");
+	}
+	abilitiess = gameData.abilities;
     }
 }
 
@@ -187,5 +213,7 @@ public struct GameData
 {
     public Vector2 characterPos;
     public bool unlockedDash;
-    //public int[] unlockedMapReg;
+    public bool unlockedDbJump;
+    public int unlockedMapReg;
+    public string abilities;
 }

@@ -14,13 +14,10 @@ public class SpawnArea : MonoBehaviour
 
     public void ResetEnemies()
     {
-	if(enemies.Count != 0)
-	{
-        	foreach (var enemy in enemies)
-        	{
-            		Destroy(enemy);
-        	}
-	}
+        foreach (var enemy in enemies)
+        {
+            Destroy(enemy);
+        }
         SpawnEnemies();
     }
 
@@ -29,7 +26,6 @@ public class SpawnArea : MonoBehaviour
         foreach (var item in spawn) 
         {
             GameObject enemy = Instantiate(spawnManager.EnemyPrefabs[(int)Enum.Parse<EnemySpawnManager.enemyTypes>(item.tag)], item.transform.position, item.transform.rotation);
-	    enemy.GetComponent<EnemyHealth>().MySpawnArea = this;
             enemies.Add(enemy);
         }
     }
@@ -37,8 +33,9 @@ public class SpawnArea : MonoBehaviour
     public void SpawnEnter()
     {
         if (coroutine != null) StopCoroutine(coroutine);
-	if (lockableRoom != null) EnteredLockableRoom();
-    }
+	
+    
+   }
 
     public void SpawnExit()
     {
@@ -50,23 +47,5 @@ public class SpawnArea : MonoBehaviour
         yield return new WaitForSeconds(resetTime);
         ResetEnemies();
         coroutine = null;
-    }
-    private void EnteredLockableRoom()
-    {
-	lockableRoom.LockRoom();
-	int loopCount = (int)(spawn.Count / lockableRoom.EnemyAmnt);
-	for (int i = 0; i == loopCount; ++i)
-	{
-		SpawnEnemies();
-	}
-    }
-    public void RemoveEnemy(GameObject enemyToRemove)
-    {
-	if(!enemies.Contains(enemyToRemove)) return;
-	enemies.Remove(enemyToRemove);
-	if(enemies.Count == 0)
-	{
-		lockableRoom.UnlockRoom();
-	}
     }
 }

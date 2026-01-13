@@ -6,6 +6,8 @@ public class EnemyHealth : HealthBase
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    private SpawnArea _mySpawnArea;
+    public SpawnArea MySpawnArea { get => _mySpawnArea; set => _mySpawnArea = value; }
 
     protected override void Awake()
     {
@@ -49,6 +51,10 @@ public class EnemyHealth : HealthBase
     {
         onPlaySoundDefeatRange.Invoke();
         onDefeat.Invoke();
+	if (_mySpawnArea != null)
+	{
+		_mySpawnArea.RemoveEnemy(gameObject);
+	}
         Destroy(gameObject, 0.1f);
     }
 }

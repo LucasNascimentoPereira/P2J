@@ -15,10 +15,10 @@ public class AudioManager : MonoBehaviour
 
     [Tooltip("Time it taes to fade in")]
     [Range(0f, 10f)]
-    [SerializeField] private float fadeInTime;
+    [SerializeField] private float fadeInTime = 1.0f;
     [Tooltip("Time it takes to fade out")]
     [Range(0f, 10f)]
-    [SerializeField] private float fadeOutTime;
+    [SerializeField] private float fadeOutTime = 1.0f;
 
     private Coroutine _coroutine;
 
@@ -59,7 +59,8 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PlayMusic(int music)
-    {
+    {  
+	Debug.Log("PlayMusic" + music);
         musicIndex = music;
         if(_coroutine != null)
         {
@@ -71,10 +72,11 @@ public class AudioManager : MonoBehaviour
     private IEnumerator FadeOut()
     {
         float enlapedTime = 0.0f;
-        float volumeInter = _myAudioSource.volume / fadeOutTime;
+        float volumeInter = fadeOutTime / (_myAudioSource.volume * 100);
         while (enlapedTime < fadeOutTime)
         {
-            _myAudioSource.volume -= volumeInter; 
+            _myAudioSource.volume -= volumeInter;
+	    enlapedTime += Time.deltaTime; 
             yield return null;
         }
         _coroutine = null;
@@ -87,10 +89,11 @@ public class AudioManager : MonoBehaviour
     private IEnumerator FadeIn() 
     {
         float enlapedTime = 0.0f;
-        float volumeInter = _myAudioSource.volume / fadeInTime;
+        float volumeInter = fadeInTime / (_myAudioSource.volume * 100);
         while (enlapedTime < fadeInTime)
         {
             _myAudioSource.volume += volumeInter;
+	    enlapedTime += Time.deltaTime;
             yield return null;
         }
         _coroutine = null;

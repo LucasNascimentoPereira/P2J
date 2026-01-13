@@ -419,10 +419,18 @@ MonoBehaviour:
           m_StringArgument: 24
           m_BoolArgument: 0
         m_CallState: 2
-  onParticle:
+  onParticleDamage:
     m_PersistentCalls:
       m_Calls: []
-  particleSystemList: []
+  onParticleDamageRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
   rb: {fileID: 6353725496803889946}
   spriteRenderer: {fileID: 8951295823776641744}
 --- !u!95 &4733723338263849041
@@ -459,7 +467,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -6790064476609065435, guid: 795735d9d2ac7d543ab1a4ea0d5800df, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

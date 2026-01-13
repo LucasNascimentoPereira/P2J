@@ -18,7 +18,7 @@ MonoBehaviour:
   restTime: 4
   damage: 1
   projectileSpeed: 1
-  knockBack: 1000
+  knockBack: 1
   bulletPrefab: {fileID: 5486732278961444128, guid: fa0e836c0d6607b44a4927416b2bd06e, type: 3}
   bulletSpeed: 10
   evadeSpeed: 0.01

@@ -27,6 +27,7 @@ public class SaveManager
 
     public static void Load() 
     {
+	if (!File.Exists(SavePath())) return;	
         string saveContent = File.ReadAllText(SavePath());
         saveData = JsonUtility.FromJson<SaveData>(saveContent);
         GameManager.Instance.Load(saveData.GameData);

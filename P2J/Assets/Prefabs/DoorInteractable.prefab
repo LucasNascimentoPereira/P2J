@@ -193,6 +193,10 @@ PrefabInstance:
       propertyPath: _onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 899767045745865643, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 3506204338678202129}
     - target: {fileID: 1788441182416115017, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
       propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -257,6 +261,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4416560283975769945, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6185693914898664944, guid: c7609173d5585de43a3829dc589f433a, type: 3}
+    - target: {fileID: 4416560283975769945, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+      propertyPath: m_Color.b
+      value: 0.30655032
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416560283975769945, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+      propertyPath: m_Color.g
+      value: 0.30655032
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416560283975769945, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+      propertyPath: m_Color.r
+      value: 0.4113207
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416560283975769945, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8373491326728114974, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
       propertyPath: m_Name
       value: DoorInteractable
@@ -275,9 +299,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8373491326728114974, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3506204338678202129}
-    - targetCorrespondingSourceObject: {fileID: 8373491326728114974, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5889171066023576258}
   m_SourcePrefab: {fileID: 100100000, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
 --- !u!1 &1400586320417619205 stripped
 GameObject:
@@ -311,10 +332,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5889171066023576258}
+      - m_Target: {fileID: 7721387979397799344}
         m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
         m_MethodName: PlaySound
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7952261840462942884}
+        m_TargetAssemblyTypeName: UnityEngine.BoxCollider2D, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4675921904501123296}
+        m_TargetAssemblyTypeName: UnityEngine.SpriteRenderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -336,7 +381,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -6790064476609065435, guid: 795735d9d2ac7d543ab1a4ea0d5800df, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -421,25 +466,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5889171066023576258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1400586320417619205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28b839faab462d7468ba34c6404c1d3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClips:
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
 --- !u!4 &4629752159233009232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2817937416463878219, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
@@ -450,3 +476,14 @@ CircleCollider2D:
   m_CorrespondingSourceObject: {fileID: 3778516210513080582, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
   m_PrefabInstance: {fileID: 7447682925441773083}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7721387979397799344 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 899767045745865643, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+  m_PrefabInstance: {fileID: 7447682925441773083}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400586320417619205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b839faab462d7468ba34c6404c1d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

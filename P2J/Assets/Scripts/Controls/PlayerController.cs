@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer = 64;
     [SerializeField] private LayerMask groundLayer = 8;
     [SerializeField] private bool dashUnlocked = false;
+    [SerializeField] private bool dbJumpUnlocked = false;
     [SerializeField] private int  meleeDamage = 1;
     [SerializeField] private float meleeKnockback = 5.0f;
     [SerializeField] private float meleeRange = 3.0f;
@@ -82,6 +83,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 meleeDirection;
     private Vector2 dashDirection;
     private bool playerDirectionIsRight;
+    private bool isResting = false;
 
     private UnityEvent _onPlaySound = new();
     [SerializeField] private AudioSource _audioSource;
@@ -95,6 +97,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveValue = Vector2.zero;
     public Rigidbody2D Rb => rb;
     public bool DashUnlocked { get => dashUnlocked; set => dashUnlocked = value; }
+    public bool DbJumpUnlocked { get => dbJumpUnlocked; set => dbJumpUnlocked = value; }
+    public bool IsResting => isResting;
 
     private void Start()
     {
@@ -120,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
         _onPlaySound.AddListener(PlaySound);
         _onPlayParticle.AddListener(PlayParticle);
-
+	SaveManager.Load();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -457,7 +461,7 @@ public class PlayerController : MonoBehaviour
             _animatorController.SetTrigger(animatorJumpStart);
         }
         //double jump
-        else if (jumpReleased && airJumpCount == 0)
+        else if (jumpReleased && airJumpCount == 0 && dbJumpUnlocked)
         {
             if (rb.linearVelocity.x > 0.1) {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x + doublejumpForce.x, doublejumpForce.y);
@@ -553,6 +557,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case "DbDash":
                 break;
+            case "DbJump":
+		dbJumpUnlocked = true;
+                break;
             default: 
                 break;
         }
@@ -608,5 +615,26 @@ public class PlayerController : MonoBehaviour
     {
         if (!particleSystemList[particleIndex]) return;
         particleSystemList[particleIndex].Play();
+    }
+
+    public void RestingArea()
+    {
+	isResting = !isResting;
+	if (isResting)
+	{
+		moveAction.Disable();
+		lookAction.Disable();
+		jumpAction.Disable();
+		dashAction.Disable();
+		meleeAction.Disable();
+	}
+	else
+	{
+		moveAction.Enable();
+		lookAction.Enable();
+		jumpAction.Enable();
+		dashAction.Enable();
+		meleeAction.Enable();
+	}
     }
 }
