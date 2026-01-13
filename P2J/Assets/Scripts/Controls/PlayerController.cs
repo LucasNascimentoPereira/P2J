@@ -558,7 +558,7 @@ public class PlayerController : MonoBehaviour
             case "DbDash":
                 break;
             case "DbJump":
-
+		dbJumpUnlocked = true;
                 break;
             default: 
                 break;
