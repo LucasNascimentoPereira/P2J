@@ -34518,7 +34518,7 @@ MonoBehaviour:
   coins: {fileID: 358812785}
   heartsContainer: {fileID: 129214638}
   abilityImagesContainer: {fileID: 1499074230}
-  mapUnlock: {fileID: 0}
+  mapUnlock: {fileID: 1429944111}
   onPlaySound:
     m_PersistentCalls:
       m_Calls:
