@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
     private int animatorAttackLeft = Animator.StringToHash("IsAttackingLeft");
     private int animatorFacingRight = Animator.StringToHash("IsFacingRight");
     private int animatorJumpStart = Animator.StringToHash("JumpStarted");
+    private int animatorAttackUp = Animator.StringToHash("IsAttackingUp");
+    private int animatorAttackDow = Animator.StringToHash("IsAttackingDown");
 
 
     private CapsuleCollider2D col;
@@ -240,9 +242,11 @@ public class PlayerController : MonoBehaviour
                 }
                 if(lookValue.y > 0.1f)
                 {
+			_animatorController.SetTrigger(animatorAttackUp);
                 }
                 if(lookValue.y < -0.1f)
                 {
+			_animatorController.SetTrigger(animatorAttackDow);
                 }
             }
             meleeReleased = false;

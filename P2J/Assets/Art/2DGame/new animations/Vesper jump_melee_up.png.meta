@@ -58,7 +58,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -72,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -96,7 +96,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -124,10 +124,10 @@ TextureImporter:
       name: Vesper jump_melee_up_0
       rect:
         serializedVersion: 2
-        x: 63
-        y: 125
-        width: 33
-        height: 15
+        x: 0
+        y: 70
+        width: 32
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,10 +146,10 @@ TextureImporter:
       name: Vesper jump_melee_up_1
       rect:
         serializedVersion: 2
-        x: 69
-        y: 97
-        width: 24
-        height: 32
+        x: 32
+        y: 70
+        width: 32
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,10 +168,10 @@ TextureImporter:
       name: Vesper jump_melee_up_2
       rect:
         serializedVersion: 2
-        x: 5
-        y: 97
-        width: 23
-        height: 21
+        x: 64
+        y: 70
+        width: 32
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,10 +190,10 @@ TextureImporter:
       name: Vesper jump_melee_up_3
       rect:
         serializedVersion: 2
-        x: 37
-        y: 97
-        width: 24
-        height: 21
+        x: 0
+        y: 0
+        width: 32
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -212,10 +212,10 @@ TextureImporter:
       name: Vesper jump_melee_up_4
       rect:
         serializedVersion: 2
-        x: 83
-        y: 111
-        width: 11
-        height: 10
+        x: 32
+        y: 0
+        width: 32
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -230,77 +230,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Vesper jump_melee_up_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 27
-        width: 28
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 52010e6893d761240800000000000000
-      internalID: 4762131342020317221
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Vesper jump_melee_up_6
-      rect:
-        serializedVersion: 2
-        x: 5
-        y: 42
-        width: 16
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 134833f9424d74da0800000000000000
-      internalID: -5960562328046697423
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Vesper jump_melee_up_7
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 27
-        width: 28
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7a601af6fe3d83f90800000000000000
-      internalID: -6973590997659744601
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b35b4ed9abbf76f48b87bc81b396596b
     internalID: 0
     vertices: []
     indices: 
@@ -315,9 +249,6 @@ TextureImporter:
       Vesper jump_melee_up_2: -2732320802982480650
       Vesper jump_melee_up_3: 4099494526841612693
       Vesper jump_melee_up_4: 6940891236121660169
-      Vesper jump_melee_up_5: 4762131342020317221
-      Vesper jump_melee_up_6: -5960562328046697423
-      Vesper jump_melee_up_7: -6973590997659744601
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

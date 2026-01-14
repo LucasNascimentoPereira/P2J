@@ -55,7 +55,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -93,7 +93,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,10 +121,10 @@ TextureImporter:
       name: Vesper jump_melee_down_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 97
-        width: 23
-        height: 21
+        x: 0
+        y: 70
+        width: 32
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,10 +143,10 @@ TextureImporter:
       name: Vesper jump_melee_down_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 97
-        width: 24
-        height: 21
+        x: 32
+        y: 70
+        width: 32
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,10 +165,10 @@ TextureImporter:
       name: Vesper jump_melee_down_2
       rect:
         serializedVersion: 2
-        x: 69
-        y: 86
-        width: 24
-        height: 31
+        x: 64
+        y: 70
+        width: 32
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,10 +187,10 @@ TextureImporter:
       name: Vesper jump_melee_down_3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 69
+        x: 0
+        y: 0
         width: 32
-        height: 24
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,10 +209,10 @@ TextureImporter:
       name: Vesper jump_melee_down_4
       rect:
         serializedVersion: 2
-        x: 1
-        y: 26
-        width: 27
-        height: 21
+        x: 32
+        y: 0
+        width: 32
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,55 +227,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Vesper jump_melee_down_5
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 17
-        width: 12
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 730e13f539d570580800000000000000
-      internalID: -8861010854289481673
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Vesper jump_melee_down_6
-      rect:
-        serializedVersion: 2
-        x: 33
-        y: 23
-        width: 27
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7e09913c90bd84610800000000000000
-      internalID: 1605774102132003047
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 503d0d67ccb86bc48ac9ab438bc68b65
     internalID: 0
     vertices: []
     indices: 
@@ -290,8 +246,6 @@ TextureImporter:
       Vesper jump_melee_down_2: 3704646645105705688
       Vesper jump_melee_down_3: 5355734716687174100
       Vesper jump_melee_down_4: -6754680586852955903
-      Vesper jump_melee_down_5: -8861010854289481673
-      Vesper jump_melee_down_6: 1605774102132003047
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
