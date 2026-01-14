@@ -10,6 +10,7 @@ public class HealthPlayerBase : HealthBase
     [SerializeField] private PlayerData playerData;
     [SerializeField] private SpriteRenderer spriteRenderer;
     private bool isInvencible;
+    [SerializeField] private Animator animator;
     private UnityEvent _onChangeHealth = new();
     private UnityEvent _onChangeStatus = new();
 
@@ -55,8 +56,9 @@ public class HealthPlayerBase : HealthBase
     {
         Debug.Log(gameObject);
         rb.linearVelocity = Vector2.zero;
+	animator.SetTrigger("PlayerDefeated");
         onPlaySoundDefeatRange.Invoke();
-        GameManager.Instance.LevelReset();
+        GameManager.Instance.Invoke("LevelReset", 1.2f);
     }
     
     private IEnumerator Invencibility()
