@@ -23,6 +23,7 @@ public class ChasingEnemy : MonoBehaviour
     [SerializeField] private Transform castGroundLimit;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private ContactFilter2D contactFilter;
+    private bool isDefeated = false;
 
     [Header("Positions of the limis")]
     [SerializeField] private List<Transform> patrolPoints;
@@ -121,6 +122,7 @@ public class ChasingEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+	    if (isDefeated) return;
         if (chasingEnemyBaseState == null) return;
         chasingEnemyBaseState.UpdateState();
         animatorChasing.SetBool(animatorHorizontal, rb.linearVelocityX > 0);
@@ -224,6 +226,10 @@ public class ChasingEnemy : MonoBehaviour
         }
     }
 
-
+	public void Defeated()
+	{
+		isDefeated = true;
+		_dir = Vector2.zero;
+	}
 
 }

@@ -656,7 +656,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.08
+      value: -3.76
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -801,7 +801,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.0344398, y: 2.0344396}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1001 &3770374270815989093
 PrefabInstance:
@@ -996,7 +996,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.03
+      value: 3.22
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1144,7 +1144,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.0344398, y: 2.0344396}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!4 &8710838459228184581 stripped
 Transform:

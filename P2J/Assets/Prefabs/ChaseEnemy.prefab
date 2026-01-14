@@ -249,6 +249,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 401344026869862312}
+        m_TargetAssemblyTypeName: Detector, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 542129094104436465}
+        m_TargetAssemblyTypeName: UnityEngine.CapsuleCollider2D, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2860949706682348978}
+        m_TargetAssemblyTypeName: UnityEngine.CapsuleCollider2D, UnityEngine
+        m_MethodName: 
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -303,7 +339,7 @@ MonoBehaviour:
   rb: {fileID: 220890946787660880}
   spriteRenderer: {fileID: 337066540257417696}
   _collider2D: {fileID: 0}
-  enemy: {fileID: 0}
+  enemy: {fileID: 8526236210163000982}
 --- !u!82 &7091083663324113431
 AudioSource:
   m_ObjectHideFlags: 0
