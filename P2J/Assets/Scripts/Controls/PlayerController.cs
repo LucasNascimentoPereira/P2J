@@ -221,19 +221,26 @@ public class PlayerController : MonoBehaviour
             if (meleeReleased)
             {
                 attackWithMelee(playerDirectionIsRight, moveValue);
-                if(moveValue.x > 0.1f || playerDirectionIsRight)
+                if (moveValue.y > 0.1f)
+                {
+                }
+                else if (moveValue.y < -0.1f)
+                {
+                }
+                else if (moveValue.x > 0.1f)
                 {
                     _animatorController.SetTrigger(animatorAttackRight);
                 }
-                if(moveValue.x < -0.1f || !playerDirectionIsRight)
+                else if(moveValue.x < -0.1f || !playerDirectionIsRight)
                 {
                     _animatorController.SetTrigger(animatorAttackLeft);
                 }
-                if(moveValue.y > 0.1f)
-                {
+                else if (playerDirectionIsRight) {
+                    _animatorController.SetTrigger(animatorAttackRight);
                 }
-                if(moveValue.y < -0.1f)
+                else
                 {
+                    _animatorController.SetTrigger(animatorAttackLeft);
                 }
             }
             meleeReleased = false;
