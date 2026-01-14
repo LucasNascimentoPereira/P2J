@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 {
     InputAction moveAction;
     InputAction jumpAction;
-    InputAction doubleJumpAction;
     InputAction meleeAction;
     InputAction dashAction;
     InputAction lookAction;
@@ -108,7 +107,6 @@ public class PlayerController : MonoBehaviour
     {
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
-        doubleJumpAction = InputSystem.actions.FindAction("Double Jump");
         meleeAction = InputSystem.actions.FindAction("Attack");
         dashAction = InputSystem.actions.FindAction("Dash");
         lookAction = InputSystem.actions.FindAction("Look");
@@ -217,7 +215,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        moveValue = moveAction.ReadValue<Vector2>();
+        Vector2 lookValue = lookAction.ReadValue<Vector2>();
+        bool lookValueChanged = lookAction.WasPressedThisFrame();
         checkForGround();
         checkForWalls();
         if (interactAction.WasPressedThisFrame())
@@ -228,32 +227,26 @@ public class PlayerController : MonoBehaviour
 	{
 		UIManager.Instance.ShowPanelEnum(UIManager.menusState.MAPMENU);
 	}
-        
-        if (meleeAction.WasPressedThisFrame() && Time.time > attackTime + meleeCooldown)
+        if (lookValueChanged && lookValue != Vector2.zero && Time.time > attackTime + meleeCooldown)
         {
             if (meleeReleased)
             {
-                attackWithMelee(playerDirectionIsRight, moveValue);
-                if (moveValue.y > 0.1f)
-                {
-                }
-                else if (moveValue.y < -0.1f)
-                {
-                }
-                else if (moveValue.x > 0.1f)
+                attackWithMelee(playerDirectionIsRight, lookValue);
+                if(lookValue.x > 0.1f)
                 {
                     _animatorController.SetTrigger(animatorAttackRight);
                 }
-                else if(moveValue.x < -0.1f || !playerDirectionIsRight)
+                if(lookValue.x < -0.1f)
                 {
                     _animatorController.SetTrigger(animatorAttackLeft);
                 }
-                else if (playerDirectionIsRight) {
-                    _animatorController.SetTrigger(animatorAttackRight);
-                }
-                else
+                if(lookValue.y > 0.1f)
                 {
-                    _animatorController.SetTrigger(animatorAttackLeft);
+			_animatorController.SetTrigger(animatorAttackUp);
+                }
+                if(lookValue.y < -0.1f)
+                {
+			_animatorController.SetTrigger(animatorAttackDow);
                 }
             }
             meleeReleased = false;
@@ -262,10 +255,6 @@ public class PlayerController : MonoBehaviour
         {
             meleeReleased = true;
         }
-        if (doubleJumpAction.WasPressedThisFrame())
-        {
-            tryToDoubleJump();
-        }
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
     }
 
@@ -273,6 +262,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.gravityScale = defaultGravity;
         moveValue = moveAction.ReadValue<Vector2>();
+        Vector2 lookValue = lookAction.ReadValue<Vector2>();
         _animatorController.SetFloat(animatorHorizontal, moveValue.x);
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
         _animatorController.SetBool(animatorJump, onGround);
@@ -480,26 +470,16 @@ public class PlayerController : MonoBehaviour
             //_onPlayParticle.Invoke();
             _animatorController.SetTrigger(animatorJumpStart);
         }
-        //store time for jump buffering
-        else if (jumpReleased)
+        //double jump
+        else if (jumpReleased && airJumpCount == 0 && dbJumpUnlocked)
         {
-            jumpPressTime = Time.fixedTime;
-        }
-    }
-
-    void tryToDoubleJump()
-    {
-        if (!onGround && airJumpCount == 0)
-        {
-            if (rb.linearVelocity.x > 0.1)
-            {
+            if (rb.linearVelocity.x > 0.1) {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x + doublejumpForce.x, doublejumpForce.y);
             }
             else if (rb.linearVelocity.x < -0.1)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x - doublejumpForce.x, doublejumpForce.y);
-            }
-            else
+            } else
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, doublejumpForce.y);
             }
@@ -507,6 +487,11 @@ public class PlayerController : MonoBehaviour
             jump_type = JUMP_DOUBLE;
             airJumpCount++;
             _animatorController.SetTrigger(animatorJumpStart);
+        }
+        //store time for jump buffering
+        else if (jumpReleased)
+        {
+            jumpPressTime = Time.fixedTime;
         }
     }
 
