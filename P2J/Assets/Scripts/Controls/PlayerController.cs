@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     InputAction meleeAction;
     InputAction dashAction;
     InputAction lookAction;
+    InputAction mapAction;
 
     InputAction interactAction;
 
@@ -107,6 +108,7 @@ public class PlayerController : MonoBehaviour
         meleeAction = InputSystem.actions.FindAction("Attack");
         dashAction = InputSystem.actions.FindAction("Dash");
         lookAction = InputSystem.actions.FindAction("Look");
+	mapAction = InputSystem.actions.FindAction("Map");
         interactAction = InputSystem.actions.FindAction("Interact");
         col = GetComponent<CapsuleCollider2D>();
         rb = GetComponent<Rigidbody2D>();
@@ -219,6 +221,10 @@ public class PlayerController : MonoBehaviour
         {
             Interact();
         }
+	if (mapAction.WasPressedThisFrame())
+	{
+		UIManager.Instance.ShowPanelEnum(UIManager.menusState.MAPMENU);
+	}
         if (lookValueChanged && lookValue != Vector2.zero && Time.time > attackTime + meleeCooldown)
         {
             if (meleeReleased)
