@@ -47,6 +47,8 @@ public class ChasingEnemy : MonoBehaviour
     public bool DetectedPlayerCharacter { get => _detectedPlayer; set => _detectedPlayer = value; }
 
     private int animatorHorizontal = Animator.StringToHash("ChasingHorizontal");
+    private int animatorResting = Animator.StringToHash("ChasingEnemyResting");
+    private int animatorLunge = Animator.StringToHash("ChasingEnemyLunge");
     [SerializeField] private Animator animatorChasing;
 
 
@@ -70,12 +72,15 @@ public class ChasingEnemy : MonoBehaviour
         switch (state) {
             case EnemyStates.IDLE:
                 chasingEnemyBaseState = new ChasingEnemyIdle();
+		animatorChasing.SetBool(animatorResting, false);
                 break;
             case EnemyStates.LUNGING:
                 chasingEnemyBaseState = new ChasingEnemyLunging();
+		animatorChasing.SetTrigger(animatorLunge);
                 break;
             case EnemyStates.RESTING:
                 chasingEnemyBaseState = new ChasingEnemyResting();
+		animatorChasing.SetBool(animatorResting, true);
                 break;
             case EnemyStates.INVISIBLE:
                 chasingEnemyBaseState = new ChasingEnemyInvisible();
@@ -89,6 +94,12 @@ public class ChasingEnemy : MonoBehaviour
         enemyState = state;
         chasingEnemyBaseState.BeginState(this);
     }
+
+    public void ChasingEnemyResting(bool isResting)
+    {
+	    Debug.Log("is resting" + isResting);
+	    animatorChasing.SetBool(animatorResting, isResting);
+    } 
 
     public void DetectedPlayer()
     {
