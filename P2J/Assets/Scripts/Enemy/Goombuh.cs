@@ -19,8 +19,8 @@ public class Goombuh : MonoBehaviour
 
     private int animatorHorizontal = Animator.StringToHash("GoombuhHorizontal");
     [SerializeField] private Animator animatorGoombuh;
+    private bool isDefeated = false;
 
-    [SerializeField] private UnityEvent playSound = new();
 
 
 
@@ -31,6 +31,7 @@ public class Goombuh : MonoBehaviour
 
     private void Move()
     {
+	    if (isDefeated) return;
         dir = patrolPoints[patrolIndex].transform.position - gameObject.transform.position;
         dir = dir.normalized;
     }
@@ -38,6 +39,7 @@ public class Goombuh : MonoBehaviour
     private void FixedUpdate()
     {
         //Rotate();
+	if(isDefeated) return;
         if (knockBack) return;
         rb.linearVelocity = new Vector2(dir.x * goombuhData.GoombuhSpeed, rb.linearVelocityY);
         animatorGoombuh.SetBool(animatorHorizontal, rb.linearVelocityX > 0);
@@ -98,6 +100,12 @@ public class Goombuh : MonoBehaviour
             GameObject coin = Instantiate(goombuhData.Coin, transform.position, transform.rotation);
             coin.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.value, Random.value) * goombuhData.CoinKnockback, ForceMode2D.Impulse);
         }
+    }
+
+    public void Deafeated()
+    {
+	isDefeated = true;
+	dir = Vector2.zero;
     }
 
 

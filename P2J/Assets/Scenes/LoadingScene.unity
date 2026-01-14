@@ -7858,7 +7858,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Denis Borodin:\n\t- Game Design\n\t- Level Design\n\t- Sfxs\n\t- Music"
+  m_text: "Denis Borodin:\n\t- Game Design\n\t- Level Design\n\t- Sfxs\n\t- Music\n\t-
+    QA Facilitator"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c43a059131971fe4e9b0a63fbcd805bd, type: 2}
   m_sharedMaterial: {fileID: -4955017906971683274, guid: c43a059131971fe4e9b0a63fbcd805bd, type: 2}
@@ -19675,7 +19676,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -667, y: -29}
+  m_AnchoredPosition: {x: -667, y: -68}
   m_SizeDelta: {x: 580.364, y: 401.17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1176605723
@@ -26001,7 +26002,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 52, y: 111}
+  m_AnchoredPosition: {x: 52, y: 78}
   m_SizeDelta: {x: 820.79, y: 122.617}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1571371229
