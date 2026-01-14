@@ -516,6 +516,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4153491069124529490, guid: 1b4a04ceaddab5b4a84ca0150beabcc6, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153491069124529490, guid: 1b4a04ceaddab5b4a84ca0150beabcc6, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4405264531729823857, guid: 1b4a04ceaddab5b4a84ca0150beabcc6, type: 3}
       propertyPath: onDefeat.m_PersistentCalls.m_Calls.Array.size
       value: 3
@@ -602,7 +610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4405264531729823857, guid: 1b4a04ceaddab5b4a84ca0150beabcc6, type: 3}
       propertyPath: onDefeat.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
-      value: ChasingEnemyDefeat
+      value: FlyingEnemyDefeated
       objectReference: {fileID: 0}
     - target: {fileID: 4405264531729823857, guid: 1b4a04ceaddab5b4a84ca0150beabcc6, type: 3}
       propertyPath: onDefeat.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
@@ -885,6 +893,7 @@ MonoBehaviour:
   rangeDetector: {fileID: 4127125199767744676}
   evadeDetector: {fileID: 7563775554361312880}
   spriteRenderer: {fileID: 7689385150043127413}
+  animator: {fileID: 6375820841362349193}
   patrolPoints:
   - {fileID: 8038574033623933757}
   - {fileID: 1047786365631261759}

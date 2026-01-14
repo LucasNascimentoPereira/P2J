@@ -12,6 +12,10 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] private Detector evadeDetector;
     private Detector patrolDetector;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
+
+    private int animatorAttack = Animator.StringToHash("FlyingEnemyAttack");
+    private int animatorDefeat = Animator.StringToHash("FlyingEnemyDefeated");
 
 
     [Header("Positions of the limis")]
@@ -73,6 +77,7 @@ public class FlyingEnemy : MonoBehaviour
                 break;
             case EnemyStates.SHOOT:
                 enemyState = EnemyStates.SHOOT;
+		animator.SetTrigger(animatorAttack);
                 chasingEnemyBaseState = new FlyingEnemyShoot();
                 break;
             case EnemyStates.LUNGING:
