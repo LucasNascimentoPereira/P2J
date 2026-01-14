@@ -15,6 +15,6 @@ public class MapMenu : MenusBaseState
     public override void ExitState()
     {
         base.ExitState();
-        uiManager.ShowPanelEnum(UIManager.menusState.OPTIONSPAUSE);
+        uiManager.ShowPanelEnum(UIManager.menusState.HUD);
     }
 }

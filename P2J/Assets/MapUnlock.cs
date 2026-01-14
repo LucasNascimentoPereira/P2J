@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class MapUnlock : MonoBehaviour
 {
-    private UnityEvent onUnlock;
+    private UnityEvent onUnlock = new();
     [SerializeField] private int index;
 
     private void Start()

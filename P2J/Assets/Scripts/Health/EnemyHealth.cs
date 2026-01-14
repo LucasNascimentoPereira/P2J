@@ -6,6 +6,8 @@ public class EnemyHealth : HealthBase
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Collider2D _collider2D;
+    [SerializeField] private GameObject enemy;
     private SpawnArea _mySpawnArea;
     public SpawnArea MySpawnArea { get => _mySpawnArea; set => _mySpawnArea = value; }
 
@@ -55,6 +57,6 @@ public class EnemyHealth : HealthBase
 	{
 		_mySpawnArea.RemoveEnemy(gameObject);
 	}
-        Destroy(gameObject, 0.1f);
+	Destroy(enemy, 1.0f);
     }
 }

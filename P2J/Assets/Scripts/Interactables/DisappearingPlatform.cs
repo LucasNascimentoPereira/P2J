@@ -6,6 +6,7 @@ public class DisappearingPlatform : MonoBehaviour
 {
 
     [SerializeField] private BoxCollider2D boxCollider2D;
+    [SerializeField] private BoxCollider2D groundCheck;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private UnityEvent onPlatform;
@@ -26,15 +27,15 @@ public class DisappearingPlatform : MonoBehaviour
     [Tooltip("Time it takes for the platform to begin appearing again")]
     [Range (0f, 10f)]
     [SerializeField] private float timeToAppear = 1f;
-    private bool isDissappearing = false;
+    private bool isIdle = true;
 
     public void DisappearPlatform()
     {
-        if (isDissappearing) return;
+        if (!isIdle) return;
         StartCoroutine(ChangeTransparency());
         onPlatform.Invoke();
-	isDissappearing = true;
-	_myAnimator.SetBool(animatorPlatformIdle, isDissappearing);
+	isIdle = false;
+	_myAnimator.SetBool(animatorPlatformIdle, isIdle);
     }
 
     private IEnumerator ChangeTransparency()
@@ -45,6 +46,7 @@ public class DisappearingPlatform : MonoBehaviour
             if (spriteRenderer.color.a <= 0.0f)
             {
                 boxCollider2D.enabled = false;
+		groundCheck.enabled = false;
             }
             yield return new WaitForSeconds(disappearTimeInterval);
         }
@@ -55,10 +57,11 @@ public class DisappearingPlatform : MonoBehaviour
             if(spriteRenderer.color.a >= 1.0f)
             {
                 boxCollider2D.enabled = true;
+		groundCheck.enabled = true;
             }
             yield return new WaitForSeconds(appearTimeInterval);
         }
-        isDissappearing = false ;
-	_myAnimator.SetBool(animatorPlatformIdle, isDissappearing);
+        isIdle = true ;
+	_myAnimator.SetBool(animatorPlatformIdle, isIdle);
     }
 }

@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: b114747b8e83070439d10ae77ab5d7bd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7082148149022805130
+    second: chaser enemy death_0
+  - first:
+      213: 4464309538040358218
+    second: chaser enemy death_1
+  - first:
+      213: -1340334236271327678
+    second: chaser enemy death_2
+  - first:
+      213: -5501161780155455877
+    second: chaser enemy death_3
+  - first:
+      213: -4390002879690964456
+    second: chaser enemy death_4
+  - first:
+      213: -6526174923271009857
+    second: chaser enemy death_5
+  - first:
+      213: -1877212912495957147
+    second: chaser enemy death_6
+  - first:
+      213: 1140544528027042676
+    second: chaser enemy death_7
+  - first:
+      213: -8670615377394767492
+    second: chaser enemy death_8
+  - first:
+      213: 5801074103947735734
+    second: chaser enemy death_9
+  - first:
+      213: -6234466596551061162
+    second: chaser enemy death_10
+  - first:
+      213: 537766035093386149
+    second: chaser enemy death_11
+  - first:
+      213: 2688966496310546381
+    second: chaser enemy death_12
+  - first:
+      213: 307047425935490112
+    second: chaser enemy death_13
+  - first:
+      213: 272571582579133864
+    second: chaser enemy death_14
+  - first:
+      213: 1977944510551701483
+    second: chaser enemy death_15
+  - first:
+      213: -3137491624563718466
+    second: chaser enemy death_16
+  - first:
+      213: 2356838603167153015
+    second: chaser enemy death_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: chaser enemy death_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 119
+        width: 29
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6733ec208c727bd90800000000000000
+      internalID: -7082148149022805130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_1
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 14
+        width: 26
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a45a8463fd964fd30800000000000000
+      internalID: 4464309538040358218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_2
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 119
+        width: 29
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 246c0ce0d1d266de0800000000000000
+      internalID: -1340334236271327678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_3
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 15
+        width: 26
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b76e0e1e182f7a3b0800000000000000
+      internalID: -5501161780155455877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_4
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 101
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8120411e3a39313c0800000000000000
+      internalID: -4390002879690964456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_5
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 101
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb98e540c7e5e65a0800000000000000
+      internalID: -6526174923271009857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_6
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 90
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56be6ee4dccc2f5e0800000000000000
+      internalID: -1877212912495957147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_7
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 41
+        width: 25
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4734193943704df00800000000000000
+      internalID: 1140544528027042676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_8
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 98
+        width: 21
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c79685ec049cba780800000000000000
+      internalID: -8670615377394767492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_9
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 106
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b2b581892e818050800000000000000
+      internalID: 5801074103947735734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_10
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 84
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 651198c79a9ba79a0800000000000000
+      internalID: -6234466596551061162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_11
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 79
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a3f2061c57867700800000000000000
+      internalID: 537766035093386149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_12
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 58
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcf448918c0215520800000000000000
+      internalID: 2688966496310546381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_13
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 64
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04c3510d10ad24400800000000000000
+      internalID: 307047425935490112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_14
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 49
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8adce73096e58c300800000000000000
+      internalID: 272571582579133864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_15
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 46
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be73ed08d02137b10800000000000000
+      internalID: 1977944510551701483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_16
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 53
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb6cd189df36574d0800000000000000
+      internalID: -3137491624563718466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chaser enemy death_17
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 39
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77bb4b6f83c25b020800000000000000
+      internalID: 2356838603167153015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      chaser enemy death_0: -7082148149022805130
+      chaser enemy death_1: 4464309538040358218
+      chaser enemy death_10: -6234466596551061162
+      chaser enemy death_11: 537766035093386149
+      chaser enemy death_12: 2688966496310546381
+      chaser enemy death_13: 307047425935490112
+      chaser enemy death_14: 272571582579133864
+      chaser enemy death_15: 1977944510551701483
+      chaser enemy death_16: -3137491624563718466
+      chaser enemy death_17: 2356838603167153015
+      chaser enemy death_2: -1340334236271327678
+      chaser enemy death_3: -5501161780155455877
+      chaser enemy death_4: -4390002879690964456
+      chaser enemy death_5: -6526174923271009857
+      chaser enemy death_6: -1877212912495957147
+      chaser enemy death_7: 1140544528027042676
+      chaser enemy death_8: -8670615377394767492
+      chaser enemy death_9: 5801074103947735734
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

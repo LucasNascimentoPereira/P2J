@@ -309,9 +309,6 @@ MonoBehaviour:
   rb: {fileID: 6353725496803889946}
   detector: {fileID: 1087027815655431809}
   animatorGoombuh: {fileID: 4733723338263849041}
-  playSound:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!50 &6353725496803889946
 Rigidbody2D:
   serializedVersion: 5
@@ -337,7 +334,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &4990310943220434862
 MonoBehaviour:
@@ -356,6 +353,42 @@ MonoBehaviour:
   onDefeat:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 4851113655572910390}
+        m_TargetAssemblyTypeName: UnityEngine.CapsuleCollider2D, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: GoombuhDefeat
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6353725496803889946}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody2D, UnityEngine
+        m_MethodName: set_gravityScale
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: GoombuhDefeat
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8171546351048011011}
+        m_TargetAssemblyTypeName: Goombuh, Assembly-CSharp
+        m_MethodName: Deafeated
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: GoombuhDefeat
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 8171546351048011011}
         m_TargetAssemblyTypeName: Goombuh, Assembly-CSharp
         m_MethodName: SpawnCoins
@@ -366,6 +399,18 @@ MonoBehaviour:
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4733723338263849041}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: GoombuhDefeat
           m_BoolArgument: 0
         m_CallState: 2
   onDamage:
@@ -433,6 +478,8 @@ MonoBehaviour:
       m_Calls: []
   rb: {fileID: 6353725496803889946}
   spriteRenderer: {fileID: 8951295823776641744}
+  _collider2D: {fileID: 0}
+  enemy: {fileID: 8526236210163000982}
 --- !u!95 &4733723338263849041
 Animator:
   serializedVersion: 7
@@ -609,7 +656,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.08
+      value: -3.76
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -754,7 +801,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.0344398, y: 2.0344396}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1001 &3770374270815989093
 PrefabInstance:
@@ -949,7 +996,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.03
+      value: 3.22
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1097,7 +1144,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.0344398, y: 2.0344396}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!4 &8710838459228184581 stripped
 Transform:

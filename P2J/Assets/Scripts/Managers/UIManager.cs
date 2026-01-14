@@ -349,10 +349,14 @@ public class UIManager : MonoBehaviour
 
     public void UnlockMap(int index)
     {
-	for (int i = 0; i == index; ++i)
+	    Debug.Log("MapUnlock" + index);
+	for (int i = 0; i < mapUnlock.transform.childCount; ++i)
 	{
-		if (!mapUnlock.transform.GetChild(index).gameObject.activeSelf) continue;
-		mapUnlock.transform.GetChild(index).gameObject.SetActive(false);
+		Debug.Log("MapUnlock");
+		if (i <= index)
+		{
+			mapUnlock.transform.GetChild(i).gameObject.SetActive(false);
+		}
 	}
     }
     private IEnumerator IdleTime(float time)

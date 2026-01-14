@@ -249,6 +249,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 401344026869862312}
+        m_TargetAssemblyTypeName: Detector, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 542129094104436465}
+        m_TargetAssemblyTypeName: UnityEngine.CapsuleCollider2D, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2860949706682348978}
+        m_TargetAssemblyTypeName: UnityEngine.CapsuleCollider2D, UnityEngine
+        m_MethodName: 
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -288,12 +324,22 @@ MonoBehaviour:
           m_StringArgument: 24
           m_BoolArgument: 0
         m_CallState: 2
-  onParticle:
+  onParticleDamage:
     m_PersistentCalls:
       m_Calls: []
-  particleSystemList: []
+  onParticleDamageRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
   rb: {fileID: 220890946787660880}
   spriteRenderer: {fileID: 337066540257417696}
+  _collider2D: {fileID: 0}
+  enemy: {fileID: 8526236210163000982}
 --- !u!82 &7091083663324113431
 AudioSource:
   m_ObjectHideFlags: 0
@@ -868,7 +914,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.77
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1068,7 +1114,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.0279222, y: 2.0425797}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1001 &3312280752616664403
 PrefabInstance:
@@ -1080,7 +1126,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1288,7 +1334,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.9363705, y: 1.9975557}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1001 &4528146369098267724
 PrefabInstance:
