@@ -37,6 +37,7 @@ public class PlatformEnemy : MonoBehaviour
 	    if (detector.Collider.TryGetComponent(out HealthPlayerBase healthPlayer))
 	    {
 		    healthPlayer.TakeDamage(gameObject, true, damage);
+		    Destroy(gameObject, 0.1f);
 	    }
     }
 }
