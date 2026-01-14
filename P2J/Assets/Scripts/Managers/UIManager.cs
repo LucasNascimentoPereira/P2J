@@ -41,6 +41,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject abilityImagesContainer;
     private List<Image> heartImages = new();
 
+    private Dictionary<string, Image> abilityImages = new();
     private Coroutine _abilityImageCoroutine;
 
     [SerializeField] private GameObject mapUnlock;
@@ -97,6 +98,10 @@ public class UIManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+        foreach (var image in abilityImagesContainer.GetComponentsInChildren<Image>(true))
+        {
+            abilityImages.Add(image.gameObject.name, image);
         }
         heartImages = heartsContainer.GetComponentsInChildren<Image>(true).ToList();
         foreach (var image in heartImages)
@@ -247,6 +252,28 @@ public class UIManager : MonoBehaviour
         StopCoroutine(DisappearText());
     }
 
+    public IEnumerator AppearImage(string image)
+    {
+        if (!abilityImages.TryGetValue(image, out var result)) StopCoroutine(AppearImage(image));
+        result.enabled = true;
+        while (result.color.a < 1)
+        {
+            result.color = new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(result.color.a + uiManagerData.AppearImageInterval, 0.0f, 1.0f));
+            yield return new WaitForSeconds(uiManagerData.AppearImageTimeInterval);
+        }
+    }
+
+    private IEnumerator DisappearImage(string image)
+    {
+        if (!abilityImages.TryGetValue(image, out var result)) StopCoroutine(_abilityImageCoroutine);
+        while(result.color.a > 0)
+        {
+            result.color = new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(result.color.a - uiManagerData.DisappearImageInterval, 0.0f, 1.0f));
+            yield return new WaitForSeconds(uiManagerData.DisappearImageTimeInterval);
+        }
+        result.enabled = false;
+    }
+
     public void ChangeResolution(int index)
     {
         Screen.SetResolution(uiManagerData.Resx[index], uiManagerData.Resy[index], Screen.fullScreen);
@@ -309,7 +336,7 @@ public class UIManager : MonoBehaviour
 
     public void ActivateDisappearImage(string image)
     {
-        abilityImagesContainer.transform.Find(image).gameObject.SetActive(true);
+        _abilityImageCoroutine = StartCoroutine(DisappearImage(image));
     }
 
     public void CameraReference()
