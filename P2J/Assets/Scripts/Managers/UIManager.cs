@@ -53,6 +53,9 @@ public class UIManager : MonoBehaviour
     private MenusBaseState _menusBaseState = null;
     private string binding;
     private Coroutine _timerCoroutine;
+    private bool sceneIsPlayed;
+
+    public bool SceneIsPlayed {	get => sceneIsPlayed; set => sceneIsPlayed = value; }
 
     public enum menusState
     {

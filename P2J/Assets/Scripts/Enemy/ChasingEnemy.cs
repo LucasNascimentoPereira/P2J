@@ -230,6 +230,7 @@ public class ChasingEnemy : MonoBehaviour
 	{
 		isDefeated = true;
 		_dir = Vector2.zero;
+		//rb.
 	}
 
 }
