@@ -333,7 +333,7 @@ public class UIManager : MonoBehaviour
         _menusBaseState.UpdateState();
     }
 
-    public void UnlockMap(int index)
+    public void UnlockMapLoad(int index)
     {
 	    Debug.Log("MapUnlock" + index);
 	for (int i = 0; i < mapUnlock.transform.childCount; ++i)
@@ -344,6 +344,11 @@ public class UIManager : MonoBehaviour
 			mapUnlock.transform.GetChild(i).gameObject.SetActive(false);
 		}
 	}
+    }
+
+    public void UnlockMap(int index)
+    {
+	    mapUnlock.transform.GetChild(index).gameObject.SetActive(false);
     }
     private IEnumerator IdleTime(float time)
     {
