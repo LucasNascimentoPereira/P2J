@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject abilityImagesContainer;
     [SerializeField] private GameObject abilityButtonsContainer;
     [SerializeField] private bool isSkipCutscene = true;
+    [SerializeField] private AudioSource audioManagerSource;
 
     public bool IsSkipCutscene { get => isSkipCutscene; set => isSkipCutscene = value; }
 
@@ -150,6 +151,7 @@ public class UIManager : MonoBehaviour
                 _menusBaseState = new PauseMenu();
                 break;
             case menusState.HUD:
+		audioManagerSource.mute = false;
                 _menusBaseState = new MainLevel();
                 break;
             case menusState.OPTIONSPAUSE:
@@ -180,6 +182,7 @@ public class UIManager : MonoBehaviour
                 _menusBaseState = new MapMenu();
                 break;
 	    case menusState.LEVELTMENU:
+		audioManagerSource.mute = true;
 		_menusBaseState = new LevelTMenu();
 		break;
             default: Debug.LogError("No menu by that ID"); 
