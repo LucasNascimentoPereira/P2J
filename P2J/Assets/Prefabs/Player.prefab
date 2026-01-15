@@ -62,7 +62,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -197,6 +197,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   dashUnlocked: 1
+  dbJumpUnlocked: 0
   meleeDamage: 1
   meleeKnockback: 10
   meleeRange: 2
@@ -225,18 +226,34 @@ MonoBehaviour:
   onDamage:
     m_PersistentCalls:
       m_Calls: []
-  onPlaySound:
+  onPlaySoundDamage:
     m_PersistentCalls:
       m_Calls: []
-  onParticle:
+  onPlaySoundDamageRange:
     m_PersistentCalls:
       m_Calls: []
-  audioSource: {fileID: 0}
-  audioClips: []
-  particleSystemList: []
+  onPlaySoundDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlaySoundDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDamageRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
   rb: {fileID: 1958665707910333385}
   playerData: {fileID: 11400000, guid: a15bb403db4bc0de794776bc1399a5bb, type: 2}
   spriteRenderer: {fileID: 7811901552952099803}
+  animator: {fileID: 0}
 --- !u!95 &4214824091728793426
 Animator:
   serializedVersion: 7
