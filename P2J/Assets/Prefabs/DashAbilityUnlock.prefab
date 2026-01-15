@@ -220,6 +220,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3050235179078063758, guid: fd02760e9ac5bbb4485f9faf40bd6da7, type: 3}
     - target: {fileID: 4416560283975769945, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416560283975769945, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -250,6 +254,10 @@ PrefabInstance:
     - target: {fileID: 8373491326728114974, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
       propertyPath: m_Name
       value: DashAbilityUnlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978744560973336689, guid: 85ecbc028e36ca54c9ca314b402054db, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
