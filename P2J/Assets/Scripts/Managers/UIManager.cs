@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class UIManager : MonoBehaviour
 {
@@ -39,6 +40,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text coins;
     [SerializeField] private GameObject heartsContainer;
     [SerializeField] private GameObject abilityImagesContainer;
+    [SerializeField] private GameObject abilityButtonsContainer;
+    private bool isSkipCutscene = true;
+
+    public bool IsSkipCutscene { get => isSkipCutscene; set => isSkipCutscene = value; }
+
     private List<Image> heartImages = new();
 
     private Coroutine _abilityImageCoroutine;
@@ -55,6 +61,8 @@ public class UIManager : MonoBehaviour
     private bool sceneIsPlayed;
 
     public bool SceneIsPlayed {	get => sceneIsPlayed; set => sceneIsPlayed = value; }
+
+    [SerializeField] private VideoPlayer videoPlayer;
 
     public enum menusState
     {
@@ -310,11 +318,13 @@ public class UIManager : MonoBehaviour
     public void ActivateDisappearImage(string image)
     {
         abilityImagesContainer.transform.Find(image).gameObject.SetActive(true);
+	//abilityButtonsContainer.transform.Find(image).gameObject.SetActive(true);
     }
 
     public void CameraReference()
     {
         _currentCanvas.worldCamera = Camera.main;
+	videoPlayer.targetCamera = Camera.main;
     }
 
     public void KeyBinding(string inputAction)

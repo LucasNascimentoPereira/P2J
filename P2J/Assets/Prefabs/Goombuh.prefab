@@ -480,6 +480,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8951295823776641744}
   _collider2D: {fileID: 0}
   enemy: {fileID: 8526236210163000982}
+  goombuh: {fileID: 8171546351048011011}
 --- !u!95 &4733723338263849041
 Animator:
   serializedVersion: 7

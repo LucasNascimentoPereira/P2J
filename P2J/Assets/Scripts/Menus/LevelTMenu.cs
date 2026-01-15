@@ -8,7 +8,17 @@ public class LevelTMenu : MenusBaseState
     public override void BeginState(UIManager uiManager)
     {
 	    base.BeginState(uiManager);
-	    uiManager.BeginIdleTime(idleTime);
+	    if (uiManager.IsSkipCutscene)
+	    {
+		    uiManager.BeginIdleTime(idleTime);
+		    uiManager.CurrentMenu.transform.GetChild(0).gameObject.SetActive(true);
+	    }
+	    else
+	    {
+		    uiManager.BeginIdleTime(idleTimeCutscene);
+		    uiManager.CurrentMenu.transform.GetChild(0).gameObject.SetActive(true);
+		    uiManager.CurrentMenu.transform.GetChild(1).gameObject.SetActive(true);
+	    }
     }
     public override void UpdateState()
     {
