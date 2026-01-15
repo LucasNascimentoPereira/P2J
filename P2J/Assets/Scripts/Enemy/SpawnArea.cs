@@ -29,7 +29,8 @@ public class SpawnArea : MonoBehaviour
         foreach (var item in spawn) 
         {
             GameObject enemy = Instantiate(spawnManager.EnemyPrefabs[(int)Enum.Parse<EnemySpawnManager.enemyTypes>(item.tag)], item.transform.position, item.transform.rotation);
-	    enemy.GetComponent<EnemyHealth>().MySpawnArea = this;
+	    Debug.Log("eeeeeeee");
+	    enemy.GetComponentInChildren<EnemyHealth>().MySpawnArea = this;
             enemies.Add(enemy);
         }
     }
@@ -53,9 +54,10 @@ public class SpawnArea : MonoBehaviour
     }
     private void EnteredLockableRoom()
     {
+	if (lockableRoom == null) return;
 	lockableRoom.LockRoom();
-	int loopCount = (int)(spawn.Count / lockableRoom.EnemyAmnt);
-	for (int i = 0; i == loopCount; ++i)
+	int loopCount = (int)(lockableRoom.EnemyAmnt / spawn.Count);
+	for (int i = 0; i < loopCount; ++i)
 	{
 		SpawnEnemies();
 	}
@@ -64,7 +66,7 @@ public class SpawnArea : MonoBehaviour
     {
 	if(!enemies.Contains(enemyToRemove)) return;
 	enemies.Remove(enemyToRemove);
-	if(enemies.Count == 0)
+	if(enemies.Count == 0 && lockableRoom != null)
 	{
 		lockableRoom.UnlockRoom();
 	}

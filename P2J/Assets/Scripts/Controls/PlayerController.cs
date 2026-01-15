@@ -26,14 +26,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundSpeed = 3.34f;
     [SerializeField] private float jumpForce = 20f;
     [SerializeField] private Vector2 jumpForceWall = new Vector2(10f, 4f);
-    [SerializeField] private Vector2 doublejumpForce = new Vector2(5f, 2f);
+    [SerializeField] private Vector2 doublejumpForce = new Vector2(5f, 20f);
     [SerializeField] private float defaultGravity = 5f;
     [SerializeField] private float maxFallingSpeed = 50f;
     /*[SerializeField]*/ private float accelerationFactorGround = 0.15f;
     /*[SerializeField]*/ private float deccelerationFactorGround = 0.5f;
     /*[SerializeField]*/ private float accelerationFactorAir = 0.08f;
     /*[SerializeField]*/ private float deccelerationFactorAir = 0.15f;
-    /*[SerializeField]*/ private float maxJumpDuration = 0.3f;
+    /*[SerializeField]*/ private float maxJumpDuration = 0.5f;
     /*[SerializeField]*/ private float gravityResistanceOnJump = 10f;
     /*[SerializeField]*/ private float postJumpDecceleration = 5f;
     [SerializeField] private float coyoteTime = 0.1f;
@@ -224,6 +224,10 @@ public class PlayerController : MonoBehaviour
         {
             Interact();
         }
+	if (mapAction.WasPressedThisFrame())
+	{
+		UIManager.Instance.ShowPanelEnum(UIManager.menusState.MAPMENU);
+	}
         if (meleeAction.WasPressedThisFrame() && Time.time > attackTime + meleeCooldown)
         {
             if (meleeReleased)
@@ -231,9 +235,11 @@ public class PlayerController : MonoBehaviour
                 attackWithMelee(playerDirectionIsRight, moveValue);
                 if (moveValue.y > 0.1f)
                 {
+			_animatorController.SetTrigger(animatorAttackUp);
                 }
                 else if (moveValue.y < -0.1f)
                 {
+			_animatorController.SetTrigger(animatorAttackDow);
                 }
                 else if (moveValue.x > 0.1f)
                 {
@@ -259,6 +265,7 @@ public class PlayerController : MonoBehaviour
         }
         if (doubleJumpAction.WasPressedThisFrame())
         {
+	    if (!dbJumpUnlocked) return;
             tryToDoubleJump();
         }
         _animatorController.SetFloat(animatorVertical, rb.linearVelocityY);
@@ -291,7 +298,7 @@ public class PlayerController : MonoBehaviour
         }
         if (rb.linearVelocity.y > 0)
         {
-            if ((jumpReleased /*&& Time.fixedTime - jumpTime <= maxJumpDuration*/)
+            if ((jumpReleased && jump_type == JUMP_BASIC/*&& Time.fixedTime - jumpTime <= maxJumpDuration*/)
                 /*|| Time.fixedTime - jumpTime > maxJumpDuration*/)
             {
                 rb.gravityScale = defaultGravity * postJumpDecceleration;
