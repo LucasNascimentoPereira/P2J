@@ -1892,7 +1892,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -696, y: 435}
+  m_AnchoredPosition: {x: -666, y: 401}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &140006727
@@ -4948,7 +4948,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -733, y: 265}
+  m_AnchoredPosition: {x: -703, y: 231}
   m_SizeDelta: {x: 135.96, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &358812785
@@ -15774,7 +15774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1094229504
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17852,7 +17852,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -861.578, y: 255.578}
+  m_AnchoredPosition: {x: -831.578, y: 221.578}
   m_SizeDelta: {x: 39.004, y: 39.004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1187818358
@@ -18485,7 +18485,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -851, y: 418}
+  m_AnchoredPosition: {x: -821, y: 384}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1216292152
@@ -18508,7 +18508,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3473642588318394744, guid: aeed890c13639d54582c1d6f845fc81d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a70c521e83e7ffa4e83f2f053da6fbde, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -31404,6 +31404,7 @@ MonoBehaviour:
   heartsContainer: {fileID: 129214638}
   abilityImagesContainer: {fileID: 1499074230}
   abilityButtonsContainer: {fileID: 425880013}
+  isSkipCutscene: 0
   mapUnlock: {fileID: 1429944111}
   onPlaySound:
     m_PersistentCalls:

@@ -26,4 +26,4 @@ MonoBehaviour:
   shootTime: 1
   coin: {fileID: 2008556313403672318, guid: ea79af9f1e98f2b4abc0e020e01eafba, type: 3}
   coinKnockback: 1
-  coinNumber: 1
+  coinNumber: 3

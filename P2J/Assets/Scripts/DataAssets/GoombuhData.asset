@@ -19,4 +19,4 @@ MonoBehaviour:
   isGoombuhKnockback: 1
   coin: {fileID: 2008556313403672318, guid: ea79af9f1e98f2b4abc0e020e01eafba, type: 3}
   coinKnockback: 5
-  coinNumber: 10
+  coinNumber: 2
