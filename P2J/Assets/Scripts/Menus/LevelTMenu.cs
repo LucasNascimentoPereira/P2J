@@ -4,7 +4,7 @@ using System.Collections;
 public class LevelTMenu : MenusBaseState
 {
 	private float idleTime = 5.0f;
-	private float idleTimeCutscene = 87.0f;	
+	private float idleTimeCutscene = 94.0f;	
     public override void BeginState(UIManager uiManager)
     {
 	    base.BeginState(uiManager);
