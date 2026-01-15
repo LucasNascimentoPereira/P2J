@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dea67a33e420ea4fb9c09cc5aeaa693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 1
   minHealth: 0
   onDefeat:
     m_PersistentCalls:
@@ -370,7 +370,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 6185693914898664944, guid: c7609173d5585de43a3829dc589f433a, type: 3}
-  m_Color: {r: 0.98490566, g: 0.5705019, b: 0.5705019, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
