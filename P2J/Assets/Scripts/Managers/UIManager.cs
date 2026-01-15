@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject heartsContainer;
     [SerializeField] private GameObject abilityImagesContainer;
     [SerializeField] private GameObject abilityButtonsContainer;
-    private bool isSkipCutscene = true;
+    [SerializeField] private bool isSkipCutscene = true;
 
     public bool IsSkipCutscene { get => isSkipCutscene; set => isSkipCutscene = value; }
 
