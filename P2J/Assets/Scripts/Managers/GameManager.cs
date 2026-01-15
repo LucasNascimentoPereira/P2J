@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
         if (!interactable) return;
 	if (!playerController.IsResting)
 	{
-		healthPlayer.TakeDamage(gameObject, false, healthPlayer.MaxHealth);
+		healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
         	SaveManager.Save();
 	}
 	playerController.RestingArea();

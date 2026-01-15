@@ -646,22 +646,22 @@ public class PlayerController : MonoBehaviour
 
     public void RestingArea()
     {
-	isResting = !isResting;
-	if (isResting)
-	{
-		moveAction.Disable();
-		lookAction.Disable();
-		jumpAction.Disable();
-		dashAction.Disable();
-		meleeAction.Disable();
-	}
-	else
-	{
-		moveAction.Enable();
-		lookAction.Enable();
-		jumpAction.Enable();
-		dashAction.Enable();
-		meleeAction.Enable();
-	}
+	//isResting = !isResting;
+	//if (isResting)
+	//{
+		//moveAction.Disable();
+		//lookAction.Disable();
+		//jumpAction.Disable();
+		//dashAction.Disable();
+		//meleeAction.Disable();
+	//}
+	//else
+	//{
+		//moveAction.Enable();
+		//lookAction.Enable();
+		//jumpAction.Enable();
+		//dashAction.Enable();
+		//meleeAction.Enable();
+	//}
     }
 }

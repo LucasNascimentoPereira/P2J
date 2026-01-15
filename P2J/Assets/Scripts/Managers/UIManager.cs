@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject heartsContainer;
     [SerializeField] private GameObject abilityImagesContainer;
     [SerializeField] private GameObject abilityButtonsContainer;
-    private bool isSkipCutscene = true;
+    [SerializeField] private bool isSkipCutscene = true;
 
     public bool IsSkipCutscene { get => isSkipCutscene; set => isSkipCutscene = value; }
 
@@ -333,7 +333,7 @@ public class UIManager : MonoBehaviour
         _menusBaseState.UpdateState();
     }
 
-    public void UnlockMap(int index)
+    public void UnlockMapLoad(int index)
     {
 	    Debug.Log("MapUnlock" + index);
 	for (int i = 0; i < mapUnlock.transform.childCount; ++i)
@@ -344,6 +344,11 @@ public class UIManager : MonoBehaviour
 			mapUnlock.transform.GetChild(i).gameObject.SetActive(false);
 		}
 	}
+    }
+
+    public void UnlockMap(int index)
+    {
+	    mapUnlock.transform.GetChild(index).gameObject.SetActive(false);
     }
     private IEnumerator IdleTime(float time)
     {
