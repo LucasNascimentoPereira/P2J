@@ -40,7 +40,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text coins;
     [SerializeField] private GameObject heartsContainer;
     [SerializeField] private GameObject abilityImagesContainer;
-    private bool isSkipCutscene = false;
+    [SerializeField] private GameObject abilityButtonsContainer;
+    private bool isSkipCutscene = true;
 
     public bool IsSkipCutscene { get => isSkipCutscene; set => isSkipCutscene = value; }
 
@@ -317,6 +318,7 @@ public class UIManager : MonoBehaviour
     public void ActivateDisappearImage(string image)
     {
         abilityImagesContainer.transform.Find(image).gameObject.SetActive(true);
+	//abilityButtonsContainer.transform.Find(image).gameObject.SetActive(true);
     }
 
     public void CameraReference()

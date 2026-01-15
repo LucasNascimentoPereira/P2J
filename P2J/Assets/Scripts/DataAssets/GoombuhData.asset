@@ -15,7 +15,7 @@ MonoBehaviour:
   goombuhSpeed: 1
   goombuhDamage: 1
   goombuhKnockback: 500
-  knockbackTime: 0.2
+  knockbackTime: 1
   isGoombuhKnockback: 1
   coin: {fileID: 2008556313403672318, guid: ea79af9f1e98f2b4abc0e020e01eafba, type: 3}
   coinKnockback: 5

@@ -42,6 +42,7 @@ public class Goombuh : MonoBehaviour
 	if(isDefeated) return;
         if (knockBack) return;
         rb.linearVelocity = new Vector2(dir.x * goombuhData.GoombuhSpeed, rb.linearVelocityY);
+	//rb.AddForce(new Vector2(dir.x * 100.0f, 0.0f));
         animatorGoombuh.SetBool(animatorHorizontal, rb.linearVelocityX > 0);
         
     }
@@ -74,6 +75,8 @@ public class Goombuh : MonoBehaviour
 
     public void KnockBack()
     {
+    	rb.linearVelocity = Vector2.zero;	    
+	knockBack = true;
         if (coroutine == null)
         {
             coroutine = StartCoroutine(KnockBackTime());

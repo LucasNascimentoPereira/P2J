@@ -8,6 +8,7 @@ public class EnemyHealth : HealthBase
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Collider2D _collider2D;
     [SerializeField] private GameObject enemy;
+    [SerializeField] private Goombuh goombuh;
     private SpawnArea _mySpawnArea;
     public SpawnArea MySpawnArea { get => _mySpawnArea; set => _mySpawnArea = value; }
 
@@ -43,6 +44,12 @@ public class EnemyHealth : HealthBase
     {
         if (damageDealer == null) return false;
         CalculateHealth(damage);
+	Debug.Log(dir);
+	if (goombuh != null)
+	{
+        Debug.Log("knockbackkkkk");
+		goombuh.KnockBack();
+	}
         rb.AddForce(dir.normalized * force, ForceMode2D.Impulse);
         onPlaySoundDamageRange.Invoke();
         //onParticle.Invoke();
@@ -53,10 +60,8 @@ public class EnemyHealth : HealthBase
     {
         onPlaySoundDefeatRange.Invoke();
         onDefeat.Invoke();
-	Debug.Log("eeeeeee");
 	if (_mySpawnArea != null)
 	{
-		Debug.Log("eeeeeeeeeeee");
 		_mySpawnArea.RemoveEnemy(transform.parent.gameObject);
 	}
 	Destroy(enemy, 1.0f);

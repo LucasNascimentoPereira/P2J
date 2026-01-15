@@ -170,6 +170,7 @@ public class GameManager : MonoBehaviour
             if (_coins >= price.UpgradeValue)
             {
                 _coins -= price.UpgradeValue;
+		_onCoins.Invoke();
                 if (!playerController) return;
                 playerController.AbilityUnlock(upgrade);
             }
