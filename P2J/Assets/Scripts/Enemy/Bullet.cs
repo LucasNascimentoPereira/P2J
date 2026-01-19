@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     private float knockBack;
 
 
+
     public void Shoot(Vector2 bulletDir, float bulletSpeed, float bulletDamage, float bulletKnockBack)
     {
         dir = bulletDir;
@@ -21,7 +22,6 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.tag);
         switch (collision.gameObject.tag)
         {
             case "Player":
@@ -29,15 +29,10 @@ public class Bullet : MonoBehaviour
                 healthPlayerBase.TakeDamage(gameObject, true, damage, knockBack);
                 Destroy(gameObject);
                 break;
-            case "Untagged":
-                Debug.Log("Untagged");
+            default:
                 Destroy(gameObject);
-                break;
-            case "Ground":
-                Destroy(gameObject);
-                break;
-            default :
                 break;
         }
+        Destroy(gameObject);
     }
 }
