@@ -442,40 +442,40 @@ MonoBehaviour:
         m_CallState: 2
   onPlaySoundDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8731498241782865781}
+        m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onPlaySoundDamageRange:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8731498241782865781}
-        m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
-        m_MethodName: PlaySoundRange
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 01
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onPlaySoundDefeat:
     m_PersistentCalls:
-      m_Calls: []
-  onPlaySoundDefeatRange:
-    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8731498241782865781}
         m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
-        m_MethodName: PlaySoundRange
-        m_Mode: 5
+        m_MethodName: PlaySound
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: 24
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onPlaySoundDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
   onParticleDamage:
     m_PersistentCalls:
       m_Calls: []

@@ -31580,7 +31580,7 @@ MonoBehaviour:
   heartsContainer: {fileID: 129214638}
   abilityImagesContainer: {fileID: 1499074230}
   abilityButtonsContainer: {fileID: 425880013}
-  isSkipCutscene: 0
+  isSkipCutscene: 1
   audioManagerSource: {fileID: 1017587351}
   mapUnlock: {fileID: 1429944111}
   onPlaySound:

@@ -51,14 +51,16 @@ public class EnemyHealth : HealthBase
 		goombuh.KnockBack();
 	}
         rb.AddForce(dir.normalized * force, ForceMode2D.Impulse);
-        onPlaySoundDamageRange.Invoke();
+	onPlaySoundDamage.Invoke();
+        //onPlaySoundDamageRange.Invoke();
         //onParticle.Invoke();
         return true;
     }
 
     protected override void Death()
     {
-        onPlaySoundDefeatRange.Invoke();
+	onPlaySoundDefeat.Invoke();
+       //onPlaySoundDefeatRange.Invoke();
         onDefeat.Invoke();
 	if (_mySpawnArea != null)
 	{

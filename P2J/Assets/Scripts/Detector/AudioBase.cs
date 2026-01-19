@@ -18,6 +18,7 @@ public class AudioBase : MonoBehaviour
     {
         if (index >= audioClips.Count || index < 0) return;
         audioSource.PlayOneShot(audioClips[index]);
+	Debug.Log("playing audio mothafucka");
     }
 
     public void PlaySoundRange(string range)
