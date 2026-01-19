@@ -11,15 +11,13 @@ public class HealthPlayerBase : HealthBase
     [SerializeField] private SpriteRenderer spriteRenderer;
     private bool isInvencible;
     [SerializeField] private Animator animator;
-    private UnityEvent _onChangeHealth = new();
-    private UnityEvent _onChangeStatus = new();
 
     protected override void Awake()
     {
         base.Awake();
         GameManager.Instance.HealthPlayer = this;
-        _onChangeHealth.AddListener(UIManager.Instance.ChangeHealth);
-        _onChangeStatus.AddListener(GameManager.Instance.LevelReset);
+        onDamage.AddListener(UIManager.Instance.ChangeHealth);
+        onDefeat.AddListener(GameManager.Instance.LevelReset);
     }
 
     public void LevelReset()
@@ -27,37 +25,19 @@ public class HealthPlayerBase : HealthBase
         currentHealth = maxHealth;
     }
 
-    public override bool TakeDamage(GameObject damageDealer, bool isDamage, float damage)
+    public override void TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force)
     {
-        if (isInvencible) return false;
-        if (damageDealer == null) return false;
-        CalculateHealth(damage);
-        _onChangeHealth.Invoke();
-        StartCoroutine(Invencibility());
-        onPlaySoundDamage.Invoke();
-        //onParticle.Invoke();
-        return true;
-    }
-
-    public override bool TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force)
-    {
-        if (isInvencible) return false;
-        if (damageDealer == null) return false;
-        CalculateHealth(damage);
+        if (isInvencible) return;
+        base.TakeDamage(damageDealer, isDamage, damage);
         rb.AddForce(-rb.transform.right * force, ForceMode2D.Force);
-        _onChangeHealth.Invoke();
         StartCoroutine(Invencibility());
-        onPlaySoundDamage.Invoke();
-        //onParticle.Invoke();
-        return true;
     }
 
     protected override void Death()
     {
         Debug.Log(gameObject);
         rb.linearVelocity = Vector2.zero;
-	animator.SetTrigger("PlayerDefeated");
-        onPlaySoundDefeatRange.Invoke();
+	    animator.SetTrigger("PlayerDefeated");
         GameManager.Instance.Invoke("LevelReset", 1.2f);
     }
     

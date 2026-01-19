@@ -8,18 +8,10 @@ public class HealthBase : MonoBehaviour
     [SerializeField] protected float minHealth = 0;
     
     protected float currentHealth;
-    private bool _isDefeated = false;
+    protected bool _isDefeated = false;
 
-    [SerializeField] protected UnityEvent onDefeat;
-    [SerializeField] protected UnityEvent onDamage;
-    [SerializeField] protected UnityEvent onPlaySoundDamage = new();
-    [SerializeField] protected UnityEvent onPlaySoundDamageRange = new();
-    [SerializeField] protected UnityEvent onPlaySoundDefeat = new();
-    [SerializeField] protected UnityEvent onPlaySoundDefeatRange = new();
-    [SerializeField] protected UnityEvent onParticleDamage = new();
-    [SerializeField] protected UnityEvent onParticleDamageRange = new();
-    [SerializeField] protected UnityEvent onParticleDefeat = new();
-    [SerializeField] protected UnityEvent onParticleDefeatRange = new();
+    [SerializeField] protected UnityEvent onDefeat = new();
+    [SerializeField] protected UnityEvent onDamage = new();
 
     public float MaxHealth => maxHealth;
     public float CurrentHealth => currentHealth;
@@ -35,22 +27,29 @@ public class HealthBase : MonoBehaviour
         if (_isDefeated) return;
         currentHealth = CurrentHealth - delta;
         currentHealth = Mathf.Clamp(CurrentHealth, minHealth, MaxHealth);
-        onDamage.Invoke();
-        if (CurrentHealth <= minHealth) Death();
+        if (CurrentHealth <= minHealth) 
+        {
+            Death();
+        }
+        else 
+        { 
+            onDamage.Invoke(); 
+        }
     }
     
-    public virtual bool TakeDamage(GameObject damageObject, bool isDamage, float damage)
+    public virtual void TakeDamage(GameObject damageDealer, bool isDamage, float damage)
     {
-        return false;
+        if (damageDealer == null || _isDefeated) return;
+        CalculateHealth(damage);
     }
 
-    public virtual bool TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force)
+    public virtual void TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force)
     {
-        return false;
+        TakeDamage(damageDealer, isDamage, damage);
     }
-    public virtual bool TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force, Vector2 dir)
+    public virtual void TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force, Vector2 dir)
     {
-        return false;
+        TakeDamage(damageDealer, isDamage, damage);
     }
 
     protected virtual void Death()

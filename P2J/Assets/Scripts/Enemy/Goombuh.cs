@@ -107,8 +107,8 @@ public class Goombuh : MonoBehaviour
 
     public void Deafeated()
     {
-	isDefeated = true;
-	dir = Vector2.zero;
+	    isDefeated = true;
+	    dir = Vector2.zero;
     }
 
 

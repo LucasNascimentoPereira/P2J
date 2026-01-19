@@ -425,74 +425,37 @@ MonoBehaviour:
           m_StringArgument: GoombuhDefeat
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8731498241782865781}
+        m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
+        m_MethodName: PlaySoundRange
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 2-5
+          m_BoolArgument: 0
+        m_CallState: 2
   onDamage:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8171546351048011011}
-        m_TargetAssemblyTypeName: Goombuh, Assembly-CSharp
-        m_MethodName: KnockBack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onPlaySoundDamage:
-    m_PersistentCalls:
-      m_Calls:
       - m_Target: {fileID: 8731498241782865781}
         m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 3
+        m_MethodName: PlaySoundRange
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 0-1
           m_BoolArgument: 0
         m_CallState: 2
-  onPlaySoundDamageRange:
-    m_PersistentCalls:
-      m_Calls: []
-  onPlaySoundDefeat:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8731498241782865781}
-        m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onPlaySoundDefeatRange:
-    m_PersistentCalls:
-      m_Calls: []
-  onParticleDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  onParticleDamageRange:
-    m_PersistentCalls:
-      m_Calls: []
-  onParticleDefeat:
-    m_PersistentCalls:
-      m_Calls: []
-  onParticleDefeatRange:
-    m_PersistentCalls:
-      m_Calls: []
   rb: {fileID: 6353725496803889946}
   spriteRenderer: {fileID: 8951295823776641744}
   _collider2D: {fileID: 0}
   enemy: {fileID: 8526236210163000982}
-  goombuh: {fileID: 8171546351048011011}
 --- !u!95 &4733723338263849041
 Animator:
   serializedVersion: 7
@@ -537,9 +500,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 10
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -599,7 +562,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
