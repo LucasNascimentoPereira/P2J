@@ -22,11 +22,13 @@ public class AudioBase : MonoBehaviour
     public void PlaySoundRange(string range)
     {
         string[] rangeParts = range.Split('-');
+
         int rangeStart = int.Parse(rangeParts[0]);
         int rangeEnd = int.Parse(rangeParts[1]);
-        Debug.Log(rangeStart + "..." + rangeEnd);
+
         if (rangeStart >= audioClips.Count || rangeStart < 0) return;
         if (rangeEnd >= audioClips.Count || rangeEnd < rangeStart) return;
+
         audioSource.PlayOneShot(audioClips[Random.Range(rangeStart, rangeEnd)]);
     }
 }

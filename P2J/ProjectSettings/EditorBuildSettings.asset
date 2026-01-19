@@ -29,10 +29,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/ThllesScene 4.unity
     guid: 4b79295a19ccd2848b0e22e62c28b179
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ThllesScene 5.unity
     guid: 40b3f350dab12ad4ca5bed7af0e2a3fc
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Saibam...Odeio_Todos.unity
     guid: f64aa2886530087448d26f60e16cc512
   m_configObjects:
