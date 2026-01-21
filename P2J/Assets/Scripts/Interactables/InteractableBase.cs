@@ -1,10 +1,17 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 
 public class InteractableBase : MonoBehaviour, IInteractable
 {
 
     [SerializeField] protected UnityEvent _onInteract = new();
+    
+
+    protected virtual void Start()
+    {
+    }
 
     protected virtual void OnEnable()
     {

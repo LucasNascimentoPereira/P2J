@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 4153491069124529490}
   - component: {fileID: 4405264531729823857}
   - component: {fileID: 7091083663324113431}
+  - component: {fileID: 3918369651832273692}
+  - component: {fileID: 542129094104436465}
+  - component: {fileID: 3418513097570939021}
   m_Layer: 6
   m_Name: ChaseEnemy
   m_TagString: Enemy
@@ -64,6 +67,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 337066540257417696}
   castRight: {fileID: 6005558154985557524}
   castRightLimit: {fileID: 350158664946040850}
+  castLeft: {fileID: 1222887395185132791}
+  castLeftLimit: {fileID: 7343932174762718353}
   castGround: {fileID: 7004669847352273145}
   castGroundLimit: {fileID: 3335727554641809945}
   groundLayer:
@@ -86,6 +91,7 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 114119720631272616}
   - {fileID: 970843777064385976}
+  animatorChasing: {fileID: 3918369651832273692}
 --- !u!212 &337066540257417696
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -109,7 +115,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,8 +136,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6185693914898664944, guid: c7609173d5585de43a3829dc589f433a, type: 3}
-  m_Color: {r: 0.21509439, g: 0.095372036, b: 0.095372036, a: 1}
+  m_Sprite: {fileID: 7859942921525138464, guid: 5033924bb2aa1fc4e9f3b31b44c2ffc2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -175,7 +181,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292923232092486761}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: b34ccc52991b9de66abfaea07681bf37, type: 2}
@@ -202,17 +208,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.048060417, y: 0.031105578}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5, y: 5}
+    oldSize: {x: 1.25, y: 1.25}
     newSize: {x: 5, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 0.8678646, y: 1.2594241}
   m_EdgeRadius: 0
 --- !u!114 &4405264531729823857
 MonoBehaviour:
@@ -230,13 +236,134 @@ MonoBehaviour:
   minHealth: 0
   onDefeat:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2860949706682348978}
+        m_TargetAssemblyTypeName: ChasingEnemy, Assembly-CSharp
+        m_MethodName: SpawnCoins
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 401344026869862312}
+        m_TargetAssemblyTypeName: Detector, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 220890946787660880}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody2D, UnityEngine
+        m_MethodName: set_gravityScale
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ChasingEnemyDefeat
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 542129094104436465}
+        m_TargetAssemblyTypeName: UnityEngine.CapsuleCollider2D, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2860949706682348978}
+        m_TargetAssemblyTypeName: ChasingEnemy, Assembly-CSharp
+        m_MethodName: Defeated
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ChasingEnemyDefeat
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3918369651832273692}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ChasingEnemyDefeat
+          m_BoolArgument: 0
+        m_CallState: 2
   onDamage:
     m_PersistentCalls:
       m_Calls: []
-  audioSource: {fileID: 7091083663324113431}
+  onPlaySoundDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlaySoundDamageRange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3418513097570939021}
+        m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
+        m_MethodName: PlaySoundRange
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 01
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPlaySoundDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlaySoundDefeatRange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3418513097570939021}
+        m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
+        m_MethodName: PlaySoundRange
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 24
+          m_BoolArgument: 0
+        m_CallState: 2
+  onParticleDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDamageRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
   rb: {fileID: 220890946787660880}
   spriteRenderer: {fileID: 337066540257417696}
+  _collider2D: {fileID: 0}
+  enemy: {fileID: 8526236210163000982}
 --- !u!82 &7091083663324113431
 AudioSource:
   m_ObjectHideFlags: 0
@@ -334,6 +461,85 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &3918369651832273692
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292923232092486761}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6cef26a02caad794197da44d11767358, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!70 &542129094104436465
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292923232092486761}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.004658252, y: 0}
+  m_Size: {x: 0.79349095, y: 1.25}
+  m_Direction: 0
+--- !u!114 &3418513097570939021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292923232092486761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b839faab462d7468ba34c6404c1d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: 22813c9ca1dc6a1439f9a69c2ccd9fb3, type: 3}
+  - {fileID: 8300000, guid: ff828280fddc6ba4ab99e53d2e25bbaf, type: 3}
+  - {fileID: 8300000, guid: 3b56a43c7ed2d13439046aa6a993d088, type: 3}
+  - {fileID: 8300000, guid: b00ba3869574ce6468c424ab1ccea1fd, type: 3}
+  - {fileID: 8300000, guid: e153298ce90f8a04ea4c8693f66225b2, type: 3}
+  - {fileID: 8300000, guid: e153298ce90f8a04ea4c8693f66225b2, type: 3}
+  audioSource: {fileID: 7091083663324113431}
 --- !u!1 &464459169472913869
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +565,7 @@ Transform:
   m_GameObject: {fileID: 464459169472913869}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0.36, y: -0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -390,7 +596,7 @@ Transform:
   m_GameObject: {fileID: 956761443419211916}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: -1.28, y: -0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -421,7 +627,7 @@ Transform:
   m_GameObject: {fileID: 3386914895381263427}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalPosition: {x: 1.3, y: -0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -452,7 +658,7 @@ Transform:
   m_GameObject: {fileID: 5833772997277779338}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.6, z: 0}
+  m_LocalPosition: {x: 0, y: -0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -483,7 +689,7 @@ Transform:
   m_GameObject: {fileID: 6417730147330844963}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 0, z: 0}
+  m_LocalPosition: {x: -0.43, y: -0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -549,7 +755,7 @@ Transform:
   m_GameObject: {fileID: 9034544471933901399}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -565,7 +771,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_Radius
-      value: 40
+      value: 4.0661755
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.058119774
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.054763794
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -724,7 +938,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.77
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -914,7 +1128,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0073287487, y: -0.014657021}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -924,7 +1138,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 6, y: 6}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1001 &3312280752616664403
 PrefabInstance:
@@ -936,7 +1150,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1134,7 +1348,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.012465298, y: -0.006802559}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1144,7 +1358,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 6, y: 6}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1001 &4528146369098267724
 PrefabInstance:
@@ -1334,7 +1548,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.055072337, y: -0.050000012}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1344,7 +1558,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 6, y: 6}
+  m_Size: {x: 0.9814808, y: 1.2}
   m_EdgeRadius: 0
 --- !u!1001 &7789882460567463125
 PrefabInstance:
@@ -1356,7 +1570,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_Radius
-      value: 100
+      value: 9.975633
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0565176
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727346903272019883, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.008943558
       objectReference: {fileID: 0}
     - target: {fileID: 3198394128518638075, guid: dc00df2c36a3989429bf460e2136502c, type: 3}
       propertyPath: m_LocalPosition.x

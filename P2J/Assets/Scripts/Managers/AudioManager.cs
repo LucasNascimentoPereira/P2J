@@ -1,13 +1,34 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Accessibility;
 using UnityEngine.Audio;
+
+[RequireComponent(typeof(AudioSource))]
 
 public class AudioManager : MonoBehaviour
 {
       public static AudioManager Instance { get; private set; } = null;
     
     [SerializeField] private AudioMixer defaultAudioMixer = null;
-    private AudioSource _myAudioSource = null;
+    [SerializeField] private AudioSource _myAudioSource = null;
+
+    [Tooltip("Time it taes to fade in")]
+    [Range(0f, 10f)]
+    [SerializeField] private float fadeInTime = 1.0f;
+    [Tooltip("Time it takes to fade out")]
+    [Range(0f, 10f)]
+    [SerializeField] private float fadeOutTime = 1.0f;
+
+    private Coroutine _coroutine;
+
+    private int musicIndex;
+
+    [SerializeField] private List<AudioClip> musics;
+
+    public AudioSource MyAudioSource => _myAudioSource;
+    public AudioMixer DefaultAudioMixer => defaultAudioMixer;
+
 
     private void Awake()
     {
@@ -20,86 +41,61 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        _myAudioSource = GetComponent<AudioSource>();
     }
 
     public void ChangeMasterVolume(float volumeValue)
     {
-        defaultAudioMixer.SetFloat("MasterVolume", volumeValue);
+        defaultAudioMixer.SetFloat("MasterVolume", (volumeValue * 80) - 80);
     }
 
     public void ChangeSFXVolume(float volumeValue)
     {
-        defaultAudioMixer.SetFloat("SfxVolume", volumeValue);
+        defaultAudioMixer.SetFloat("SfxVolume", (volumeValue * 80) - 80);
     }
 
     public void ChangeMusicVolume(float volumeValue)
     {
-        defaultAudioMixer.SetFloat("MusicVolume", volumeValue);
+        defaultAudioMixer.SetFloat("MusicVolume", (volumeValue * 80) - 80);
     }
 
-    private IEnumerator FadeSound(AudioClip audioClip)
-    {
-        while (_myAudioSource.volume >= 0.1f)
+    public void PlayMusic(int music)
+    {  
+	Debug.Log("PlayMusic" + music);
+        musicIndex = music;
+        if(_coroutine != null)
         {
-            yield return new WaitForSeconds(0.1f);
-            _myAudioSource.volume -= 0.1f;
+            StopCoroutine(_coroutine);
         }
+        _coroutine = StartCoroutine(FadeOut());
+    }
+
+    private IEnumerator FadeOut()
+    {
+        float enlapedTime = 0.0f;
+        float volumeInter = fadeOutTime / (_myAudioSource.volume * 100);
+        while (enlapedTime < fadeOutTime)
+        {
+            _myAudioSource.volume -= volumeInter;
+	    enlapedTime += Time.deltaTime; 
+            yield return null;
+        }
+        _coroutine = null;
         _myAudioSource.Stop();
-        _myAudioSource.loop = true;
-        _myAudioSource.clip = audioClip;
+        _myAudioSource.resource = musics[musicIndex];
         _myAudioSource.Play();
-        while (_myAudioSource.volume <= 0.99f)
-        {
-            _myAudioSource.volume += 0.1f;
-        }
-        StopCoroutine(nameof(FadeSound));
+        _coroutine = StartCoroutine(FadeIn());
     }
-    
-    public void PlayAudioClip(AudioClip audioClip, bool loop)
-    {
-        if (loop)
-        {
-            StartCoroutine(FadeSound(audioClip));
-            /*myAudioSource.Stop();
-            myAudioSource.loop = true;
-            myAudioSource.clip = audioClip;
-            myAudioSource.Play();*/
-        }
-        else
-        {
-            PlayAudioClip(audioClip);
-        }
-    }
-    
 
-    public void PlayAudioClip(AudioClip audioClip)
+    private IEnumerator FadeIn() 
     {
-        _myAudioSource.PlayOneShot(audioClip);
-    }
-    
-
-    /*public void ChangeSong(string song)
-    {
-        switch(song)
+        float enlapedTime = 0.0f;
+        float volumeInter = fadeInTime / (_myAudioSource.volume * 100);
+        while (enlapedTime < fadeInTime)
         {
-            case "MenuSong": 
-                Debug.Log("menusong");
-                myAudioSource.Stop();
-                myAudioSource.PlayOneShot(_audioManagerData.mainMenuSong);
-                myAudioSource.loop = true;
-                break;
-            case "GameplaySong":
-                Debug.Log("gameplaysong");
-                myAudioSource.Stop();
-                myAudioSource.PlayOneShot(_audioManagerData.mainLevelSong);
-                myAudioSource.loop = true;
-                break;
-            default:
-                myAudioSource.PlayOneShot(_audioManagerData.mainMenuSong);
-                break;
+            _myAudioSource.volume += volumeInter;
+	    enlapedTime += Time.deltaTime;
+            yield return null;
         }
-            
-        
-    }*/
+        _coroutine = null;
+    }
 }

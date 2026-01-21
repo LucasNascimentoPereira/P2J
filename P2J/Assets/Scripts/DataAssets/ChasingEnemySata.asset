@@ -15,7 +15,10 @@ MonoBehaviour:
   chaseSpeed: 1
   lungeSpeed: 3
   lungeTime: 1.5
-  restTime: 4
+  restTime: 2
   damage: 1
-  knockBack: 1000
-  jump: 15
+  knockBack: 100
+  jump: 5
+  coin: {fileID: 2008556313403672318, guid: ea79af9f1e98f2b4abc0e020e01eafba, type: 3}
+  coinKnockback: 5
+  coinNumber: 3

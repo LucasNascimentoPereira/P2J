@@ -62,7 +62,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,7 +155,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0024433136, y: -0.037255287}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -165,7 +165,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.3440132, y: 1.116148}
+  m_Size: {x: 0.3, y: 1.1}
   m_EdgeRadius: 0
 --- !u!114 &5756513725193969349
 MonoBehaviour:
@@ -181,6 +181,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundSpeed: 3.34
   jumpForce: 7
+  jumpForceWall: {x: 10, y: 4}
+  doublejumpForce: {x: 5, y: 2}
   defaultGravity: 1.67
   maxFallingSpeed: 16.67
   coyoteTime: 0.1
@@ -195,12 +197,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   dashUnlocked: 1
+  dbJumpUnlocked: 0
   meleeDamage: 1
   meleeKnockback: 10
   meleeRange: 2
+  meleeCooldown: 0.3
   _animatorController: {fileID: 4214824091728793426}
   _audioSource: {fileID: 0}
   _audioClips: []
+  particleSystemList: []
 --- !u!114 &6362663196624350708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,17 +226,34 @@ MonoBehaviour:
   onDamage:
     m_PersistentCalls:
       m_Calls: []
-  onPlaySound:
+  onPlaySoundDamage:
     m_PersistentCalls:
       m_Calls: []
-  audioSource: {fileID: 0}
-  audioClips: []
+  onPlaySoundDamageRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlaySoundDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlaySoundDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDamageRange:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeat:
+    m_PersistentCalls:
+      m_Calls: []
+  onParticleDefeatRange:
+    m_PersistentCalls:
+      m_Calls: []
   rb: {fileID: 1958665707910333385}
   playerData: {fileID: 11400000, guid: a15bb403db4bc0de794776bc1399a5bb, type: 2}
   spriteRenderer: {fileID: 7811901552952099803}
-  _audioSource: {fileID: 891543431986884923}
-  _audioClips:
-  - {fileID: 8300000, guid: a1d4180bd7eadde43843108b680bfe1d, type: 3}
+  animator: {fileID: 0}
 --- !u!95 &4214824091728793426
 Animator:
   serializedVersion: 7
@@ -288,8 +310,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0000019073486, y: 0}
-  m_Size: {x: 0.2935524, y: 1.1875}
+  m_Offset: {x: -0.0022659302, y: 0.04082489}
+  m_Size: {x: 0.2935524, y: 0.92440414}
   m_Direction: 0
 --- !u!82 &891543431986884923
 AudioSource:

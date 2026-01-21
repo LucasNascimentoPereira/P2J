@@ -10,13 +10,16 @@ public class HealthBase : MonoBehaviour
     protected float currentHealth;
     private bool _isDefeated = false;
 
-    [SerializeField] private UnityEvent onDefeat;
-    [SerializeField] private UnityEvent onDamage;
-    [SerializeField] protected UnityEvent onPlaySound;
-
-    [SerializeField] protected AudioSource audioSource;
-    [SerializeField] protected List<AudioClip> audioClips;
-    protected int soundIndex;
+    [SerializeField] protected UnityEvent onDefeat;
+    [SerializeField] protected UnityEvent onDamage;
+    [SerializeField] protected UnityEvent onPlaySoundDamage = new();
+    [SerializeField] protected UnityEvent onPlaySoundDamageRange = new();
+    [SerializeField] protected UnityEvent onPlaySoundDefeat = new();
+    [SerializeField] protected UnityEvent onPlaySoundDefeatRange = new();
+    [SerializeField] protected UnityEvent onParticleDamage = new();
+    [SerializeField] protected UnityEvent onParticleDamageRange = new();
+    [SerializeField] protected UnityEvent onParticleDefeat = new();
+    [SerializeField] protected UnityEvent onParticleDefeatRange = new();
 
     public float MaxHealth => maxHealth;
     public float CurrentHealth => currentHealth;
@@ -25,7 +28,6 @@ public class HealthBase : MonoBehaviour
     protected virtual void Awake()
     {
         currentHealth = MaxHealth;
-        onPlaySound.AddListener(PlaySound);
     }
     
     protected void CalculateHealth(float delta)
@@ -46,17 +48,15 @@ public class HealthBase : MonoBehaviour
     {
         return false;
     }
-    
+    public virtual bool TakeDamage(GameObject damageDealer, bool isDamage, float damage, float force, Vector2 dir)
+    {
+        return false;
+    }
+
     protected virtual void Death()
     {
         _isDefeated = true;
-        UIManager.Instance.ShowPanel("LevelReset");
         onDefeat.Invoke();
-    }
-
-    protected virtual void PlaySound()
-    {
-        audioSource.PlayOneShot(audioClips[soundIndex]);
     }
 
 

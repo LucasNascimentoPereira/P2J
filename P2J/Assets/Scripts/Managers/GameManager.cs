@@ -1,11 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
  
 
@@ -15,8 +11,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameManagerData gameManagerData;
     [SerializeField] private AudioManagerData audioManagerData;
     [SerializeField] private UIManagerData uiManagerData;
-
-    InputAction pause;
 
     [Header("Events")]
     private UnityEvent _onCoins = new();
@@ -40,14 +34,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<UpgradeData> upgradeData;
 
     private GameObject currentSpawnPoint;
+    private Background background;
+    private string abilitiess;
 
     public static GameManager Instance { get; private set; }
     public bool IsPaused { get; private set; } = false;
     private int _currentLevel = 0;
-
-    private GameData _gameData;
-
-    public GameData GameData => _gameData;
     public int CurrentGameLevel { get => _currentGameLevel; set => _currentGameLevel = value; }
 
     public int Coins => _coins;
@@ -58,6 +50,7 @@ public class GameManager : MonoBehaviour
     public GameObject Interactable => interactable;
     public Dictionary<string, UpgradeData> Prices => prices;
     public List<UpgradeData> UpgradeData => upgradeData;
+    public Background Background { get => background; set => background = value; }
 
 
 
@@ -80,30 +73,16 @@ public class GameManager : MonoBehaviour
         //_gameData = SaveSystem.LoadGame();
         _onCoins?.AddListener(UIManager.Instance.ChangeCoins);
         _onLevelReset?.AddListener(UIManager.Instance.ChangeHealth);
-        pause = InputSystem.actions.FindAction("Pause");
         for (int i = 0; i < upgradeData.Count; ++i)
         {
             prices.Add(upgradeData[i].UpgradeName, upgradeData[i]);
         }
-    }
-
-    private void OnEnable()
-    {
-        //LoadLevel(1);
-    }
-
-    private void Update()
-    {
-        if (pause.WasPressedThisFrame())
-        {
-            PauseGame(!IsPaused);
-        }
+	AudioManager.Instance.PlayMusic(0);
     }
 
 
     public void LoadLevel(int levelIndex)
     {
-        Debug.Log("Level changed to level: " + levelIndex);
         _currentLevel = levelIndex;
         StartCoroutine(LoadNextLevelAsyc(levelIndex));
     }
@@ -117,7 +96,6 @@ public class GameManager : MonoBehaviour
     {
         IsPaused = paused;
         Time.timeScale = paused ? 0.0f : 1.0f;
-        UIManager.Instance.ShowPanel(IsPaused ? "PauseMenu" : "NoMenu");
     }
 
     private IEnumerator LoadNextLevelAsyc(int level)
@@ -126,42 +104,26 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1.0f;
         }
-        //UIManager.Instance.ShowPanel("LevelTransition");
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(level);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
-        //RaceConditionAvoider();
-        //yield return new WaitForSeconds(0.2f);
+        UIManager.Instance.CameraReference();
+	if(_currentLevel == 0)
+	{
+		AudioManager.Instance.PlayMusic(0);
+	}
+	else
+	{
+		AudioManager.Instance.PlayMusic(1);
+	}
     }
-   
+
     public void SaveGame()
     {
         
     }
-  
-   
-
-    public void StartGame()
-    {
-        Debug.Log("Game started");
-        
-    }
-
-    public void RaceConditionAvoider()
-    {
-        var raceAvoidanceList = FindObjectsByType<Component>(FindObjectsSortMode.None).OfType<IInitializable>().ToList();
-
-        if(raceAvoidanceList == null) return;
-
-        foreach (var item in raceAvoidanceList)
-         {
-                item.Init();
-         }
-
-    }
-
    
 
     public void LevelReset()
@@ -171,37 +133,46 @@ public class GameManager : MonoBehaviour
         healthPlayer.transform.position = currentSpawnPoint.transform.position;
         healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
         _onLevelReset.Invoke();
+        background.ResetPos();        
     }
 
     public void AddCoins()
     {
         _coins += 1;
         _onCoins.Invoke();
-        //UIManager.Instance.Coins.text = _coins.ToString();
-    }
-
-    public Vector3 GetPlayerPosition()
-    {
-        return Vector3.zero;
     }
 
     public void UnlockAbility()
     {
         if(!interactable) return;
-        UIManager.Instance.ShowPanel("Skilles");
-        StartCoroutine(UIManager.Instance.DisappearImage(interactable.name));
+        //UIManager.Instance.ShowPanel("Skilles");
+        UIManager.Instance.ShowPanelEnum(UIManager.menusState.SKILLES);
+        UIManager.Instance.ActivateDisappearImage(interactable.name);
         Destroy(interactable);
         interactable = null;
     }
 
+    public void RestingArea()
+    {
+        if (!interactable) return;
+	if (!playerController.IsResting)
+	{
+		healthPlayer.TakeDamage(gameObject, false, -healthPlayer.MaxHealth);
+        	SaveManager.Save();
+	}
+	playerController.RestingArea();
+    }
+
     public void PurchaseAbilityUpgrade(string upgrade)
     {
-        Debug.Log(upgrade);
         if(prices.TryGetValue(upgrade, out var price))
         {
-            if(_coins >= price.UpgradeValue)
+            if (_coins >= price.UpgradeValue)
             {
                 _coins -= price.UpgradeValue;
+		_onCoins.Invoke();
+                if (!playerController) return;
+                playerController.AbilityUnlock(upgrade);
             }
         }
     }
@@ -210,4 +181,40 @@ public class GameManager : MonoBehaviour
         interactable = envInteractable;
     }
 
+
+    public void Save(ref GameData gameData)
+    {
+        gameData.characterPos = PlayerController.gameObject.transform.position;
+        gameData.unlockedDash = PlayerController.DashUnlocked;
+	gameData.unlockedDbJump = PlayerController.DbJumpUnlocked;
+	gameData.unlockedMapReg = UIManager.Instance.MapImages;
+	gameData.abilities = abilitiess;
+    }
+
+    public void Load(GameData gameData)
+    {
+        PlayerController.gameObject.transform.position = gameData.characterPos;
+        PlayerController.DashUnlocked = gameData.unlockedDash;
+	PlayerController.DbJumpUnlocked = gameData.unlockedDbJump;
+	UIManager.Instance.UnlockMap(gameData.unlockedMapReg);
+	if (gameData.unlockedDash)
+	{
+		UIManager.Instance.ActivateDisappearImage("DashAbilityUnlock");
+	}
+	if (gameData.unlockedDbJump)
+	{
+		UIManager.Instance.ActivateDisappearImage("JumpAbilityUnlock");
+	}
+	abilitiess = gameData.abilities;
+    }
+}
+
+[System.Serializable]
+public struct GameData
+{
+    public Vector2 characterPos;
+    public bool unlockedDash;
+    public bool unlockedDbJump;
+    public int unlockedMapReg;
+    public string abilities;
 }

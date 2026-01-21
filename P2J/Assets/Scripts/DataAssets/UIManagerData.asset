@@ -25,6 +25,10 @@ MonoBehaviour:
   resx: 8007000000050000c0030000
   resy: 38040000d00200001c020000
   links:
+  - https://denboro.itch.io/
+  - https://github.com/neo-rabbit
+  - https://x.com/The_Winnower_
+  - https://tulapas.itch.io/
   - https://github.com/LucasPereiraWork
   notifications: []
   notificationType:
@@ -32,8 +36,8 @@ MonoBehaviour:
   - Help
   - Tutorial
   healthImages:
-  - {fileID: -2173314673843341260, guid: 9b2222be01b408a47bc0ac5890348160, type: 3}
-  - {fileID: 1070137927434639590, guid: 6390df0d2ec84ac4ead952d8ae79b773, type: 3}
+  - {fileID: 8331448675498189180, guid: 2522e8279f366494983c5eb828b43579, type: 3}
+  - {fileID: 8477082161487638066, guid: 8ce74506678554b4ca74e2e059cda67a, type: 3}
   notificationTime: 5
   notificationInterval: 0.02
   notificationAppearTime: 1

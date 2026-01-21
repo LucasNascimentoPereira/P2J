@@ -1,11 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DisappearingPlatform : MonoBehaviour
 {
 
     [SerializeField] private BoxCollider2D boxCollider2D;
+    [SerializeField] private BoxCollider2D groundCheck;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private UnityEvent onPlatform;
+    [SerializeField] private Animator _myAnimator;
+    private int animatorPlatformIdle = Animator.StringToHash("PlatformIdle");
 
     [Header("Timer values")]
     [Tooltip("This variable changes the amount the spriterenderer alpha value that increases over time")]
@@ -21,23 +27,26 @@ public class DisappearingPlatform : MonoBehaviour
     [Tooltip("Time it takes for the platform to begin appearing again")]
     [Range (0f, 10f)]
     [SerializeField] private float timeToAppear = 1f;
-    private bool isdisappearing = false;
+    private bool isIdle = true;
 
     public void DisappearPlatform()
     {
-        if (isdisappearing) return;
+        if (!isIdle) return;
         StartCoroutine(ChangeTransparency());
+        onPlatform.Invoke();
+	isIdle = false;
+	_myAnimator.SetBool(animatorPlatformIdle, isIdle);
     }
 
     private IEnumerator ChangeTransparency()
     {
-        isdisappearing = true;
         while (boxCollider2D.enabled)
         {
             spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, Mathf.Clamp(spriteRenderer.color.a - disappearInterval, 0.0f, 1.0f));
             if (spriteRenderer.color.a <= 0.0f)
             {
                 boxCollider2D.enabled = false;
+		groundCheck.enabled = false;
             }
             yield return new WaitForSeconds(disappearTimeInterval);
         }
@@ -48,9 +57,11 @@ public class DisappearingPlatform : MonoBehaviour
             if(spriteRenderer.color.a >= 1.0f)
             {
                 boxCollider2D.enabled = true;
+		groundCheck.enabled = true;
             }
             yield return new WaitForSeconds(appearTimeInterval);
         }
-        isdisappearing = false ;
+        isIdle = true ;
+	_myAnimator.SetBool(animatorPlatformIdle, isIdle);
     }
 }

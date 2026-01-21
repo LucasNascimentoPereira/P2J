@@ -12,6 +12,10 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] private Detector evadeDetector;
     private Detector patrolDetector;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
+
+    private int animatorAttack = Animator.StringToHash("FlyingEnemyAttack");
+    private int animatorDefeat = Animator.StringToHash("FlyingEnemyDefeated");
 
 
     [Header("Positions of the limis")]
@@ -23,8 +27,6 @@ public class FlyingEnemy : MonoBehaviour
     private bool _detectedPlayer = false;
     private bool _detectedPlayerEvade = false;
     private GameObject _player = null;
-    //private bool _isGrounded = true;
-    private bool _isJumping = false;
     private FlyingEnemyBaseState chasingEnemyBaseState;
     private EnemyStates enemyState = EnemyStates.IDLE;
     private Coroutine _timerCoroutine;
@@ -33,7 +35,6 @@ public class FlyingEnemy : MonoBehaviour
     public Vector2 Dir { get => _dir; set => _dir = value; }
     public FlyingEnemyData ChasingEnemySata => chasingEnemySata;
     public GameObject Player => _player;
-    public bool IsJumping { get => _isJumping; set => _isJumping = value; }
     public bool DetectedPlayerCharacter { get => _detectedPlayer; set => _detectedPlayer = value; }
     public bool DetectedPlayerEvade { get => _detectedPlayerEvade; set => _detectedPlayerEvade= value; }
 
@@ -51,14 +52,6 @@ public class FlyingEnemy : MonoBehaviour
     {
         _player = GameManager.Instance.HealthPlayer.gameObject;
         ChangeState(EnemyStates.IDLE);
-    }
-    private void OnBecameVisible()
-    {
-        //ChangeState(EnemyStates.IDLE);
-    }
-    private void OnBecameInvisible()
-    {
-        //ChangeState(EnemyStates.INVISIBLE);
     }
 
     public void ChangeState(EnemyStates state)
@@ -84,6 +77,7 @@ public class FlyingEnemy : MonoBehaviour
                 break;
             case EnemyStates.SHOOT:
                 enemyState = EnemyStates.SHOOT;
+		animator.SetTrigger(animatorAttack);
                 chasingEnemyBaseState = new FlyingEnemyShoot();
                 break;
             case EnemyStates.LUNGING:
@@ -99,12 +93,14 @@ public class FlyingEnemy : MonoBehaviour
     public void DetectedPlayer()
     {
         _detectedPlayer = true;
+        if (_timerCoroutine != null) return;
         chasingEnemyBaseState.ExitState();
     }
 
     public void NotDetectedPlayer()
     {
         _detectedPlayer = false;
+        if (_timerCoroutine != null) return;
         chasingEnemyBaseState.ExitState();
     }
 
@@ -191,4 +187,14 @@ public class FlyingEnemy : MonoBehaviour
         if(!bullet.TryGetComponent(out Bullet bulletScript)) return;
         bulletScript.Shoot(_player.transform.position - gameObject.transform.position, chasingEnemySata.BulletSpeed, chasingEnemySata.Damage, chasingEnemySata.KnockBack);
     }
+
+    public void SpawnCoins()
+    {
+        for (int i = 0; i < chasingEnemySata.CoinNumber; ++i)
+        {
+            GameObject coin = Instantiate(chasingEnemySata.Coin, transform.position, transform.rotation);
+            coin.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.value, Random.value) * chasingEnemySata.CoinKnockback, ForceMode2D.Impulse);
+        }
+    }
+
 }

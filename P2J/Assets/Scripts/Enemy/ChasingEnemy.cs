@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,17 +17,13 @@ public class ChasingEnemy : MonoBehaviour
     [Header("RayCasts")]
     [SerializeField] private Transform castRight;
     [SerializeField] private Transform castRightLimit;
+    [SerializeField] private Transform castLeft;
+    [SerializeField] private Transform castLeftLimit;
     [SerializeField] private Transform castGround;
     [SerializeField] private Transform castGroundLimit;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private ContactFilter2D contactFilter;
-
-    [SerializeField] protected UnityEvent onPlaySound;
-
-    [SerializeField] protected AudioSource audioSource;
-    [SerializeField] protected List<AudioClip> audioClips;
-    protected int soundIndex;
-
+    private bool isDefeated = false;
 
     [Header("Positions of the limis")]
     [SerializeField] private List<Transform> patrolPoints;
@@ -53,6 +47,12 @@ public class ChasingEnemy : MonoBehaviour
     public bool IsJumping { get => _isJumping; set => _isJumping = value; }
     public bool DetectedPlayerCharacter { get => _detectedPlayer; set => _detectedPlayer = value; }
 
+    private int animatorHorizontal = Animator.StringToHash("ChasingHorizontal");
+    private int animatorResting = Animator.StringToHash("ChasingEnemyResting");
+    private int animatorLunge = Animator.StringToHash("ChasingEnemyLunge");
+    [SerializeField] private Animator animatorChasing;
+
+
     public enum EnemyStates
     {
         IDLE,
@@ -66,46 +66,41 @@ public class ChasingEnemy : MonoBehaviour
     {
         _player = GameManager.Instance.HealthPlayer.gameObject;
         ChangeState(EnemyStates.IDLE);
-        onPlaySound.AddListener(PlaySound);
-    }
-    private void OnBecameVisible()
-    {
-        //ChangeState(EnemyStates.IDLE);
-    }
-    private void OnBecameInvisible()
-    {
-        //ChangeState(EnemyStates.INVISIBLE);
     }
 
     public void ChangeState(EnemyStates state)
     {
         switch (state) {
             case EnemyStates.IDLE:
-                enemyState = EnemyStates.IDLE;
                 chasingEnemyBaseState = new ChasingEnemyIdle();
+		animatorChasing.SetBool(animatorResting, false);
                 break;
             case EnemyStates.LUNGING:
-                enemyState = EnemyStates.LUNGING;
                 chasingEnemyBaseState = new ChasingEnemyLunging();
+		animatorChasing.SetTrigger(animatorLunge);
                 break;
             case EnemyStates.RESTING:
-                enemyState = EnemyStates.RESTING;
                 chasingEnemyBaseState = new ChasingEnemyResting();
-                Debug.Log(enemyState);
+		animatorChasing.SetBool(animatorResting, true);
                 break;
             case EnemyStates.INVISIBLE:
-                enemyState = EnemyStates.INVISIBLE;
                 chasingEnemyBaseState = new ChasingEnemyInvisible();
                 break;
             case EnemyStates.JUMPING:
-                enemyState = EnemyStates.JUMPING;
                 chasingEnemyBaseState = new ChasingEnemyJump();
                 break;
             default:
                 break;
         }
+        enemyState = state;
         chasingEnemyBaseState.BeginState(this);
     }
+
+    public void ChasingEnemyResting(bool isResting)
+    {
+	    Debug.Log("is resting" + isResting);
+	    animatorChasing.SetBool(animatorResting, isResting);
+    } 
 
     public void DetectedPlayer()
     {
@@ -127,11 +122,20 @@ public class ChasingEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+	    if (isDefeated) return;
         if (chasingEnemyBaseState == null) return;
         chasingEnemyBaseState.UpdateState();
-        Rotate();
+        animatorChasing.SetBool(animatorHorizontal, rb.linearVelocityX > 0);
+        //Rotate();
 
-        Physics2D.Linecast(castRight.position, castRightLimit.position, contactFilter, hitRight);
+        if (rb.linearVelocityX > 0)
+        {
+            Physics2D.Linecast(castRight.position, castRightLimit.position, contactFilter, hitRight);
+        }
+        else if (rb.linearVelocityX < 0)
+        {
+            Physics2D.Linecast(castLeft.position, castLeftLimit.position, contactFilter, hitRight);
+        }
         _isGrounded = Physics2D.Linecast(castGround.position, castGroundLimit.position, groundLayer);
         Debug.DrawLine(castGround.position, castGroundLimit.position, Color.red);
         Debug.DrawLine(castRight.position, castRightLimit.position, Color.green);
@@ -141,16 +145,10 @@ public class ChasingEnemy : MonoBehaviour
             chasingEnemyBaseState.ExitState();
         }
 
-        //if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.IDLE && enemyState != EnemyStates.JUMPING)
-        //{
-            //ChangeState(EnemyStates.JUMPING);
-        //}
-
         if (hitRight.Count != 0 && _isGrounded && enemyState != EnemyStates.JUMPING)
         {
             ChangeState(EnemyStates.JUMPING);
         }
-
     }
 
     private void Rotate()
@@ -173,7 +171,6 @@ public class ChasingEnemy : MonoBehaviour
         {
             healthPlayer.TakeDamage(gameObject, true, chasingEnemySata.Damage, chasingEnemySata.KnockBack);
         }
-        onPlaySound.Invoke();
     }
 
     public void Move()
@@ -220,10 +217,20 @@ public class ChasingEnemy : MonoBehaviour
         }
     }
 
-    private void PlaySound()
+    public void SpawnCoins()
     {
-        audioSource.PlayOneShot(audioClips[soundIndex]);
+        for (int i = 0; i < chasingEnemySata.CoinNumber; ++i)
+        {
+            GameObject coin = Instantiate(chasingEnemySata.Coin, transform.position, transform.rotation);
+            coin.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.value, Random.value) * chasingEnemySata.CoinKnockback, ForceMode2D.Impulse);
+        }
     }
-   
+
+	public void Defeated()
+	{
+		isDefeated = true;
+		_dir = Vector2.zero;
+		//rb.
+	}
 
 }

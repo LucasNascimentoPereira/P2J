@@ -10,10 +10,9 @@ public class HealthPlayerBase : HealthBase
     [SerializeField] private PlayerData playerData;
     [SerializeField] private SpriteRenderer spriteRenderer;
     private bool isInvencible;
+    [SerializeField] private Animator animator;
     private UnityEvent _onChangeHealth = new();
     private UnityEvent _onChangeStatus = new();
-
-    private UnityEvent _onPlaySound = new();
 
     protected override void Awake()
     {
@@ -35,8 +34,8 @@ public class HealthPlayerBase : HealthBase
         CalculateHealth(damage);
         _onChangeHealth.Invoke();
         StartCoroutine(Invencibility());
-        soundIndex = 0;
-        _onPlaySound.Invoke();
+        onPlaySoundDamage.Invoke();
+        //onParticle.Invoke();
         return true;
     }
 
@@ -48,8 +47,8 @@ public class HealthPlayerBase : HealthBase
         rb.AddForce(-rb.transform.right * force, ForceMode2D.Force);
         _onChangeHealth.Invoke();
         StartCoroutine(Invencibility());
-        soundIndex = 0;
-        _onPlaySound.Invoke();
+        onPlaySoundDamage.Invoke();
+        //onParticle.Invoke();
         return true;
     }
 
@@ -57,9 +56,9 @@ public class HealthPlayerBase : HealthBase
     {
         Debug.Log(gameObject);
         rb.linearVelocity = Vector2.zero;
-        soundIndex = 1;
-        _onPlaySound.Invoke();
-        GameManager.Instance.LevelReset();
+	animator.SetTrigger("PlayerDefeated");
+        onPlaySoundDefeatRange.Invoke();
+        GameManager.Instance.Invoke("LevelReset", 1.2f);
     }
     
     private IEnumerator Invencibility()
